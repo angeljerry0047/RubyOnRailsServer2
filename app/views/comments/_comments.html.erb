@@ -1,0 +1,38 @@
+<%= stylesheet_link_tag "application/comments", :media => "all" %>
+<div id="comments">
+  <% @comments.reverse.each do |comment| %>
+    <div class="comment">
+      <%= link_to user_path(comment.user.id) do %>
+        <div class="picture">
+          <%= image_tag comment.user.avatar.url %>
+        </div>
+      <% end %>
+      <div class="info">
+        <%= link_to comment.user.name, user_path(comment.user.id), :class => "name" %>
+        <div class="date">
+          <%#= comment.created_at.strftime("%d %b %Y") %>
+            <% if ((Time.now - comment.created_at)/3600).floor < 1 && ((Time.now - comment.created_at)/60).floor != 1 %>
+            <span class="number">
+            <%= ((Time.now - comment.created_at)/60).floor %>
+            </span> minutes ago
+          <% elsif ((Time.now - comment.created_at)/60).floor == 1 %>
+            <span class="number">
+            1</span> minute ago
+          <% elsif ((Time.now - comment.created_at)/3600).floor < 24 && ((Time.now - comment.created_at)/3600).floor != 1 %>
+            <span class="number">
+            <%= ((Time.now - comment.created_at)/3600).floor %>
+            </span> hours ago
+          <% elsif ((Time.now - comment.created_at)/3600).floor ==1 %>
+            <span class="number">
+            1</span> hour ago
+          <% else %>
+            <span>
+            <%= (comment.created_at).strftime("%d %b %Y") %>
+            </span>
+          <% end %>
+        </div>
+        <div class="text"><%= markdown.render(comment.content).html_safe %></div>
+      </div>
+    </div>
+  <% end %>
+</div>

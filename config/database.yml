@@ -1,0 +1,43 @@
+development:
+  adapter: postgis
+  encoding: unicode
+  postgis_extension: true
+  schema_search_path: public,postgis
+  pool: 5
+  host: localhost
+  database: serve2perform_development
+  username: dev
+  password: serve2perform
+
+test:
+  adapter: postgis
+  encoding: unicode
+  postgis_extension: true
+  schema_search_path: public,postgis
+  pool: 5
+  host: localhost
+  database: serve2perform_test
+  username: dev
+  password: serve2perform
+
+production:
+  adapter: postgis
+  encoding: unicode
+  postgis_extension: true
+  schema_search_path: public,postgis
+  pool: 5
+  host: localhost
+  database: serve2perform_production
+  username: serve2perform
+  password: <%= ENV['DB_PASSWORD'] %>
+
+staging:
+  adapter: postgis
+  encoding: unicode
+  postgis_extension: true
+  schema_search_path: public,postgis
+  pool: 5
+  host: localhost
+  database: serve2perform_staging
+  username: serve2perform
+  password: <%= ENV['DB_PASSWORD'] %>

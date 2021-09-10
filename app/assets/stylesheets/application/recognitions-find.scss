@@ -1,0 +1,134 @@
+@import "global_define";
+@import "master";
+
+.recognitions-find{
+  .text-search{
+    margin: auto;
+    margin-bottom: 20px;
+    width: 600px;
+    form{
+      width: 100%;
+      .text{
+        box-sizing: border-box;
+        float: left;
+        height: 36px;
+        margin-top: 16px;
+        width: 470px;
+      }
+      .btn-primary{
+        float: left;
+      }
+    }
+  }
+  .filter{
+    float: left;
+    min-height: 1px;
+    margin-left: 0px;
+    h3{
+      background-color: $primary-color;
+      padding: 3px 10px;
+      padding-bottom: 11px;
+      font-size: 13px;
+      font-family: $roboto;
+      color: $nutral-color1;
+      width: 856px;
+      height: 30px;
+      .count{
+        font-size: 90%;
+        float: right;
+      }
+    }
+  }
+  #vsas{
+    margin-left: 40px;
+    width: 900px;
+    .vsa{
+      margin: 5px;
+      float: left;
+      height: auto;
+      width: 182px;
+    }
+    .result{
+      a{
+        &:hover{
+          text-decoration: none;
+        }
+      }
+      .head{
+        display: block;
+        height: 65px;
+        text-align: center;
+        color: $nutral-color4;
+        background: transparent;
+      }
+      .avatar_resultf{
+
+      }
+      .bottomf{
+        background: transparent;
+        padding: 0;
+        color: #fff;
+        height: auto;
+        .organization_name{
+          display: table;
+          width: 150px;
+          .orgnamef{
+            display: table-cell;
+            vertical-align: middle;
+            height: 50px;
+            font-weight: normal;
+            font-size: 14px;
+            font-family: $roboto;
+            color: $nutral-color1;
+            letter-spacing: 1px;
+          }
+        }
+      }
+    }
+  }
+}
+
+/* desktop ================================================== */
+
+@media (min-width: $desktop-min) {
+
+  .recognitions-find{
+  }
+
+}
+
+
+/* tablet & phone ================================================== */
+
+@media (max-width: $tablet-max) {
+
+  .recognitions-find{
+    .text-search{
+      width: 100%;
+      form{
+        text-align: center;
+        .text{
+          float: none;
+          margin: auto;
+          width: 90%;
+        }
+        .btn-primary{
+          float: none;
+          margin: 16px auto;
+        }
+      }
+    }
+    .filter{
+      width: 100%;
+      h3{
+        box-sizing: border-box;
+        height: 48px;
+        width: 100%;
+      }
+      #vsas{
+        width: 100%;
+      }
+    }
+  }
+
+}

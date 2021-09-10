@@ -1,0 +1,21 @@
+<div class="opportunity wrap row">
+  <div class="topper">
+    <div class="span12">
+      <span>Contact the Recommended User</span>
+    </div>
+  </div>
+  <div class="span12">
+      
+     <% if @recommendation_application.recommendation.opportunity_category.present? %> 
+    <h3><%= @recommendation_application.recommendation.opportunity_category.name %></h3>
+    <% end %>
+    <%= simple_form_for(@recommendation_application) do |f| %>
+      <%= f.label :application_message, "Send a message to #{@recommendation_application.recommendation.user.name}. Please include your contact information for follow up."%>
+      <%= f.text_area :application_message, :class =>"span8", :style =>"height:3em;" %>
+      <%= f.hidden_field :recommendation_id, :value => params[:recommendation_id] %>
+      <br/>
+      <%= f.submit 'Apply', :class => "btn btn-primary btn-large roundedge" %>
+    <% end %>    
+    
+  </div>
+</div>

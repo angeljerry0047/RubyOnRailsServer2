@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <%= stylesheet_link_tag "application/signup", :media => "all" %>
+  <%= render 'layouts/header'%>
+  <body class="signup">
+
+    <div class="landing-header">
+      <div class="landing-logo"></div>
+    </div>
+
+    <div class="signup-content landing-card">
+      <%- if !user_signed_in? %>
+        <div class="container" style="margin-top: 16px;">
+      	  <%= render 'devise/registrations/user_signup', :resource => User.new, :resource_name => 'user' %>
+      </div>
+      <% end %>
+    </div>
+    
+    <%= render 'layouts/footer'%>
+    <%#= render 'layouts/sign_up' %>
+  </body>
+</html>

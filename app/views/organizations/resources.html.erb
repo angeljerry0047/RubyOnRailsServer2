@@ -1,0 +1,51 @@
+<%= stylesheet_link_tag "application/organizations", :media => "all" %>
+<div class="organization wrap">
+  <div class="span12">
+    <div class="topper">
+      <% if @organization.id == 201 %>
+        <center>
+        <h1 class="rec_blue">My Group</h1>
+        <h4>Here you will find content only visible to this group</h4>
+      </center>
+    <% else %>
+        <center>
+        <h3><%= @organization.title %> Learning Marketplace</h3>
+      </center>
+    <% end %>
+    </div>
+    <div class="banner">
+      <% if @organization.banner? %>
+        <%= image_tag @organization.banner.url %>
+      <% end %>
+    </div>
+
+    <div class="title">
+      <div>
+        <center><h1 class="rec_blue" style="color:black"><%= @organization.title %></h1></center>
+        <h4><center><%= link_to @organization.website, @organization.website_url, :target => "_blank", :class => "rec_blue", :style => "font-size:20px"%></center></h4>
+        <center><div>
+            Location: <span class="rec_blue" style="font-size:15px"><%= @organization.city %>, <%= @organization.state %></span>
+
+            &nbsp;&nbsp;&nbsp;&nbsp;Member Since: <%= @organization.created_at.strftime("%B %-d, %Y") %>
+      </div></center>
+      </div>
+      <div class="split rt split">
+        <% if current_user.try(:managed_organization_id) == @organization.id %>
+
+          <!--	<%= link_to 'Edit Company', edit_organization_path, :style => "float:right;" %>-->
+
+      <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="span12">
+    <!-- NOTE (cmhobbs) controller logic -->
+    <% if @department.present? %>
+      <%= render 'fast_contents/departmental_content' %>
+  <% else %>
+      <%= render 'fast_contents/organization_content' %>
+  <% end %>
+  </div>
+</div>
+
+

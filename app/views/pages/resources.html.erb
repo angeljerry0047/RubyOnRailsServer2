@@ -1,0 +1,53 @@
+<% title "knowledge center" %>
+	<div class="full-width">
+		<div class="container" id="home">
+		        <div class="content">
+		           <div class="row">
+		            <div class="span12">
+		            <h1 style="color:#016699;">Knowledge Center</h1>
+		            	<h2 style="color:#848284; font-weight:normal;">Access content to help you succeed</h2>
+		            	</div>
+		           </div> 
+		      	</div>
+		</div>
+	</div>
+
+	<div class="full-width">
+		<div class="container" id="home">
+		        <div class="content" style="width:775px; margin-left:75px;">
+		           <div class="row">
+		           	<div style="display:inline-block; padding-bottom:30px;">
+		            <div style="display:inline-block; padding-bottom:30px; background-color:#eeeeee; width:100%; border-top: 8px solid #393939;">
+		            	<div style="float: left; margin-right:30px; margin-top:25px; margin-left: 10px;"><% if current_user.taken_assessment? %><%= link_to image_tag("AssessmentIcon.png", :alt =>'AssessmentIcon'), assessment_report_path( :id => current_user.assessment_reports.last ) %><% else %>
+	          <% if current_user.active_license? %>
+	              <%= link_to image_tag("AssessmentIcon.png", :alt =>'AssessmentIcon'), new_assessment_report_path %>
+	          <% else %>
+	              <%= link_to image_tag("AssessmentIcon.png", :alt =>'AssessmentIcon'), assessment_path(1)%>
+	            <% end %><% end %></div>
+		            	<div><h1 class="resource-h1-1" style="color:#016699; font-weight:normal; margin-top: 63px; text-align:left;"><% if current_user.taken_assessment? %><%= link_to 'Take Assessment', assessment_report_path( :id => current_user.assessment_reports.last ) %><% else %>
+	          <% if current_user.active_license? %>
+	              <%= link_to 'Take Assessment', new_assessment_report_path %>
+	          <% else %>
+	              <%= link_to 'Take Assessment', assessment_path(1)%>
+	            <% end %><% end %></h1>
+		            	<div style="font-size: 18px; text-align:left; margin-top: 10px; color: #848284;">Find out key areas where you have the greatest opportunity to learn and grow.</div></div>	
+		           	</div> 
+		           	<div style="display:inline-block; padding-bottom:30px; width:100%;">
+		           		<div style="float: left; margin-right:30px; margin-top:25px; margin-left: 10px;"><%= link_to image_tag("SpeakerSeriesIcon.png", :alt =>'SpeakerSeriesIcon'), speakerseries_path %></div>	
+		           		<div><h1 class="resource-h1-2" style="color:#2c9a47; font-weight:normal; margin-top: 54px; text-align:left;"><%= link_to 'Speaker Series', speakerseries_path %></h1>
+		            	<div style="font-size: 18px; text-align:left; margin-top: 10px; color:#848284;">Learn from other professionals first hand or search through our library for other inspiring talks.</div></div>	
+		           	</div> 
+		           	<div style="display:inline-block; padding-bottom:30px; background-color:#eeeeee; width:100%">
+		            	<div style="float: left; margin-right:30px; margin-top:25px; margin-left: 10px;"><%= link_to image_tag("WhitePapers.png", :alt =>'WhitePapers'), templates_path%></div>
+		            	<div><h1 class="resource-h1-3" style="color:#e47b2c; font-weight:normal; margin-top: 54px; text-align:left;"><%= link_to 'Action Plan Templates', templates_path%></h1>
+		            	<div style="font-size: 18px; text-align:left; margin-top: 10px; color:#848284;">Action Plans for Mentoring, Coaching, and Volunteering.</div></div>	
+		           	</div> 
+		           	<div style="display:inline-block; padding-bottom:30px; width:100%">
+		            	<div style="float: left; margin-right:30px; margin-top:25px; margin-left:10px;"><%= link_to image_tag("ThoughtLeadershipIcon.png", :alt =>'ThoughtLeadershipIcon'), thoughtleadership_path %></div>
+		            	<div><h1 class="resource-h1-1" style="font-weight:normal; margin-top: 54px; text-align:left;"><%= link_to'Thought Leadership', thoughtleadership_path %></h1>
+		            	<div style="font-size: 18px; text-align:left; margin-top: 10px; color:#848284;">Books, Whitepapers, Articles and Research.</div></div>	
+		           	</div> 
+		           	
+			</div>
+		</div>
+	</div>

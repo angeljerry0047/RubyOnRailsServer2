@@ -1,0 +1,17 @@
+<%= stylesheet_link_tag "application/opportunities", :media => "all" %>
+<div class="container" id="register-pde">
+  <div class="row">
+    <div class="span12">
+      <h2 class="page title"><%=@opportunity.title%></h2>
+      <h4 class="page title-sec" id="selectPath">Select your desired path below</h4>
+      <div  id="purchasePDE">
+        <h3>Annual License</h3>
+        <h1>$19.99</h1>
+        <h4>*Invest in your performance, click here</h4>
+        <%= link_to 'Purchase', new_single_user_license_purchase_path(:opportunity_id => @opportunity.id), :class => "link"%>
+      </div>		
+
+    </div>
+
+  </div>
+</div>

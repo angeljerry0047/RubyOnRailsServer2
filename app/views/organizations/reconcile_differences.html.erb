@@ -1,0 +1,13 @@
+<%= stylesheet_link_tag "application/organizations", :media => "all" %>
+<h2>Looks like you have some differences, would you like to update your company profile with them?</h2>
+<%= simple_form_for(@organization, :html => { :method => :put, :class => 'form-vertical' }) do |f| %>
+  <% @changeset.each do |k,v| %>
+    <h2><%= k %></h2>
+    <div class="btn-group" data-toggle-name="organization[<%= k %>]" data-toggle="buttons-radio" >
+      <button type="button" value="<%= @organization[k] %>" class="btn" data-toggle="button"><%= @organization[k] %></button>
+      <button type="button" value="<%= v %>" class="btn" data-toggle="button"><%= v %></button>
+    </div>
+    <input type="hidden" name="organization[<%= k %>]" value="<%= @organization[k] %>" />
+  <% end %>
+  <%= f.button :submit, 'Update', :class => 'btn btn-primary' %>
+<% end %>

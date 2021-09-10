@@ -1,0 +1,15 @@
+	<p id="notice"><%= notice %></p>
+
+
+	<p>
+	  <b>Is team Compete?:</b>
+	  <%= @pac.complete %>
+	</p>
+
+
+	<p>
+	  <b>team members:</b>
+	  <table>
+	  <%= render(@pac.pac_members) %>
+	  </table>
+	</p>

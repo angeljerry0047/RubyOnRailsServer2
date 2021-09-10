@@ -1,0 +1,36 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Title:</b>
+  <%= @video.title %>
+</p>
+
+<p>
+  <%= @video.description.html_safe %>
+</p>
+
+<p>
+
+<p>
+  <b>Competency ids:</b>
+  <%= @video.competency_ids %>
+</p>
+
+<p>
+  <b>Category:</b>
+  <%= @video.category %>
+</p>
+
+<p>
+  <b>Learning objectives:</b>
+  <%= @video.learning_objectives %>
+</p>
+
+<p>
+  <b>Opportunity category:</b>
+  <%= @video.opportunity_category_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_video_path(@video) %> |
+<%= link_to 'Back', videos_path %>

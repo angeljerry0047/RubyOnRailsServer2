@@ -1,0 +1,153 @@
+<div class="menu">
+  <% if user_signed_in? %>
+
+  <!-- Browse Mentors ==================================================== -->
+
+  <div class="menu-item menu-section" data-alpha="a">
+    <img src="/assets/menuIconFind.png" class="menu-icon"/>
+    Browse Mentors
+  </div>
+  <div class="menu-subitem-container" data-alpha="a">
+
+    <!-- Find a mentor ============================================= -->
+
+    <%= link_to mentorship_circles_path(), :class => "menu-item menu-subitem" do %>
+    Find a Mentor
+    <% end %>
+
+  </div>
+  <div class="menu-subitem-container" data-alpha="a">
+
+    <!-- Find a member ============================================= -->
+
+    <%= link_to find_users_path, :class => "menu-item menu-subitem" do %>
+    Find a Member
+    <% end %>
+
+  </div>
+  
+  <!-- Be a Mentor ==================================================== -->
+
+  <%= link_to new_mentorship_circle_path(), class: "menu-link" do %>
+    <div class="menu-item menu-section no-submenu">
+      <img src="/assets/menuIconOnDemand.png" class="menu-icon"/>
+      Be a Mentor
+    </div>
+  <% end %>
+
+  <!-- On Demand Learning ================================================== -->
+
+  <%= link_to ondemand_path(), class: "menu-link" do %>
+    <div class="menu-item menu-section no-submenu">
+      <img src="/assets/menuIconOnDemandLearning.png" class="menu-icon on-demand-icon"/>
+      On Demand Learning
+    </div>
+  <% end %>
+
+  <!-- Insights ==================================================== -->
+  <div class="menu-item menu-section" data-alpha="h">
+    <img src="/assets/menuIconInsights.png" class="menu-icon"/>
+    Insights
+  </div>
+  <div class="menu-subitem-container" data-alpha="h">
+    <%= link_to best_practices_path(), :class => "menu-item", :data => { :role => "menuitem", :tabindex => "-1" } do %>
+      <div class="menu-text">View</div>
+    <% end %>
+
+    <%= link_to new_best_practice_path(), :class => "menu-item", :data => { :role => "menuitem", :tabindex => "-1" } do %>
+      <div class="menu-text">Post</div>
+    <% end %>
+  </div>
+
+
+  <!-- My serve2perform ============================================= -->
+
+  <div class="menu-item menu-section" data-alpha="d">
+    <img src="/assets/menuIconProfile.png" class="menu-icon"/>
+    My serve2perform
+  </div>
+  <div class="menu-subitem-container" data-alpha="d">
+    <%= link_to user_path(current_user.id), :class => "menu-item", :data => { :role => "menuitem", :tabindex => "-1" } do %>
+      <div class="menu-text">View My Profile</div>
+    <% end %>
+
+    <%= link_to edit_user_registration_path, :class => "menu-item", :data => { :role => "menuitem", :tabindex => "-1" } do %>
+      <div class="menu-text">Edit My Profile</div>
+    <% end %>
+
+    <% if current_user.taken_assessment? %>
+      <%= link_to assessment_report_path( :id => current_user.assessment_reports.last ), :class => "menu-item", :data => { :role => "menuitem", :tabindex => "-1" } do %>
+        <div class="menu-text">View My Report</div>
+      <% end %>
+      <%= link_to new_assessment_report_path, :class => "menu-item", :data => { :role => "menuitem", :tabindex => "-1" } do %>
+        <div class="menu-text">Retake My Assessment</div>
+      <% end %>
+    <% else %>
+      <%= link_to new_assessment_report_path, :class => "menu-item", :data => { :role => "menuitem", :tabindex => "-1" } do %>
+        <div class="menu-text">Take My Assessment</div>
+      <% end %>
+    <% end %>
+  </div>
+
+
+  <!-- My Groups ================================================== -->
+
+  <div class="menu-item menu-section" data-alpha="e">
+    <img src="/assets/menuIconHome.png" class="menu-icon"/>
+    Groups
+  </div>
+  <% current_user.unique_groups.sort_by!{ |g| g.title }.each do |group| %>
+    <div class="menu-subitem-container" data-alpha="e">
+      <%= link_to organization_path(group.slug), :class => "menu-item", :data => { :role => "menuitem", :tabindex => "-1" } do %>
+        <div class="menu-text"><%= group.title %></div>
+      <% end %>
+    </div>
+  <% end %>
+
+
+  <!-- Recognitions =============================================== -->
+
+  <div class="menu-item menu-section" data-alpha="f">
+    <img src="/assets/menuIconRecognitions.png" class="menu-icon"/>
+    Peer Recognitions
+  </div>
+  <div class="menu-subitem-container" data-alpha="f">
+    <%= link_to recognitions_path, :class => "menu-item", :data => { :role => "menuitem", :tabindex => "-1" } do %>
+      <div class="menu-text">View Badges</div>
+    <% end %>
+
+    <%= link_to find_recognitions_path, :class => "menu-item", :data => { :role => "menuitem", :tabindex => "-1" } do %>
+      <div class="menu-text">Award a Badge</div>
+    <% end %>
+
+    <%= link_to find_recommendations_path, :class => "menu-item", :data => { :role => "menuitem", :tabindex => "-1" } do %>
+      <div class="menu-text">Submit a Recommendation</div>
+    <% end %>
+  </div>
+
+
+  <!-- Resources =================================================== -->
+
+  <div class="menu-item menu-section" data-alpha="g">
+    <img src="/assets/menuIconResources.png" class="menu-icon"/>
+    Share Files and Resources
+  </div>
+  <div class="menu-subitem-container" data-alpha="g">
+    <%= link_to fast_contents_path(), :class => "menu-item", :data => { :role => "menuitem", :tabindex => "-1" } do %>
+      <div class="menu-text">View</div>
+    <% end %>
+    <%= link_to new_fast_content_path, :class => "menu-item", :data => { :role => "menuitem", :tabindex => "-1" } do %>
+      <div class="menu-text">Post</div>
+    <% end %>
+  </div>
+    
+
+  <!-- Logout ===================================================== -->
+  
+    <%= link_to('Logout', destroy_user_session_path, :class =>"menu-item", :data => {:index => '12'}, :method => :delete) %>  
+
+  <% else %>
+    <%= link_to('Login', new_user_session_path)  %>  
+  <% end %>
+
+</div>

@@ -1,0 +1,13 @@
+<%= simple_form_for(@user_group) do |f| %>
+
+<h1 style="color:#2c9a47; text-align:center; margin-bottom:20; margin-top:0;">Hello <%= current_user.name %></h1>
+
+<h5 style="color:#2c9a47; text-align: center;"><%= link_to user_group.member.name, user_path(user_group.member.id) %> would like to join the <%= user_group.group.title %> User Group.</h5>
+
+ <div style="text-align:center; font-size: 18px; margin-top:20px;">Click Approve to allow <%= user_group.member.name %> into the user group.</div>
+
+ <div id="approve_recommendation">
+  <%= f.button :submit, 'Approve', :class => 'btn btn-large btn-primary' %>
+ </div>
+
+<%end%>

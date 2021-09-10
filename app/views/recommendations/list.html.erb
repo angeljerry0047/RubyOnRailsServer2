@@ -1,0 +1,141 @@
+<%= stylesheet_link_tag "application/recommendations", :media => "all" %>
+<div class="row">
+  <div class="span12">    
+    <%= form_tag opportunities_path, :method => "GET" do %>
+    <h2 style="color:#E67E22; font-size:22px; ">Hello <%= current_user.name %></h2> 
+      <h1>
+        find a professional skill
+      </h1>
+      <h2>
+        Use the search bar or the filter to find your perfect match
+      </h2>
+
+      <label for="text">Search by Title or Description</label>
+      <div class="text-search">
+        <%= text_field_tag 'text', params[:text], :class => "span12", :placeholder => "" %>
+        <%= submit_tag '' %>
+      </div>
+
+      <div class="row">
+        <div class="span4 filter">
+          <h3>
+            Skills Filters
+          </h3>
+          <h4>
+            Competency
+          </h4>
+         
+         <h4>Category</h4>
+<div class="row">
+  <label class="span2">                          
+        <%= select_tag 'opportunity_category_id]', options_for_select(OpportunityCategory.all.collect{ |oc| [oc.name,oc.id]}), :include_blank => true, :placeholder => "", :class =>"span4" %>     
+</label>
+</div>
+          <h4>
+            Location
+          </h4>
+          <div class="row">
+            <label class="span2">Zip Code
+              <%= text_field_tag 'zipcode', params[:zipcode], :class => "span2", :placeholder => "" %>
+            </label>
+            <label class="span2">Distance
+              <%= select_tag 'miles', options_for_select([
+                ['5 Miles', 5],
+                ['10 Miles', 10],
+                ['20 Miles', 20],
+                ['30 Miles', 30],
+                ['100 Miles', 100]], params[:miles]), :class => "span2" %>
+            </label>
+          </div>
+
+          <%if current_user && current_user.organization %>
+            <h4>
+              Company
+            </h4>
+            <%= label_tag 'internal_only' do%>
+              Show only <%= current_user.organization.title %> skills?
+              <%= check_box_tag 'internal_only', {}, params[:internal_only]%>
+            <% end %>
+          <% end %>
+          
+
+          <div class="update-search">
+            <%= submit_tag 'Update Search', :class => "btn btn-large btn-primary" %>
+          </div>
+          
+        </div>
+<% @opportunities = Opportunity.non_historical_active %>
+<% @approved_recommendations = Recommendation.approved %>
+<% @skills = (@approved_recommendations + @opportunities).sort_by(&:created_at) %>
+
+        <div class="span8 filter">
+          <h3>
+            Skills Search Results
+            <div class="count"><%=@skills.length%> skills found</div>
+          </h3>
+
+          <%if @opportunities.length == 0%>
+             No skills found. Try searching again with different criteria.
+          <%else%>
+            <div id="vsas">
+            <% Array(@skills).each_with_index do |opp, i| %>
+            <% if opp.class.name == "Opportunity" %>
+              
+                  <div class="vsa result">
+                    <div class="head">
+                      <h4>
+                        <%= opp.title %>
+                      </h4>
+                      <div class="organization ellipsis">
+                        <%= opp.organization.try(:title) %>
+                      </div>
+                    </div>
+                    <div class="competencies">
+                      <% opp.competencies.each do |comp| %>
+                        <span><%= comp.name %></span>&nbsp;
+                      <% end %>
+                    </div>
+                    <div class="description">
+                      <%= truncate(opp.description, :length => 190) %>
+                    </div>
+                    <center>
+                      <%= link_to "View Full Description", opportunity_path(opp), :class =>"btn btn-large btn-primary" %>
+                    </center>
+                  </div>
+            <% else %>
+            <div class="vsa result">
+                    <div class="head">
+                    <div class="rec_header">
+                    <h4 style="color:#0062a2;"> Recommended</h4>
+                    </div>
+                      <h4>
+                      <% if opp.opportunity_category.present? %>
+                        <%= opp.opportunity_category.name %>
+                        <% else %>
+                        Stuff Goes HERE
+                        <% end %>
+                    <% if opp.user.organization.present? %>
+                    <div class="description">
+                      <%= opp.user.organization.title %>
+                    </div>
+                    <%end%>
+                      </h4>
+                    <center>
+                      <%= link_to "View Full Description", recommendation_path(opp), :class =>"btn btn-large btn-primary" %>
+                    </center>
+                  </div>
+                  </div>
+            <% end %>
+            <% end %>
+              </div>
+
+
+          <%end%>          
+        </div>
+
+      </div>
+    <% end %>
+
+
+  </div>
+</div>

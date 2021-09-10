@@ -1,0 +1,127 @@
+<%= stylesheet_link_tag "application/best_practice", :media => "all" %>
+<%#= javascript_include_tag "application/best_practice" %>
+<%= form_for(@best_practice, html: { multipart: true }) do |f| %>
+  <%# FIXME (cmhobbs) this doesn't belong in the view %>
+  <% if @best_practice.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@best_practice.errors.count, "error") %> prohibited this Idea from being saved:</h2>
+
+      <ul>
+        <% @best_practice.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="span7">
+    <% unless defined? group %>
+      <div class="row" style="margin: 0;">
+        <div class="control-group">
+          <div class="controls">
+            <%= label_tag "Group * (Hold Command on Mac, or Control on PC, to select multiple groups." %>
+            <%= select_tag 'best_practice[organization_id]', options_for_select(all_groups_sorted.collect { |group| [group.title, group.id] }, selected: all_groups_sorted[0]&.id), include_blank: false, :multiple => true, :size => 5, :class => "required", :style => "width: 100%" %>
+            <span class="help-inline">This field is required</span>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <div class="field">
+      <%= f.label :title, "Title *" %>
+      <%= f.text_field :title, :required => true %>
+    </div>
+    <!--
+    <div class="field">
+      <%#= f.label :title, "Type *" %>
+      <%#= f.select :title, options_for_select(["Key Insight", "Question"]), include_blank: true, :required => true %>
+    </div>
+    <%# unless defined? category %>
+      <div class="row">
+        <label class="span2">
+          <div class="control-group">
+            <div class="controls">
+              <%#= label_tag "Category *" %>
+              <%#= select_tag 'best_practice[best_practice_category_id]', options_for_select(BestPracticeCategory.is_public.sort_by{ |bp| [bp.title]}.collect{ |bp| [bp.title,bp.id]}), include_blank: true, :class => "required" %>
+              <span class="help-inline">This field is required</span>
+            </div>
+          </div>
+        </label>
+      </div>
+    <%# end %>
+    -->
+    <!--
+    <div class="field" style="width:90%;">
+      <%#= f.label "Title *" %>
+      <p class="tabbertab-lbreak"></p>
+      <%#= f.text_field :title, :required => true %>
+      <span class="help-inline">This field is required</span>
+      <%# if defined? category %>
+        <%#= f.hidden_field :best_practice_category_id, :value => best_practice_category_id %>
+        <%#= f.hidden_field :category, :value => category %>
+        <%#= f.hidden_field :organization_id, :value => organization_id %>
+      <%# end %>
+    </div>
+    -->
+    <div class="field" style="width:90%;">
+      <%= f.label "Describe your Key Insight or Question *" %><p class="tabbertab-lbreak"></p>
+      <%= f.text_area :body, :cols => 30, :rows => 5, :required => true %>
+    </div>
+    <!--
+    <div class="field" style="">
+      <%#= f.label "Describe how have you applied it *" %><p class="tabbertab-lbreak"></p>
+      <%#= f.text_area :idea_help, :cols => 30, :rows => 5, :required => true %>
+    </div>
+    -->
+
+    <div class="advanced-options"; margin-top: 20px;">
+
+      <div class="field">
+        <label>External Link Title</label>
+        <%= f.text_field :link_title %>
+      </div>
+
+      <div class="field">
+        <%= f.label 'External Link' %>
+        <%= f.text_field :ext_link %>
+      </div>
+
+      <!--
+      <div class="field">
+        <%= f.label 'Embed Video/Audio Link' %>
+        <%= f.text_area :emb_link %>
+      </div>
+      -->
+
+
+      <div class="field"><label>Document</label></div>
+      <%# TODO get companies imported here and/or upload functionality %>
+      <div class="field">
+        <%= f.file_field :documents %>
+        <%= f.hidden_field :documents_cache %>
+      </div>
+
+
+      <!--
+      <div class="field"><label>Audio</label></div>
+      <%# TODO get companies imported here and/or upload functionality %>
+      <div class="field">
+        <%= f.file_field :audio %>
+        <%= f.hidden_field :audio_cache %>
+      </div>
+      -->
+    </div>
+    <%# end %>
+    <br>
+    <%= f.check_box :anonymous, { :style => "display:inline;" } %>
+    <%= f.label 'Post Anonymously' , { :style => "display:inline;" } %>
+
+    <div class="actions" style="padding-top:20px;">
+      <%= f.submit "Post Insight", :class => 'btn btn-large btn-primary roundedge' %>
+    </div>
+    <br/ >
+    <b>* Required</b>
+
+    <%#= f.hidden_field :organization_id, :value => @organization_id %>
+    <%= f.hidden_field :is_public, :value => false %>
+
+  </div>
+<% end %>

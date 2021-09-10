@@ -1,0 +1,9 @@
+<%= stylesheet_link_tag "mentorship_circles", :media => "all" %>
+<div class="headline">Editing
+  <%= @mentorship_circle.mctype %> Opportunity
+</div>
+
+<%= render 'form' %>
+
+<%= link_to 'Show', @mentorship_circle %> |
+<%= link_to 'Back', mentorship_circles_path %>

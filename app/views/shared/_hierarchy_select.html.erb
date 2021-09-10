@@ -1,0 +1,23 @@
+<%
+  hide_label ||= false
+  css_class ||= ''
+  maxitems ||= nil
+  opportunity ||= nil
+%>
+<div class="control-group <%= opportunity == nil ? "" : field_class(opportunity, :developed_competencies) %> input <%= id %>">
+  <% unless hide_label %>
+    <label for='<%= name %>'>Select Competencies</label>
+  <% end %>
+  <div class="controls">
+      <%# Using the hex digest because Chosen relies on specific ids for the selects %>
+    <% @competencies = Competency.all%>
+    <select class="chzn-select required <%=css_class%>", multiple id='<%= "chzn-#{Digest::MD5.hexdigest(rand(Time.now.to_i).to_s)}" %>' name='<%= name %>' data-placeholder='Choose <%= maxitems.present? ? "up to #{maxitems}" : "some" %> competencies...', data-maxitems="<%=maxitems%>">
+      <option></option>
+      <% @competencies.sort_by { |a| a[:name] }.each do |competency| %>
+        <option value='<%= competency.id %>' <%= competencies.exists?(:id => competency.id) ? 'selected': '' %>><%= competency.name %></option>
+      <% end %>
+    </select>
+    <span class="help-inline">This field is required</span>
+  </div>
+  <input type='hidden' name='<%= name %>' value=''>
+</div>

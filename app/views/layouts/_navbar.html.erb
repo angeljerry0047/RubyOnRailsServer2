@@ -1,0 +1,83 @@
+<%= stylesheet_link_tag "application/navbar", :media => "all" %>
+<%= javascript_include_tag "application/navbar" %>
+<div class="shadow"></div>
+
+<div class="navbar">
+  <% if user_signed_in? -%>
+  <div class="nav-button hamburger-button ripple-button-dark">
+    <div class="line-container">
+      <div class="hamburger-line"></div>
+      <div class="hamburger-line"></div>
+      <div class="hamburger-line"></div>
+    </div>
+  </div>
+  <!-- Commenting this header block for display.  Keep or remove when May 2019 JB Hunt changes are approved. -->
+  <!-- <div class="page-name"> <%#= controller.controller_name %> -->
+  <!--   <%if controller.controller_name == "skills"%> -->
+  <!--     View -->
+  <!--   <% end %> -->
+  <!--   <%if controller.controller_name == "inquiries"%> -->
+  <!--     Questions -->
+  <!--   <% end %> -->
+  <!--   <%if controller.controller_name == "best_practices"%> -->
+  <!--     Insights -->
+  <!--   <% end %> -->
+  <!--   <%if controller.controller_name == "recognitions"%> -->
+  <!--     Peer Recognitions -->
+  <!--   <% end %> -->
+  <!--   <%if controller.controller_name == "opportunities"%> -->
+  <!--     <% if params[:opportunity_category_id] == 18 %> -->
+  <!--       Mentorship Opportunities -->
+  <!--     <% elsif params[:opportunity_category_id] == 19 %> -->
+  <!--       Job Shadowing Opportunities -->
+  <!--     <% elsif params[:opportunity_category_id] == 21 %> -->
+  <!--       Volunteer Opportunities -->
+  <!--     <% else %> -->
+  <!--       Opportunities -->
+  <!--     <% end %> -->
+  <!--   <% end %> -->
+  <!--   <%if controller.controller_name == "pacs"%> -->
+  <!--     Collaborations -->
+  <!--   <% end %> -->
+  <!--   <%if controller.controller_name == "users"%> -->
+  <!--     Users -->
+  <!--   <% end %> -->
+  <!--   <%if controller.controller_name == "pages"%> -->
+  <!--     Resources -->
+  <!--   <% end %> -->
+  <!--   <%if controller.controller_name == "registrations"%> -->
+  <!--     Users -->
+  <!--   <% end %> -->
+  <!--   <%if controller.controller_name == "assessment_reports"%> -->
+  <!--     Assesment -->
+  <!--   <% end %> -->
+  <!--   <%if controller.controller_name == "fast_contents"%> -->
+  <!--     Resources -->
+  <!--   <% end %> -->
+  <!--   <%if controller.controller_name == "facilities"%> -->
+  <!--     Facilities -->
+  <!--   <% end %> -->
+  <!--   <%if controller.controller_name == "user_licenses"%> -->
+  <!--     Licenses -->
+  <!--   <% end %> -->
+  <!--   <%if controller.controller_name == "organizations"%> -->
+  <!--     Home -->
+  <!--   <% end %> -->
+  <!-- </div> -->
+    <%= link_to user_path(current_user.id), class: "menu-item", data: { :role => "menuitem", :tabindex => "-1" } do %>
+      <div class="nav-logo"></div>
+    <% end %>
+    <div class="nav-right-buttons">
+      <%#= link_to 'LOGOUT', destroy_user_session_path, :method=>'delete', :data => { :role => "menuitem", :tabindex => "-1" }, :class => 'nav-logout nav-button' %>
+      <div class="filter-button filter-button-mobile"><span class="triangle"></span></div>
+      <% if params[:organization_id].present? %>
+        <div class="nav-button filter-button filter-button-desktop">Showing: <%= Organization.find(params[:organization_id]).title %></div>
+      <% else %>
+        <div class="nav-button filter-button filter-button-desktop">Showing: All Groups</div>
+      <% end %>
+      <%= render partial: "layouts/support_request" %>
+    </div>
+  <% else %>
+    <%= render partial: "layouts/support_request" %>
+  <% end %>
+</div>

@@ -1,0 +1,96 @@
+@import "master";
+
+.hero-image{
+  background-color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  box-sizing: border-box;
+  height: 30vh;
+  padding: 5%;
+  position: relative;
+  width: 100%;
+  .hero-content-background{
+    background: #000;
+    height: 100%;
+    left: 0;
+    opacity: 0.5;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 0;
+  }
+  .hero-content{
+    box-sizing: border-box;
+    color: $nutral-color1;
+    height: 100%;
+    position: relative;
+    text-align: center;
+    z-index: 10;
+    h1{
+      font: $headline;
+      font-size: 9vw;
+      font-weight: 500;
+      margin-top: 0;
+      padding-top: 3vh;
+    }
+    h2{
+      font: $headline;
+      font-size: 9vw;
+      font-weight: 500;
+      margin: 0;
+      padding-top: 3vh;
+    }
+    h3{
+      color: $nutral-color1;
+      font: $headline;
+      font-size: 6.5vw;
+      font-weight: 500;
+      margin: 0;
+      padding-top: 3vh;
+    }
+    h4{
+      color: $nutral-color1;
+      font: $headline;
+      font-size: 5.75vw;
+      font-weight: 500;
+      margin: 0;
+      padding-top: 3vh;
+    }
+    h5{
+      font: $headline;
+      font-size: 5vw;
+      margin-top: 0;
+    }
+  }
+}
+
+@media (min-width: $tablet-min) {
+
+  .hero-image{
+    height: 25vw;
+    .hero-content{
+      h1{
+        font-size: 7vw;
+        padding-top: 0;
+      }
+      h2{
+        font-size: 7vw;
+        padding-top: 0;
+      }
+      h3{
+        font-size: 5vw;
+        padding-top: 0;
+      }
+      h4{
+        font-size: 4vw;
+        padding-top: 0;
+      }
+      h5{
+        font-size: 3vw;
+        margin-top: 0;
+      }
+    }
+  }
+
+}

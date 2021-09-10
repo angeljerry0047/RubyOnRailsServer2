@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  
+  <body>
+
+    <p>
+      Dear <%= @user.name %>,
+    </p>
+  
+    <p>
+      I have posted a comment on the <b><%= @best_practice.category %></b> idea on serve2mentor.com. 
+    </p>  
+
+    <p>
+      Click <%= link_to 'here' ,"https://serve2mentor.com/best_practices/#{@best_practice.id}" %> to <b>View</b>, <b>Like</b>, Comment and join in on the discussion.
+    </p>
+
+    <p>    
+     Have a great day!
+    </p>
+
+  </body>
+</html>
+    

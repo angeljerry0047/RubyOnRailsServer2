@@ -1,0 +1,11 @@
+<%= stylesheet_link_tag "application/footer", :media => "all" %>
+<footer>
+	<div class="footer__layout">
+		<img src="/assets/s2p-white.png" class="footer__logo" alt="Serve2Perform logo" />
+		<div class="footer__links">
+			<%= link_to 'Privacy Policy', "/docs/privacy_policy_updated.pdf", :target => "_blank", :class => "footer__link"  %>
+			<%= link_to 'Terms of Use', "/docs/terms_of_use.pdf", :target => "_blank", :class => "footer__link"%>
+		</div>
+	</div>
+	&copy; 2014 – <%= Time.zone.now.year %> Grandslam Performance Associates, LLC. Patent Pending.
+</footer>

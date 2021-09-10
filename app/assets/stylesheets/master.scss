@@ -1,0 +1,222 @@
+/* breakpoints ================================================= */
+
+$phone-max: 599px;
+$tablet-min: 600px;
+$tablet-max: 959px;
+$desktop-min: 960px;
+
+
+/* colors ================================================= */
+
+$primary-color: #005aff;
+$primary-color-dark: #0019AA;
+$secondary-color: #EF6C00;
+$secondary-color-dark: #E65100;
+$nutral-color1: #ffffff;
+$nutral-color2: #e0e0e0;
+$nutral-color3: #9e9e9e;
+$nutral-color4: #424242;
+
+
+/* typography ================================================= */
+
+$display1: 100 34px 'Roboto', sans-serif;
+$knockout-display1: 100 38px 'knockout', sans-serif;
+$headline: 300 24px 'Roboto', sans-serif;
+$knockout-headline: 300 28px 'knockout', sans-serif;
+$title: 500 20px 'Roboto', sans-serif;
+$knockout-title: 500 26px 'knockout', sans-serif;
+$knockout-page-title: 500 40px 'knockout', sans-serif;
+$subhead: 400 16px 'Roboto', sans-serif;
+$knockout-subhead: 400 20px 'knockout', sans-serif;
+$body2: 500 14px 'Roboto', sans-serif;
+$body1: 400 14px 'Roboto', sans-serif;
+$caption: 400 12px 'Roboto', sans-serif;
+$button: 500 14px 'Roboto', sans-serif;
+
+$roboto: 'Roboto', sans-serif;
+
+
+/* transitions ================================================= */
+
+$fast: 0.1s;
+$medium: 0.2s;
+$slow: 0.3s;
+
+
+
+/* mixins ================================================= */
+
+@mixin columns($count, $gap) {
+  -webkit-column-count: $count;
+  -webkit-column-gap: $gap;
+  column-count: $count;
+  column-gap: $gap;
+}
+
+@mixin transform($transforms) {
+     -moz-transform: $transforms;
+       -o-transform: $transforms;
+      -ms-transform: $transforms;
+  -webkit-transform: $transforms;
+          transform: $transforms;
+}
+
+@mixin transition($transition-property, $transition-time, $method) {
+  -webkit-transition: $transition-property $transition-time $method;
+  -moz-transition: $transition-property $transition-time $method;
+  -ms-transition: $transition-property $transition-time $method;
+  -o-transition: $transition-property $transition-time $method;
+  transition: $transition-property $transition-time $method;
+}
+
+@mixin linear-gradient($fromColor, $toColor) {
+  background-color: $toColor; /* Fallback Color */
+  background-image: -webkit-gradient(linear, left top, left bottom, from($fromColor), to($toColor)); /* Saf4+, Chrome */
+  background-image: -webkit-linear-gradient(top, $fromColor, $toColor); /* Chrome 10+, Saf5.1+, iOS 5+ */
+  background-image:    -moz-linear-gradient(top, $fromColor, $toColor); /* FF3.6 */
+  background-image:     -ms-linear-gradient(top, $fromColor, $toColor); /* IE10 */
+  background-image:      -o-linear-gradient(top, $fromColor, $toColor); /* Opera 11.10+ */
+  background-image:         linear-gradient(top, $fromColor, $toColor);
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#{$fromColor}', EndColorStr='#{$toColor}');
+}
+
+
+/* style ================================================= */
+
+html, body{
+  background-color: $nutral-color2;
+  display: block;
+  margin: 0;
+  min-height: 200px;
+  //height: 100%;
+  padding: 0;
+  position: relative;
+  width: 100%;
+}
+
+a{
+  color: $nutral-color3;
+  &:hover{
+    color: $nutral-color4;
+  }
+  &:visited{
+    color: $nutral-color3;
+  }
+}
+
+.clear{
+  clear: both;
+  width: 100%;
+}
+
+.presentation-container{
+  height: 64px;
+  margin: 0 auto;
+  padding: 24px;
+  width: 300px;
+}
+
+.container, .board{
+  background-color: #fff;
+  border-radius: 2px;
+  box-sizing: border-box;
+  box-shadow: 0 2px 4px #9e9e9e;
+  display: block;
+  max-width: 908px;
+  position: relative;
+  padding: 16px;
+  //padding-top: 0px;
+  margin: 16px auto;
+  margin-top: 80px;
+  width: 100%;
+}
+.skills.index{
+  .container{
+    background-color: transparent;
+    box-sizing: border-box;
+    box-shadow: none;
+    display: block;
+    position: relative;
+  } 
+}
+.organizations.show{
+  .container{
+    background-color: transparent;
+    box-sizing: normal;
+    box-shadow: none;
+  }
+}
+
+.board{
+  margin-top: auto;
+}
+
+.gray-color{
+  color: $nutral-color3;
+}
+
+.display1{
+  color: $primary-color;
+  font: $display1;
+}
+
+.headline{
+  color: $nutral-color4;
+  font: $headline;
+  font-weight: bold;
+  padding: 16px;
+}
+
+h2{
+  color: $nutral-color4;
+  font: $title;
+  font-weight: bold;
+}
+
+h2.knockout {
+  font: $knockout-title;
+  text-transform: uppercase;
+}
+
+h3{
+  color: $nutral-color4;
+  font: $subhead;
+}
+
+p{
+  color: $nutral-color4;
+  font: $body1;
+}
+
+.btn-primary{
+  &:visited{
+    color: $nutral-color1;
+  }
+}
+
+.best_practice.index, .fast_content.index, .inquiries.index, .opportunities.index, .pacs.index{
+  .btn-primary{
+    max-width: none;
+  }
+}
+
+.list-post-button{
+  background-color: transparent;
+  border: none;
+  color: $nutral-color3;
+  cursor: pointer;
+  outline: none;
+  padding: 8px;
+  position: absolute;
+  right: 8px;
+  text-decoration: underline;
+  top: 16px;
+  z-index: 5;
+  &:hover{
+    color: $nutral-color4;
+  }
+  &:active, &:visited{
+    outline: none;
+  }
+}

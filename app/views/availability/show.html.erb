@@ -1,0 +1,9 @@
+<h1>location availability confirmation</h1>
+<h4>Please enter your confirmation code</h4>
+<%= simple_form_for(@opportunity) do |f| %>
+
+  <%= f.text_area :approval_code, :class =>"span3", :style =>"height:25px", :required => 'true' %>
+
+<br/>
+<%= f.submit 'Verify', :class => "btn btn-primary btn-large roundedge" %>
+<% end %> 

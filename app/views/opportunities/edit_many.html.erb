@@ -1,0 +1,14 @@
+<%= stylesheet_link_tag "application/opportunities", :media => "all" %>
+<div class='span12'>
+  <div class="topper">
+      <h4 class="pull-left">My Active Posts</h4>
+      <h4 class="pull-right"><%= link_to 'Create Skill', new_opportunity_path %></h4>
+  </div>
+  
+  <%= render 'opportunity_table', :opportunities => @owned_opportunities %>
+  
+  <div class="head_wrap"><h4>Deactivated Posts</h4></div>
+  <%= render 'opportunity_table_historical', :opportunities => @past_opportunities %>
+</div>
+
+<%= render 'devise/registrations/auto_complete_org_name' %>

@@ -1,0 +1,64 @@
+<%= stylesheet_link_tag "application/mentor_action_plans", :media => "all" %>
+<center>
+<h1>Mentor Action Plan</h1>
+<h3>Created for <%= @mentor_action_plan.user.name %> and <%= @mentor_action_plan.participant.name %> </h3>
+</center>
+
+<p>
+  <b>Mentor:</b>
+  <%= @mentor_action_plan.user.name %>
+</p>
+
+<p>
+  <b>Mentee:</b>
+  <%= @mentor_action_plan.participant.name %>
+</p>
+
+<p>
+  <b>Start Date:</b>
+  <%= @mentor_action_plan.start_date.strftime("%m/%d/%Y") %>
+</p>
+
+<p>
+  <b>End Date:</b>
+  <%= @mentor_action_plan.end_date.strftime("%m/%d/%Y") %>
+</p>
+
+<p>
+  <b>Goals:</b>
+  <%= @mentor_action_plan.goals %>
+</p>
+
+<p>
+  <b>Mentee's Action Items:</b>
+  <%= @mentor_action_plan.participant_action_items %>
+</p>
+
+<p>
+  <b>Mentor's Action Items:</b>
+  <%= @mentor_action_plan.mentor_action_items %>
+</p>
+
+<p>
+  <b>Mentee's Deadlines:</b>
+  <%= @mentor_action_plan.participant_deadlines.strftime("%m/%d/%Y") %>
+</p>
+
+<p>
+  <b>Mentor's Deadlines:</b>
+  <%= @mentor_action_plan.mentor_deadlines.strftime("%m/%d/%Y") %>
+</p>
+
+<p>
+  <b>Sucess Indicators:</b>
+  <%= @mentor_action_plan.success_indicators %>
+</p>
+
+<p>
+  <b>Follow Up Meetings:</b>
+  <%= @mentor_action_plan.follow_up_meetings %>
+</p>
+
+<% if current_user == @mentor_action_plan.user || @mentor_action_plan.participant  %>
+<%= link_to 'Edit', edit_mentor_action_plan_path(@mentor_action_plan) %>
+<% end %>

@@ -1,0 +1,15 @@
+<%= stylesheet_link_tag "application/opportunities", :media => "all" %>
+<div class="row" id="new_opp">
+		<div class="span12" >
+	<% case @type
+		when "advisor" %><div class="headline">Post a Mentorship Opportunity</div>
+		<% title "submit to be a mentor" %>
+		<% when "intern" %><div class="headline">Post a Job Shadowing Opportunity</div>
+		<% title "offer a job shadowing opportunity" %>
+		<% when "volunteer" %><div class="headline">Post Volunteer Opportunity</div>
+		<% title "offer a volunteer opportunity" %>
+		<% end %>
+	</div>
+</div>
+
+<%= render 'form_new' %>

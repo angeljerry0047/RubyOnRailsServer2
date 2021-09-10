@@ -1,0 +1,50 @@
+
+<center><h1>invite colleagues via LinkedIn</h1></center>
+<div class="search_header">
+  <% if params[:q] %>
+  <div class="query">
+  <%= @total %> results for <b><%= params[:q] %></b>
+  </div>
+  <% end %>
+  <%= form_tag invites_path, :method => 'get' do %>
+    <%= text_field_tag :q, params[:q] %>
+    <%= submit_tag 'Search', :name => nil %>
+  <% end %>
+</div>
+
+<%# FIXME (cmhobbs) move this check out of the view %>
+<% if @connections != nil %>
+<% @connections.each do |connection| %>
+  <% invited = Invite.exists?(:oid => connection.id, :user_id => current_user.id) %>
+  <% if connection.id == "private" %>
+    <div class="connection private">
+      <%= form_tag :action => :create do %>
+      Private Connection
+      <br />
+      <%= image_tag "missing-avatar1.png" , :alt =>'missing-avatar1'%>
+      <br />
+      <%= submit_tag "Disabled", :disabled => true %>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="connection">
+      <%= form_tag url_for(:action => :create), :class => "invite_form", :remote => true do %>
+        <%= truncate("#{connection.first_name} #{connection.last_name}", :length => 20, :omission => '...') %>
+        <br />
+        <% picture_url = connection.picture_url || image_path("missing-avatar1.png") %>
+        <%= hidden_field_tag 'connection[first_name]', connection.first_name %>
+        <%= hidden_field_tag 'connection[last_name]', connection.last_name %>
+        <%= hidden_field_tag 'connection[id]', connection.id %>
+        <%= hidden_field_tag 'page', @page %>
+        <%= image_tag picture_url %>
+        <br />
+        <%= submit_tag (invited ? "Invited" : "Invite"), :disabled => Invite.exists?(:oid => connection.id, :user_id => current_user.id) %>
+      <% end %> 
+    </div>
+  <% end %>
+<% end %>
+<% end %>
+
+<div class="pagination">
+  <%= invite_pagination (0..@last_page) %>
+</div>

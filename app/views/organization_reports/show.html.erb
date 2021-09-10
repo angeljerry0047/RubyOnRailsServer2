@@ -1,0 +1,70 @@
+<div class="container">
+  <div class="row">
+    <div class="span12">
+      <div class="report">
+        <div class="row">
+          <div class="span12">
+            <div class="preamble-wrap">
+              <h4> <%= @organization_report.organization_title %> Activity Report
+                <date>
+                - dated <%= @organization_report.created_at.strftime('%D')%>
+            </date></h4>
+              <hr/>
+              <table>
+                <tr>
+                  <td>Total Users: </td>
+                  <td><%= @organization_report.users_nbr %></td>
+                </tr>
+                <tr>
+                  <td>Total Skill Hours Delivered:</td>
+                  <td><%= @organization_report.pdes_created_nbr %></td>
+                </tr>
+                <tr>
+                  <td>Total Skill Hours Received:</td>
+                  <td><%= @organization_report.pdes_attended_nbr %></td>
+                </tr>
+              </table>
+              <div class="logo">
+                <h4><%= @organization.title %></h4>	
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="span8">
+            <div id="chart">
+              <%= image_tag "organization_report_chart.png" %>
+
+              <div class="score-bar users" style="width:<%= @organization_report.users_width %>px"></div>
+
+              <div class="score-bar created" style="width:<%= @organization_report.created_width %>px"></div>
+
+              <div class="score-bar attended" style="width:<%= @organization_report.attended_width %>px"></div>
+
+            </div>
+          </div>
+          <div class="span4 share">
+            <div class="center">
+              <br/>
+              <br/>
+              <br/>
+              <div class="facebook button">
+                <span><%= image_tag "face_share_icon.png" %></span><h4><%= link_to 'Share your story', "http://www.facebook.com/sharer/sharer.php?u=#{url_for(params.merge(:format => 'pdf',:only_path => false))}", :target => "_blank"%></h4>
+              </div>
+
+              <div class="linkedin button">
+                <span><%= image_tag "linkicon.png" %></span><h4><%= link_to 'Share your story', "http://www.linkedin.com/shareArticle?mini=true&url=#{url_for(params.merge(:format => 'pdf',:only_path => false))}&title=My%Activity%26Report", :target => "_blank"%> </h4>
+              </div>
+
+              <div class="email button">
+                <span><%= image_tag "emailicon.png" %></span><h4><%= link_to 'Email Your story', share_organization_report_path, :class=>"" %></h4>
+              </div>
+
+              <%= link_to 'Save as PDF', url_for(params.merge(:format => 'pdf')), :class=>"btn btn-large btn-info roundedge" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

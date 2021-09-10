@@ -1,0 +1,11 @@
+<% if user_signed_in? %>
+  <div class="normal-header">
+    <%= link_to root_url do %>
+      <div class="normal-logo"></div>
+    <% end %>
+    <%= link_to 'Logout', destroy_user_session_path, :method=>'delete', :data => { :role => "menuitem", :tabindex => "-1" }, :class => 'normal-logout' %>
+  </div>
+<% else %>
+  <%= link_to site_title, root_url, :class => 'brand' %>
+<% end %>
+

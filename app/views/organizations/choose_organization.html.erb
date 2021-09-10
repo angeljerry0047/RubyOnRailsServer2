@@ -1,0 +1,9 @@
+<%= stylesheet_link_tag "application/organizations", :media => "all" %>
+There is more than one company that matches that query which one would you like to use?
+<ul>
+  <% @organizations.each do |org| %>
+    <li>
+      <%= link_to org.name, sync_linkedin_organization_path(slug: @organization.slug, oid: org.id) %>
+    </li>
+  <% end %>
+</ul>

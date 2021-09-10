@@ -1,0 +1,115 @@
+<%= stylesheet_link_tag "application/opportunities", :media => "all" %>
+<%= stylesheet_link_tag "application/users", :media => "all" %>
+
+<div class="board">
+  <%= link_to user_path(@opportunity.owner.id), :class => "user-chip" do %>
+    <div class="picture">
+      <%= image_tag @opportunity.owner.avatar.url %>
+    </div>
+    <div class="name"><%=@opportunity.owner.name %></div>
+  <% end %>
+  <div class="column small">
+
+    <div class="info">
+      <%= Organization.find(@opportunity.organization_id).title %>
+      </br>
+      <% if ((Time.now - @opportunity.created_at)/3600).floor < 1 && ((Time.now - @opportunity.created_at)/60).floor != 1 %>
+        Posted <span class="number">
+        <%= ((Time.now - @opportunity.created_at)/60).floor %>
+        </span> minutes ago
+      <% elsif ((Time.now - @opportunity.created_at)/60).floor == 1 %>
+        Posted <span class="number">
+        1</span> minute ago
+      <% elsif ((Time.now - @opportunity.created_at)/3600).floor < 24 && ((Time.now - @opportunity.created_at)/3600).floor != 1 %>
+        Posted <span class="number">
+        <%= ((Time.now - @opportunity.created_at)/3600).floor %>
+        </span> hours ago
+      <% elsif ((Time.now - @opportunity.created_at)/3600).floor ==1 %>
+        Posted <span class="number">
+        1</span> hour ago
+      <% else %>
+        <span>
+        <%= (@opportunity.created_at).strftime("%d %b %Y") %>
+        </span>
+      <% end %>
+
+      <%if @opportunity.owner_id == current_user.id %>
+        </br></br>
+        <% if @opportunity.opportunity_category_id == 18 %>
+          <%= link_to 'Edit', edit_opportunity_path(:type => "advisor") %>
+        <% elsif @opportunity.opportunity_category_id == 19 %>
+          <%= link_to 'Edit', edit_opportunity_path(:type => "intern") %>
+        <% elsif @opportunity.opportunity_category_id == 21 %>
+          <%= link_to 'Edit', edit_opportunity_path(:type => "volunteer") %>
+        <% end %>
+        <%= link_to 'Delete', @opportunity, :method => :delete, data: { confirm: 'Are you sure?'} %>
+      <% elsif (GroupAdmin.where(group_id: @opportunity.organization_id, admin_id: current_user.id).exists?) %>
+        </br></br>
+        <%= link_to 'Delete', @opportunity, :method => :delete, data: { confirm: 'Are you sure?'} %>
+      <%end%>
+
+    </div>
+  </div>
+
+  <div class="column large">
+    <!-- NOTE (cmhobbs) this hurts me more than it hurts you. -->
+    <% if (@opportunity.opportunity_category_id == 18) %>
+          <div class="title"><%= @opportunity.learning_objectives %> <%= @opportunity.title %></div>
+    <% elsif @opportunity.title? %>
+      <div class="title"><%= @opportunity.title %></div>
+    <% else %>
+      <div class="title"><%= @opportunity.learning_objectives %></div>
+    <% end %>
+    
+    <%if @opportunity.opportunity_category_id? && @opportunity.description? %>
+      <div class="subhead">Description</div>
+    <%end%>
+
+    <%if @opportunity.opportunity_category_id? %>
+      <div class="body">
+        <%= @opportunity.description %>
+      </div>
+    <% end %>
+
+    <% if @opportunity.meeting_time? || @opportunity.location? %>
+      <div class="subhead">meeting info</div>
+      <% if @opportunity.start_date? && @opportunity.deadline_date? %>
+        <div class="body">
+          <%= @opportunity.start_date.strftime("%d %b %Y") %> – <%= @opportunity.deadline_date.strftime("%d %b %Y") %>
+        </div>
+      <% elsif @opportunity.start_date? %>
+        <div class="body">
+          <%= @opportunity.start_date.strftime("%d %b %Y") %>
+        </div>
+      <% end %>
+      <% if @opportunity.meeting_time? %>
+        <div class="body">
+          <%= @opportunity.meeting_time %>
+        </div>
+      <% end %>
+
+      <% if @opportunity.location? %>
+        <div class="body">
+          <%= @opportunity.location %>
+        </div>
+      <% end %>
+    <% end %>
+
+    <% if OpportunityApplication.where(:opportunity_id => @opportunity.id).length <= 0 %>
+      <% if current_user != @opportunity.owner %>
+        <% if current_user.active_license? %>
+          <%= button_to 'Make Connection', {:action => "create", :controller => "opportunity_applications", :opportunity_id => @opportunity.id}, class: 'btn btn-primary btn-large roundedge', :style => "margin-left: 0;", :style => "margin-left:0;" %>
+        <% else %>    
+          <%= link_to 'Make Connection', register_pde_opportunities_path(:id => @opportunity.id), class: 'btn btn-primary btn-large roundedge', :style => "margin-left: 0;", :style => "margin-left:0;" %>
+        <% end %>
+      <% end %>
+    <% else %>
+      <br>
+      <i class="gray-color">A connection has already been made with this opportunity.</i>
+    <% end %>
+
+  </div>
+
+  <div class="clear"></div>
+  
+</div>

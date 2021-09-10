@@ -1,0 +1,106 @@
+@import "master";
+
+
+/* general ================================================== */
+
+.input-radio-container{
+  background-color: $nutral-color1;
+  box-sizing: border-box;
+  display: block;
+  float: left;
+  padding: 8px 16px;
+  position: relative;
+  .input-radio-title{
+    color: $nutral-color4;
+    font: $title;
+    padding-bottom: 16px;
+  }
+  .input-radio{
+    cursor: pointer;
+    display: block;
+    height: 36px;
+    position: relative;
+    width: 100%;
+    input{
+      left: 300px;
+      position: absolute;
+      visibility: hidden;
+    }
+    .circle{
+      border: 2px $nutral-color3 solid;
+      border-radius: 50%;
+      display: block;
+      float: left;
+      height: 12px;
+      position: relative;
+      @include transition(all, $medium, ease-in-out);
+      width: 12px;
+      .dot{
+        background-color: $primary-color;
+        border-radius: 50%;
+        height: 0;
+        margin: 6px;
+        position: absolute;
+        @include transition(all, $medium, ease-in-out);
+        width: 0;
+      }
+    }
+    .circle-active{
+      border: 2px $primary-color solid;
+      .dot-active{
+        height: 8px;
+        margin: 2px;
+        width: 8px;
+      }
+    }
+    .validation-error{
+      border: 2px $secondary-color solid;
+    }
+    .label{
+      background-color: transparent;
+      color: $nutral-color3;
+      float: left;
+      font: $title;
+      padding-left: 8px;
+      position: relative;
+      text-shadow: none;
+      top: -4px;
+      @include transition(all, $fast, ease-in-out);
+    }
+    .label-active{
+      color: $nutral-color4;
+    }
+  }
+}
+
+
+/* desktop ================================================== */
+
+@media (min-width: $desktop-min) {
+
+  .input-radio-container{
+    width: 50%;
+  }
+
+}
+
+
+/* tablet ================================================== */
+
+@media (min-width: $tablet-min) and (max-width: $tablet-max) {
+
+  .input-radio-container{
+    width: 50%;
+  }
+
+}
+
+/* phone ================================================== */
+
+@media (max-width: $phone-max) {
+
+  .input-radio-container{
+    width: 100%;
+  }
+
+}

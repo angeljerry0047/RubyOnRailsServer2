@@ -1,0 +1,90 @@
+@import "master";
+
+.landing-header{
+  background-color: $primary-color;
+  box-shadow: 0 2px 2px $nutral-color3;
+  display: block;
+  height: 64px;
+  min-width: auto;
+  position: relative;
+  text-align: center;
+  top: 0px;
+  width: 100%;
+  z-index: 50;
+  .landing-logo{
+    background: url('/assets/s2pLogoWhite.png') no-repeat;
+    background-size: contain;
+    height: 32px;
+    margin: auto;
+    position: relative;
+    top: 16px;
+    width: 190px;
+  }
+}
+  
+.signup, .registrations.new{
+  form{
+    background-color: $nutral-color1;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    width: 50%;
+    input[type=email], input[type=password], input[type=text]{
+      box-sizing: border-box;
+      height: 38px;
+      padding: 8px;
+      width: 100%;
+    }
+    a:hover{
+      cursor: pointer;
+    }
+    input[type=submit]{
+      margin-left: 0;
+    }
+  }
+}
+
+.signin{
+  width: 50%;
+  .headline{
+    padding: 16px 0;
+    text-transform: uppercase;
+    font: $knockout-headline
+  }
+  .simple_form{
+    box-sizing: border-box;
+    margin: 0;
+    width: 100%;
+    input[type=email], input[type=password]{
+      box-sizing: border-box;
+      height: 38px;
+      padding: 8px;
+      width: 100%;
+    }
+  }
+}
+
+/* tablet ================================================== */
+
+@media (min-width: $tablet-min) and (max-width: $tablet-max) {
+
+
+
+}
+
+
+/* phone ================================================== */
+
+@media (max-width: $phone-max) {
+
+  .signup{
+    .landing-header{
+      height: 56px;
+    }
+  }
+
+  .signin{
+    width: 100%;
+  }
+  
+}

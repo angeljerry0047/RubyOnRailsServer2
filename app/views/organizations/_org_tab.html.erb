@@ -1,0 +1,420 @@
+<div class="tabbable full-width-tabs">
+  <% if @organization.id == 201%> 
+    <%= render "jbhslp" %>
+  <% elsif @organization.id == 4%>
+    <%= render "jbh" %>
+  <% elsif @orgbpc.count < 4 %>
+    <ul class="nav nav-tabs nav-justified">
+      <li class="active take-all-space-you-can"><a href="#tab-one" data-toggle="tab">Home</a></li>
+      <% @orgbpc.each do |org| %>
+        <% if org.active_tab? %>
+          <li class="take-all-space-you-can"><a href="#<%= org.id %>" data-toggle="tab"><%= org.title %></a></li>
+        <% end %>
+      <% end %>
+      <li class="take-all-space-you-can"><a href="#tab-two" data-toggle="tab">Resources</a></li>
+    </ul>
+  <% elsif @orgbpc.count >= 4 && @orgbpc.count < 6 %>
+    <ul class="nav nav-tabs nav-justified">
+      <li class="active take-all-space-you-can"><a class="short" href="#tab-one" data-toggle="tab">Home</a></li>
+      <% @orgbpc.first(2).each do |org| %>
+        <% if org.active_tab? %>
+          <li class="take-all-space-you-can"><a class="short" href="#<%= org.id %>" data-toggle="tab"><%= org.title %></a></li>
+        <% end %>
+      <% end %>
+    </ul>
+    <ul class="nav nav-tabs nav-justified">
+       <% @orgbpc.last(@orgbpc.count-2).each do |org| %>
+        <% if org.active_tab? %>
+          <li class="take-all-space-you-can"><a class="short" href="#<%= org.id %>" data-toggle="tab"><%= org.title %></a></li>
+        <% end %>
+      <% end %>
+      <li class="take-all-space-you-can"><a class="short" href="#tab-two" data-toggle="tab">Resources</a></li>
+    </ul>
+  <% else %>
+    <ul class="nav nav-tabs nav-justified">
+      <li class="active take-all-space-you-can"><a class="select" href="#tab-one" data-toggle="tab">Home</a></li>
+      <% @orgbpc.first(3).each do |org| %>
+        <% if org.active_tab? %>
+          <li class="take-all-space-you-can"><a class="select" href="#<%= org.id %>" data-toggle="tab"><%= org.title %></a></li>
+        <% end %>
+      <% end %>
+    </ul>
+    <ul class="nav nav-tabs nav-justified">
+      <% @orgbpc.last(@orgbpc.count-3).each do |org| %>
+        <% if org.active_tab? %>
+          <li class="take-all-space-you-can"><a class="select" href="#<%= org.id %>" data-toggle="tab"><%= org.title %></a></li>
+        <% end %>
+      <% end %>
+      <li class="take-all-space-you-can"><a class="select" href="#tab-two" data-toggle="tab">Resources</a></li>
+    </ul>
+  <% end %>
+      
+  <div class="tab-content">
+    
+    <div class="tab-pane active" id="tab-one">
+      <div class="tab-content-spacing">
+        <% if @organization.id == 201 %>
+          <h3 class="splash-header">Welcome!</h3>
+          <% if !@organization.int_description.nil? %>
+            <%= markdown.render(@organization.int_description).html_safe %>
+          <% end %>
+        <% elsif @organization.id == 4 %>
+          <div class="row">
+          <center>
+          <a href="http://www.jbhunt.com/" target="_blank">
+            <img src="/assets/JB_Hunt_About_Us.jpg">
+          </a>
+          </center>
+          </div>
+        <% else %>
+          <h4 class="splash-header"><%= @organization.title %> Learning Marketplace</h4>
+          <% if !@organization.int_description.nil? %>
+            <%= markdown.render(@organization.int_description).html_safe %>
+          <% end %>
+        <% end %>
+      </div>                   
+    </div>
+
+    <% @orgbpc.each do |org| %>
+      <div class="tab-pane" id="<%= org.id %>">
+        <div class="tab-content-spacing">
+
+          <div class="row" style="padding-top:10px;">
+            <div class="span3 tab" style ="margin-left:0; position:relative;">
+              <div class="postchoices_image" style ="float:left; margin-right:10px; padding-bottom:20px;">
+                <a href="#<%=org.id%>" class="splash-header1 btn-slide<%=org.id%>"><%= image_tag("LightBulb.png") %></a>
+              </div>
+              <div class="postchoices_text" style ="padding-right:10px">
+                <a href="#<%=org.id%>" class="splash-header1 btn-slide<%=org.id%>">Post <%= org.title %> Insight</a>
+              </div>
+              <div style="clear:both;"></div>  
+              <div id="panel<%=org.id%>" style="display:none ; ">
+                <%= render 'best_practices/form', :best_practice_category_id => org.id, :category => org.title, :organization_id => @organization.id %>
+              </div>
+            </div>
+            <div class="span3 tab" style ="margin-left:0; position:relative;">
+              <div class="postchoices_image" style ="float:left; margin-right:10px; padding-bottom:20px;">
+                <a href="#<%=org.id%>1" class="splash-header1 btn-slide<%=org.id%>1"><%= image_tag("Question.png") %></a>
+              </div>
+              <div class="postchoices_text" style ="padding-right:10px">
+                <a href="#<%=org.id%>1" class="splash-header1 btn-slide<%=org.id%>1">Post <%= org.title %> Question</a>
+              </div>
+              <div style="clear:both;"></div>
+              <div id="panel<%=org.id%>1" style="display:none; margin-left: -250px;">
+                <%= render 'inquiries/form', :best_practice_category_id => org.id, :category => org.title, :organization_id => @organization.id %>
+              </div>
+            </div>
+            <div class="span3 tab" style ="margin-left:0; position:relative;">
+              <div class="postchoices_image" style ="float:left; margin-right:10px; padding-bottom:20px;">
+                <%= link_to(image_tag("CollaborationTeams.png"), new_pac_path) %>
+              </div>
+              <div class="postchoices_text" style ="padding-right:10px">
+                <%= link_to "Create #{org.title} Collaboration Team", new_pac_path(:category_id => org.id), :class => "splash-header1" %>
+              </div>
+              <div style="clear:both;"></div>
+            </div>
+            <div class="span3 tab" style ="margin-left:0; position:relative;">
+              <div class="postchoices_image" style ="float:left; margin-right:10px; padding-bottom:20px;">
+                <a href="#<%=org.id%>2" class="splash-header1 btn-slide<%=org.id%>2"><%= image_tag("RecognitionIcon.png") %></a>
+              </div>
+              <div class="postchoices_text" style ="padding-right:10px">
+                <a href="#<%=org.id%>2" class="splash-header1 btn-slide<%=org.id%>2">Recognize Colleagues</a>
+              </div>
+              <div style="clear:both;"></div>
+              <div id="panel<%=org.id%>2" style="display:none; margin-left: -350px;">
+                <%= render 'opportunities/recognitions' %>
+              </div>
+            </div>
+          </div>
+              
+        </div>
+               
+        <div class="row" id="vsa_list">
+          <hr style="border:none; color:#FFD84A; background-color:#FFD84A; height:5px; width:100%;">
+            <div class="span12 filter" style="margin-left:0px;">
+              <div id="vsas">
+              <%# FIXME (tyreldenison) This needs to happen in the controller. Let's extract it. %>
+                <% (BestPractice.with_category(org.id) + Inquiry.with_category(org.id) + Opportunity.with_bp_category(org.id) + Pac.view_public.with_category(org.id)).reverse_each do |bp| %>
+                <% if bp.class.name == "BestPractice" %>
+                  <div class="vsa result">
+                    <div class="head" style="padding-bottom:1px;">
+                      <div>
+                        <% if @organization.id == 201%> 
+                          <h4 class="opphead" style="padding-top:10px; color:#FFD84A;">insight</h4>
+                        <% else %>
+                           <h4 class="opphead" style="padding-top:10px;">insight</h4>
+                        <% end %>
+                      </div>
+                    </div>
+                    <div>
+                      <% if @organization.id == 201%> 
+                        <h4 style=""> <span class="ideaname" style="color:#0599D0;"><%= bp.title %></span> <% if bp.emb_link? %><%= image_tag("video_icon_black.png", :class => "fc-icons") %><% end %> <% if bp.ext_link? %><%= image_tag("link_icon_black.png", :class => "fc-icons") %><% end %><% if bp.documents? %><%= image_tag("dociconblack.png", :class => "fc-icons") %><% end %><% if bp.audio? %><%= image_tag("audio_icon_black.png", :class => "fc-icons") %><% end %></h4>
+                      <%else%>
+                        <h4 style=""> <span class="ideaname"><%= bp.title %></span> <% if bp.emb_link? %><%= image_tag("video_icon_black.png", :class => "fc-icons") %><% end %> <% if bp.ext_link? %><%= image_tag("link_icon_black.png", :class => "fc-icons") %><% end %><% if bp.documents? %><%= image_tag("dociconblack.png", :class => "fc-icons") %><% end %><% if bp.audio? %><%= image_tag("audio_icon_black.png", :class => "fc-icons") %><% end %></h4>
+                      <%end%>
+                    </div>
+                    <div class="description" style="color:#303030;">
+                      <%= truncate(bp.body, :length => 100) %>
+                    </div>
+                    <div style="padding-top: 10px;">
+                      <% unless bp.likers(User).count == 0 %>
+                        <%if bp.likers(User).count == 1 %>
+                          <span class="orangenum"><%= bp.likers(User).count %></span>
+                          <span class="bluelike">Like</span>
+                        <%else%>
+                          <span class="orangenum"><%= bp.likers(User).count %></span>
+                          <span class="bluelike"> Likes</span>
+                        <%end%>
+                      <% end %>
+                      <% unless bp.comments.count == 0 %> 
+                        <% if bp.comments.count == 1 %>
+                          <span class="orangenum"><%= bp.comments.count %></span>
+                          <span class="bluelike"> Comment</span>
+                        <%else%>
+                          <span class="orangenum"><%= bp.comments.count %></span>
+                          <span class="bluelike"> Comments</span>
+                        <%end%>
+                      <% end %>
+                    </div>
+                    <div class="bottom">
+                      <center>
+                        <% if @organization.id == 201 %>
+                          <%= link_to "see full insight", best_practice_path(bp), :class => "learnbutton", :style => "color:#FFD84A" %>
+                        <% else %>
+                          <%= link_to "see full insight", best_practice_path(bp), :class => "learnbutton" %>
+                        <% end %>
+                      </center>
+                    </div>
+                  </div>
+                <% elsif bp.class.name == "Opportunity" %>
+                  <div class="vsa result">
+                    <div class="head" style="height:50px;">
+                      <h4 class="opphead" style="padding-top:14px;">
+                        advisor
+                      </h4>
+                    </div>
+                    <div>
+                      <% if bp.learning_objectives.present? %>
+                        <div class="oppname" style="padding-top:14px; font-size:20px;">
+                          <%= bp.learning_objectives %>
+                        </div>
+                      <% end %>
+                      <h5 style="margin-bottom:0px; min-height: 55px">
+                        <%= link_to bp.owner.name, user_path(bp.owner.id), :class => "oppname" %>
+                      </h5>              
+                    </div> 
+                    <div class="bottom">
+                      <% if bp.opportunity_applications.present? %>
+                        <center>
+                          <div class ="disabled">
+                            connection made
+                          </div>
+                        </center>
+                      <%else%> 
+                        <center>  
+                          <%= link_to "see full post", opportunity_path(bp), :class => "learnbutton" %>
+                        </center>
+                      <%end%>
+                    </div>
+                  </div>
+                <% elsif bp.class.name == "Pac" %>
+                  <div class="vsa result">
+                    <div class="head" style="padding-bottom:1px;height:50px;">
+                      <div>
+                        <h4 class="opphead" style="padding-top:14px;">collaboration team</h4>
+                      </div>
+                    </div>
+                    <div>
+                      <h5 style="margin-bottom:0px;">
+                        <%= link_to bp.title, pac_path(bp), :class => "ideaname" %>
+                      </h5>                    
+                    </div>  
+                    <div class="description" style="padding-top:10px;">
+                      <%= bp.owner.name %>
+                    </div>
+                    <div class="bottom">
+                      <center>  
+                        <%= link_to "view collaboration team", pac_path(bp), :class => "learnbutton" %>
+                      </center>
+                    </div>
+                  </div>
+                <% else %>
+                  <div class="vsa result">
+                    <div class="head" style="padding-bottom:1px;">
+                      <div>
+                        <% if @organization.id == 201%> 
+                          <h4 class="opphead" style="padding-top:10px; color:#FFD84A;">question</h4>
+                        <% else %>
+                          <h4 class="opphead" style="padding-top:10px;">question</h4>
+                        <% end %>
+                      </div>
+                    </div>
+                    <div>
+                      <% if @organization.id == 201%>
+                        <h4 style="">
+                          <span class="ideaname" style="color:#0599D0;"><%= bp.title %></span>
+                          <% if bp.documents? %><%= image_tag("dociconblack.png", :class => "fc-icons") %><% end %>
+                        </h4>
+                      <% else %>
+                        <h4 style=""> <span class="ideaname"><%= bp.title %></span>
+                          <% if bp.documents? %><%= image_tag("dociconblack.png", :class => "fc-icons") %><% end %>
+                        </h4>
+                      <% end %>
+                    </div>
+                    <div class="description" style="color:#303030;">
+                      <%= truncate(bp.body, :length => 100) %>
+                    </div>
+                    <div style="padding-top: 10px;">
+                      <% unless bp.likers(User).count == 0 %>
+                        <%if bp.likers(User).count == 1 %>
+                          <span class="orangenum"><%= bp.likers(User).count %></span>
+                          <span class="bluelike">Like</span>
+                        <%else%>
+                          <span class="orangenum"><%= bp.likers(User).count %></span>
+                          <span class="bluelike"> Likes</span>
+                        <%end%>
+                      <% end %>
+                      <% unless bp.comments.count == 0 %> 
+                        <% if bp.comments.count == 1 %>
+                          <span class="orangenum"><%= bp.comments.count %></span>
+                          <span class="bluelike"> Comment</span>
+                        <%else%>
+                          <span class="orangenum"><%= bp.comments.count %></span> 
+                          <span class="bluelike"> Comments</span>
+                        <%end%>
+                      <% end %>
+                    </div>
+                    <div class="bottom">
+                      <center>
+                        <% if @organization.id == 201 %>
+                          <%= link_to "see full question", inquiry_path(bp), :class => "learnbutton", :style => "color:#FFD84A" %>
+                        <% else %>
+                          <%= link_to "see full question", inquiry_path(bp), :class => "learnbutton" %>
+                        <% end %>
+                      </center>
+                    </div>
+                  </div>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
+              
+      </div>
+      <div style="display:none;">
+        <div id="tip">
+          <p>This text will be displayed for users to click on, so make sure it depicts what the link will lead to.</p>
+        </div>
+      </div>
+    <%end%>
+
+
+    <div class="tab-pane" id="tab-two">
+      <div class="tab-content-spacing" style="padding-left:0">
+        <% if @organization.id == 201 %>
+          <div class="container1" style="padding-left:0">
+            <div class="table_row" style="padding-top:10px; width:100%">
+              <div class="splash-header col" style ="width:33%;"><div style="margin-bottom:-38px;"><%= link_to "Intermodal", resources_organization_path(slug: @organization.slug, :department => 1)%></div><div style="width: 100%;text-align: center; position: relative; vertical-align: top; bottom:-53px;"><hr style= "border: medium none;color: #FFD84A; background-color: #FFD84A; height: 12px;"></div></div>
+              <div class="splash-header col" style="width:33% ;"><div style="margin-bottom:-38px;"><%= link_to "DCS", resources_organization_path(slug: @organization.slug, :department => 2)%></div><div style="width: 100%;text-align: center; position: relative; vertical-align: top; bottom:-53px;"><hr style= "border: medium none;color: #FFD84A; background-color: #FFD84A; height: 12px;"></div></div>
+              <div class="splash-header col" style="width:33% ;"><div style="margin-bottom:-56px; font-size:20px;"><%= link_to "ICS, Sales, Truck, Marketing, CDP, IT", resources_organization_path(slug: @organization.slug, :department => 3)%></div><div style="width: 100%;text-align: center; position: relative; vertical-align: top; bottom: -53px;"><hr style= "border: medium none;color: #FFD84A; background-color: #FFD84A; height: 12px;"></div></div>
+            </div>   
+          </div>
+        <%elsif @organization.id == 201%>   
+
+              
+          <div class="splash-header col span12 row" style="height:68px; padding-bottom:0">
+            <div class="span9" style="text-align:left; padding-top:20px">CDP Resources</div>
+            <% if current_user.role == "admin" %>
+              <div style="text-align:right; border-left:1px solid; padding-top:20px; height:40px" class="span2"><%= link_to "Upload", new_fast_content_path %></div>
+            <% end %>
+
+          </div>
+          <span class="rec_blue" style="font-size:20px">
+            <hr style="border:none; color:#FFD84A; background-color:#FFD84A; height:5px">
+            <ol style="margin-left:45px">
+              <%  FastContent.in_organization(@organization.id).each do |fc| %>
+                <li class="" style="margin-bottom:15px"><%= link_to fc.topic, fast_content_path(fc), :class => "" %>
+                  <% if fc.emb_link? %><%= image_tag("video_icon_black.png", :class => "fc-icons") %><% end %> 
+                  <% if fc.ext_link? %><%= image_tag("link_icon_black.png", :class => "fc-icons") %><% end %>
+                  <% if fc.documents? %><%= image_tag("dociconblack.png", :class => "fc-icons") %><% end %>
+                  <% if fc.audio? %><%= image_tag("audio_icon_black.png", :class => "fc-icons") %><% end %>
+                </li>
+              <% end %>
+            </ol> 
+          </span>
+
+        <% else %>
+          <%= render 'fast_contents/organization_content' %>
+        <% end %>
+      </div>
+    </div> 
+
+
+
+    <div class="tab-pane" id="tab-three">
+      <div class="container2">
+        <div class="table_row" style="padding-top:10px; width:100%">
+          <div class="splash-header col" style ="width:33%;"><%= link_to image_tag("StrategicLeadershipBanner.png", :alt =>'StrategicLeadershipBanner'), organization_path(Organization.find(201).slug), :style => 'width: 30px; height: 30px;' %></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div> 
+           
+
+
+<% @orgbpc.each do |org| %>
+  <%# FIXME (cmhobbs) this doesn't belong here. %>
+  <script type="text/javascript">
+    $(document).ready(function() {
+       $(".btn-slide<%=org.id%>").click(function(){
+         if (!$("#panel<%=org.id%>").is(":visible")){
+            
+             $("#panel<%=org.id%>").slideToggle("slow");
+                $("#panel<%=org.id%>1").hide();
+           }
+          else {
+            
+            $("#panel<%=org.id%>").hide("slow");
+
+          }
+         
+          ;
+          return false;  
+         });
+        $(".btn-slide<%=org.id%>1").click(function(){
+         if (!$("#panel<%=org.id%>1").is(":visible")){
+            
+             $("#panel<%=org.id%>1").slideToggle("slow");
+              $("#panel<%=org.id%>").hide();
+           }
+          else {
+            
+            $("#panel<%=org.id%>1").hide("slow");
+
+          }
+         
+          ;
+          return false;  
+         });
+        $(".btn-slide<%=org.id%>2").click(function(){
+         if (!$("#panel<%=org.id%>2").is(":visible")){
+            
+             $("#panel<%=org.id%>2").slideToggle("slow");
+             
+           }
+          else {
+            
+            $("#panel<%=org.id%>2").hide("slow");
+
+          }
+         
+          ;
+          return false;  
+         });
+        });
+  </script>
+<% end %>

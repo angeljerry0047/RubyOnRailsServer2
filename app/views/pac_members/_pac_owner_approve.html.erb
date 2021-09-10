@@ -1,0 +1,135 @@
+<%= simple_form_for(@pac_member) do |f| %>
+
+<h1 style="color:#5CCE8B; text-align:center; margin-bottom:20; margin-top:0;">Hello <%= pac_member.pac.owner.name %></h1>
+
+<h5 style="text-align: center;"><%= pac_member.member.name %> would like to join the <%= pac_member.pac.title %> Collaboration team. Below are the details of the team.</h5>
+
+<div class="pac wrap row">
+  <div class="topper">
+    <div class="span12">  
+      <div class="row">
+      
+        <%if pac_member.pac.owner_id == current_user.id %>
+          <div class="span2 next">
+            <%= link_to edit_pac_path do %>
+              edit team
+            <%end%>
+          </div>
+        <%end%>
+      </div>
+    </div>
+  </div>
+  <div class="span12">
+    <div class="row">
+      <div class="span11">
+        <div class="title">
+          <%if pac_member.pac.organization.present? %>
+            <h4>
+              
+                <%= pac_member.pac.organization.title %>
+             
+            </h4>
+          <%end%>
+          <h2><%= pac_member.pac.title %></h2>
+        </div>
+      </div>
+    </div>
+
+        <div class="row">
+            <div class="span2">
+              <%if pac_member.pac.start_date? %>
+                <div class="start-date">
+                  <h6>Start Date</h6>
+                  <p><%= pac_member.pac.start_date.strftime("%m/%d/%Y") %></p>
+                </div>
+              <%end%>
+              <%if pac_member.pac.deadline_date? %>
+                <div class="deadline-date">
+                  <h6>Registration dead line</h6>
+                  <p><%= pac_member.pac.deadline_date.strftime("%m/%d/%Y") %></p>
+                </div>
+              <%end%>
+              <%if pac_member.pac.start_time? %>
+                <div class="start-time">
+                  <h6>Start Time</h6>
+                  <p><%= pac_member.pac.start_time %></p>
+                </div>
+              <%end%>
+              <%if pac_member.pac.end_time? %>
+                <div class="end-time">
+                  <h6>End Time</h6>
+                  <p><%= pac_member.pac.end_time %></p>
+                </div>
+              <%end%>
+              <%if pac_member.pac.opportunity_type.blank? || pac_member.pac.opportunity_type.id == 1 %>
+                <%if pac_member.pac.location.present? %>
+                  <div class="location">
+                    <h6>Location</h6>
+                    <p><%= pac_member.pac.location %></p>
+                  </div>
+                <%end%>
+              <%end%>
+              
+              <%if pac_member.pac.facility_id? && pac_member.pac.facility_id != -1 %>
+                <div class="facility">
+                  <h6>Facility</h6>
+                  <p><%= pac_member.pac.facility.name %>
+                  <div id="opportunities__facility_address"><%= pac_member.pac.facility.address %></div></p>
+                </div>
+                <%elsif pac_member.pac.opportunity_type_id.present? %>
+                  <div class="location">
+                    <h6>Location</h6>
+                    <p><%#= pac_member.pac.opportunity_type.name %></p>
+                  </div>
+              <%end%>
+              <div class="date">
+                <h6>Posted On</h6>
+                <p><%= pac_member.pac.created_at.strftime("%B %-d, %Y") %></p>
+              </div>
+
+              <% if pac_member.pac.owner_id.present? %>
+                <div class="poster">
+                  <h6>Posted By</h6>
+                  <p><%= link_to pac_member.pac.owner.name, user_path(pac_member.pac.owner.id) %></p>
+                </div>
+              <% end %>
+              
+            </div>
+
+          <div class="span9">
+            <h4 class="about-vsa">About team
+              <% if pac_member.pac.organization.present? && pac_member.pac.organization.website.present? %>
+                <%= link_to pac_member.pac.organization.company_website, pac_member.pac.organization.company_website, :target =>"_blank" %>
+              <%end%>
+            </h4>
+
+            <pre><%= pac_member.pac.description %></pre>
+
+        		<%if pac_member.pac.learning_objectives? %>
+          		<h4>TEAM OBJECTIVES</h4>
+          		<div class="objtectives">
+          			<p><%= pac_member.pac.learning_objectives %></p>
+          		</div>        
+            <%end%>
+
+            <br/><h4>TEAM MEMBERS</h4>
+            <% unless pac_member.pac.pac_members.empty? %>  
+              <div>
+                <% pac_member.pac.pac_members.each do |pm| %>
+                <p><%= pm.member.name %> | <%= mail_to pm.member.email %></p>
+              <% end %>
+              </div>
+              
+             <% end %>
+          </div>
+      </div>
+  </div>
+
+</div>
+
+
+ <div id="approve_recommendation">
+ <%= f.button :submit, 'Approve', :class => 'btn btn-large btn-primary roundedge' %>
+</div>
+
+<%end%>

@@ -1,0 +1,19 @@
+development:
+  consumer_key: mpibxdpwbwry
+  consumer_secret: gYtIB40i4IZsEVhV
+  name: 'Serve2perform - Local'
+
+test:
+  consumer_key: mpibxdpwbwry
+  consumer_secret: gYtIB40i4IZsEVhV
+  name: 'Serve2perform - Local'
+
+production:
+  consumer_key: oh6kqy4u7ytn
+  consumer_secret: KxStLqVUAYydw39J
+  name: 'Serve2perform - Stage'
+
+staging:
+  consumer_key: mpibxdpwbwry
+  consumer_secret: gYtIB40i4IZsEVhV
+  name: 'Serve2perform - Local'

@@ -1,0 +1,237 @@
+@import "master";
+
+#best_practice_link_title{
+	width: 90%;
+}
+
+#best_practice_ext_link {
+	width: 90%;
+	height: 20px;
+}
+
+#best_practice_emb_link {
+	width: 90%;
+	height: 75px;
+}
+
+#best_practice_idea_help {
+	width: 90%;
+}
+
+.idea-header1 {
+	font-size: 50px;
+	font-weight: normal;
+	color: #2c9a47;
+}
+
+.idea-header2 {
+	font-weight: normal;
+	font-size: 50px;
+	color: #E67E22;
+}
+
+.best-practice-header {
+  font: $display1;
+  color: $primary-color;
+  padding-bottom: 10px;
+  line-height: normal;
+} 
+
+#best_practice_title, #best_practice_body{
+  width: 100%
+}
+
+.bp-btm-buttons {
+	font-size: 17px;
+	padding-bottom: 12px;
+}
+
+.best_practices {
+  .knockout-headline {
+    font: $knockout-headline;
+    color: $nutral-color4;
+    text-transform: uppercase;
+    padding: 16px;
+  }
+}
+
+span.help-inline {
+		display: none;
+	}
+	.error {
+		span.help-inline {
+			display: block;
+		}
+		.chzn-choices {
+			border: 1px solid #b94a48;
+		}
+	}
+
+.best_practices.new{
+	.btn-primary{
+		margin-left: 0;
+	}
+  input[type="text"]{
+    box-sizing: border-box;
+    height: 36px;
+  }
+	.advanced-options-button{
+		color: $nutral-color3;
+		cursor: pointer;
+		font: $subhead;
+		text-decoration: underline;
+	}
+}
+
+.best_practices.edit {
+  .knockout-title {
+    font: $knockout-page-title;
+    text-transform: uppercase;
+  }
+}
+
+.best_practices.show{
+  .container{
+    background-color: transparent;
+    box-shadow: none;
+    padding: 0;
+  }
+  .user-chip{
+    background-color: transparent;
+    cursor: pointer;
+    display: block;
+    height: 36px;
+    left: -16px;
+    padding: 16px;
+    position: relative;
+    text-decoration: none;
+    top: -16px;
+    transition: all $fast;
+    width: 100%;
+    &:hover{
+      background-color: $nutral-color2;
+    }
+    .picture{
+      border-radius: 50%;
+      display: block;
+      height: 36px;
+      overflow: hidden;
+      position: absolute;
+      width: 36px;
+      img{
+        display: block;
+        height: 100%;
+        position: relative;
+        width: 100%;
+      }
+    }
+    .name{
+      color: $primary-color;
+      line-height: 36px;
+      padding-left: 56px;
+    }
+  }
+  .column{
+    box-sizing: border-box;
+    display: block;
+    margin-bottom: 16px;
+    position: relative;
+    .title{
+      color: $primary-color;
+      font: $headline;
+      padding-bottom: 8px;
+    }
+    .info{
+      color: $nutral-color3;
+      font: $caption;
+      line-height: 16px;
+      padding-bottom: 8px;
+      .primary-color{
+        color: $primary-color;
+      }
+    }
+    .likes{
+      cursor: pointer;
+    }
+    .likers{
+      background-color: $nutral-color4;
+      color: $nutral-color1;
+      display: inline;
+      opacity: 0;
+      padding: 8px;
+      position: absolute;
+      @include transition(all, $fast, linear);
+    }
+    .likers-active{
+      opacity: 1;
+    }
+    .like{
+      color: $primary-color;
+    }
+    .liked{
+      display: none;
+    }
+    .body{
+      text-align: left;
+    }
+    .subhead{
+      color: $nutral-color4;
+      font: $subhead;
+      font-weight: bold;
+      padding: 8px 0;
+    }
+  }
+  .column.small{
+    z-index: 10;
+  }
+  .field{
+    textarea{
+      box-sizing: border-box;
+      padding: 8px;
+      width: 100%;
+    }
+  }
+}
+
+/* desktop ================================================== */
+
+@media (min-width: $desktop-min) {
+
+  .best_practices.show{
+    .column{
+      float: left;
+      padding-right: 16px;
+    }
+    .column.small{
+      width: 24%;
+    }
+    .column.large{
+      width: 70%;
+    }
+  }
+
+}
+
+
+/* tablet & phone ================================================== */
+
+@media (max-width: $tablet-max) {
+
+  .best_practices.new{
+    .span7{
+    	width: auto;
+    }
+  }
+
+  .best_practices.show{
+    .column{
+      float: none;
+      padding-right: 0;
+      width: 100%;
+      .user-chip{
+        left: -16px;
+      }
+    }
+  }
+
+}

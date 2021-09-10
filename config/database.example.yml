@@ -1,0 +1,30 @@
+development:
+  adapter: postgis
+  encoding: unicode
+  postgis_extension: true
+  schema_search_path: public,postgis
+  pool: 5
+  host: localhost
+  database: serve2perform_development
+  username: serve2perform
+
+test:
+  adapter: postgis
+  encoding: unicode
+  postgis_extension: true
+  schema_search_path: public,postgis
+  pool: 5
+  host: localhost
+  database: serve2perform_test
+  username: serve2perform
+
+# This will be changed in production 
+# really this is only for testing purposes
+production:
+  adapter: postgis
+  encoding: unicode
+  postgis_extension: true
+  schema_search_path: public,postgis
+  pool: 5
+  database: serve2perform_production
+  username: serve2perform

@@ -1,0 +1,372 @@
+<%= stylesheet_link_tag "application/result", :media => "all" %> 
+<%= stylesheet_link_tag "application/skills", :media => "all" %> 
+<%= form_tag skills_path, :form_of_learning_id => "question", :organization_id => current_user.organization.id, :method => "GET" do %>
+  <h2 style=" font-size:22px; display: none;">Hello <%= current_user.name %></h2> 
+  <div class="text-search" style="display: none;">
+    <%= text_field_tag 'text', params[:text], :class => "span12", :placeholder => "Search by Title or Description", :style => "margin-left:295px" %>
+    <%= submit_tag '' ,:class => "span13" %>
+  </div>
+  <div class="filter">
+    <div class="sort">
+      <%= check_box_tag 'trending', {}, params[:trending], :id => "squaredOne"%>
+      <label for="squaredOne" class="trend_label checkbox-container">
+        <div class="checkbox">
+          <span class="checkmark">
+            <span class="stroke1"></span>
+            <span class="stroke2"></span>
+          </span>
+        </div>
+        <div class="checkbox-label">Trending</div>
+      </label>
+
+      <%= check_box_tag 'popular', {}, params[:popular], :id => "squaredTwo"%>
+      <label for="squaredTwo" class="trend_label">
+        <div class="checkbox">
+          <span class="checkmark">
+            <span class="stroke1"></span>
+            <span class="stroke2"></span>
+          </span>
+        </div>
+        <div class="checkbox-label">Popular</div>
+      </label>
+        
+        <%= check_box_tag 'newest', {}, params[:newest], :id => "squaredThree"%>
+        <label for="squaredThree" class="trend_label">
+          <div class="checkbox">
+            <span class="checkmark">
+              <span class="stroke1"></span>
+              <span class="stroke2"></span>
+            </span>
+          </div>
+          <div class="checkbox-label">Newest</div>
+        </label>
+
+      <div class="clear"></div>
+      <%= submit_tag 'Update', :class => "btn btn-large btn-primary roundedge"%>
+    </div>
+  </div>
+
+
+
+
+
+
+
+<!-- SKIP TO THIS PART ================================= -->
+
+
+  <%if @skills.length == 0%>
+     No posts found. Try searching again with different criteria.
+  <%else%>
+    <div id="vsas">
+      <% Array(@skills).reverse.each_with_index do |opp, i| %>  <!-- Get the logic out of this view!!! -->
+        <% if opp.class.name == "Opportunity" %>
+          <% if User.exists?(:id => opp.owner_id) %>
+            <div class="vsa result">
+              <div class="head" style="height:50px;">
+                <h4 class="opphead">
+                  mentor
+                </h4>
+              </div>
+              <div>
+                <h5 style="margin-bottom:0px;">
+                  <% if opp.learning_objectives.present? %>
+                    <div class="oppname">
+                      <%= opp.learning_objectives %>
+                    </div>
+                  <% end %>
+                <%#= link_to opp.owner.name, user_path(opp.owner.id), :class => "oppname" %>
+                </h5>              
+              </div>  
+              <div class="competencies" style="padding-bottom:10px;">
+                <% if opp.owner.organization_id.present? && opp.owner.organization.active_license?  %>
+                  <center>
+                    <%#= image_tag(opp.owner.organization.avatar.url, :class => "skill_logo") %>
+                  </center>
+                <% end %>
+              </div>
+              <% if opp.owner.organization.present? %>
+                <div class="description">
+                  <%= opp.owner.organization.title %>
+                </div>
+              <%end%>
+              <div class="card-info">
+                <%- if opp.created_at.present? %>
+                  <div class="card-timestamp">
+                    <%= opp.created_at.strftime("%d %b %Y") %>
+                  </div>
+                <% end %>
+              </div>
+              <div class="bottom">
+                <% if opp.opportunity_applications.present? %>
+                  <center>
+                    <div class ="disabled">
+                      connection made
+                    </div>
+                  </center>
+                <%else%> 
+                  <%= link_to user_path(User.find(opp.owner_id)), :class => "user-chip" do %>
+                    <div class="card-image">
+                      <%= image_tag User.find(opp.owner_id).avatar.url %>
+                    </div>
+                    <div class="user-name"><%= User.find(opp.owner_id).name %></div>
+                  <% end %>
+                  <center>  
+                    <%= link_to "see full post", opportunity_path(opp), :class => "learnbutton btn-primary" %>
+                  </center>
+                <%end%>
+              </div>
+            </div>
+          <% end %>
+        <% elsif opp.class.name == "BestPractice" %>
+          <div class="vsa result" >
+            <div class="head" style="padding-bottom:1px;height:50px;">
+              <div>
+                <h4 class="opphead">insight</h4>
+              </div>
+            </div>
+            <div>
+              <h4> <span class="ideaname"><%= opp.title %></span> <% if opp.emb_link? %><%= image_tag("video_icon_black.png",:alt =>"video_icon_black" ,:class => "fc-icons") %><% end %> <% if opp.ext_link? %><%= image_tag("link_icon_black.png", :class => "fc-icons") %><% end %><% if opp.documents? %><%= image_tag("dociconblack.png",:alt=>"dociconblack", :class => "fc-icons") %><% end %><% if opp.audio? %><%= image_tag("audio_icon_black.png", :alt =>'audio_icon_black', :class => "fc-icons") %><% end %></h4>
+            </div>
+            <div class="description" >
+              <%= truncate(opp.body, :length => 145) %>
+            </div>
+            <div class="card-info">
+              <div class="card-timestamp">
+                <%= opp.created_at.strftime("%d %b %Y") %>   
+              </div>
+              <div class="card-stats">
+                <% unless opp.likers(User).count == 0 %>
+                <div class="info-divider">|</div>
+                <%if opp.likers(User).count == 1 %><span class="orangenum"><%= opp.likers(User).count %></span> <span class="bluelike">Like</span><%else%><span class="orangenum"><%= opp.likers(User).count %></span> <span class="bluelike"> Likes</span><%end%>
+                <% end %>
+                <% unless opp.comments.count == 0 %> 
+                <% if opp.comments.count == 1 %><span class="orangenum"><%= opp.comments.count %></span> <span class="bluelike"> Comment</span><%else%><span class="orangenum"><%= opp.comments.count %></span> <span class="bluelike"> Comments</span><%end%>
+                <% end %>
+              </div>
+            </div>
+            <div class="bottom">
+              <%= link_to user_path(User.find(opp.user_id)), :class => "user-chip" do %>
+                <div class="card-image">
+                  <%= image_tag User.find(opp.user_id).avatar.url %>
+                </div>
+                <div class="user-name"><%= User.find(opp.user_id).name %></div>
+              <% end %>
+              <center>
+                <%= link_to "see full insight", best_practice_path(opp), :class => "learnbutton btn-primary" %>
+              </center>
+            </div>
+          </div>
+        <% elsif opp.class.name == "Inquiry" %>
+          <div class="vsa result" >
+            <div class="head" style="padding-bottom:1px;height:50px;">
+              <div>
+                <h4 class="opphead">question</h4>
+              </div>
+            </div>
+            <div>
+              <h4> 
+                <span class="ideaname"><%= opp.title %></span> 
+                <% if opp.documents? %>
+                  <%= image_tag("dociconblack.png", :class => "fc-icons") %>
+                <% end %>
+              </h4>
+            </div>
+            <div class="description">
+              <%= truncate(opp.body, :length => 145) %>
+            </div>
+            <div class="card-info">
+              <div class="card-timestamp">
+                <%= opp.created_at.strftime("%d %b %Y") %>   
+              </div>
+              <div class="card-stats">
+                <% unless opp.likers(User).count == 0 %>
+                <div class="info-divider">|</div>
+                <%if opp.likers(User).count == 1 %><span class="orangenum"><%= opp.likers(User).count %></span> <span class="bluelike">Like</span><%else%><span class="orangenum"><%= opp.likers(User).count %></span> <span class="bluelike"> Likes</span><%end%>
+                <% end %>
+                <% unless opp.comments.count == 0 %> 
+                <% if opp.comments.count == 1 %><span class="orangenum"><%= opp.comments.count %></span> <span class="bluelike"> Comment</span><%else%><span class="orangenum"><%= opp.comments.count %></span> <span class="bluelike"> Comments</span><%end%>
+                <% end %>
+              </div>
+            </div>
+            <div class="bottom">
+              <%= link_to user_path(User.find(opp.user_id)), :class => "user-chip" do %>
+                <div class="card-image">
+                  <%= image_tag User.find(opp.user_id).avatar.url %>
+                </div>
+                <div class="user-name"><%= User.find(opp.user_id).name %></div>
+              <% end %>
+              <div class="clear"></div>
+              <center>
+                <%= link_to "see full question", inquiry_path(opp), :class => "learnbutton btn-primary" %>
+              </center>
+            </div>
+          </div>
+        <% elsif opp.class.name == "FastContent" %>
+          <div class="vsa result" >
+            <div class="head" style="padding-bottom:1px;height:50px;">
+              <div>
+                <h4 class="opphead">resource</h4>
+              </div>
+            </div>
+            <div>
+              <h4> 
+                <span class="ideaname"><%= opp.topic %></span> 
+                <% if opp.documents? %>
+                  <%= image_tag("dociconblack.png", :class => "fc-icons") %>
+                <% end %>
+              </h4>
+            </div>
+            <div class="description">
+              <%= truncate(opp.description, :length => 145) %>
+            </div>
+            <div class="card-info">
+              <div class="card-timestamp">
+                <%= opp.created_at.strftime("%d %b %Y") %>   
+              </div>
+            </div>
+            <div class="bottom">
+              <%= link_to user_path(User.find(opp.user_id)), :class => "user-chip" do %>
+                <div class="card-image">
+                  <%= image_tag User.find(opp.user_id).avatar.url %>
+                </div>
+                <div class="user-name"><%= User.find(opp.user_id).name %></div>
+              <% end %>
+              <div class="clear"></div>
+              <center>
+                <%= link_to "see full resource", fast_content_path(opp), :class => "learnbutton btn-primary" %>
+              </center>
+            </div>
+          </div>
+        <% elsif opp.class.name == "Pac" %>
+          <div class="vsa result">
+            <div class="head" style="padding-bottom:1px;height:50px;">
+              <div>
+                <h4 class="opphead">pac</h4>
+              </div>
+            </div>
+            <div>
+              <h5 style="margin-bottom:0px;">
+                <div class="oppname">
+                  <%= opp.title %>
+                <%#= link_to opp.owner.name, user_path(opp.owner.id), :class => "oppname" %>
+                </div>
+              </h5>                    
+            </div>  
+            <div class="competencies">
+              <% if opp.owner.organization_id.present? && opp.owner.organization.active_license?  %>
+                <center>
+                  <%#= image_tag(opp.owner.organization.avatar.url,:class => "skill_logo") %>
+                </center>
+              <% end %>
+            </div>
+            <div class="description" style="padding-top:10px;">
+              <%= opp.organization.try(:title) %>
+            </div>
+            <div class="card-info">
+              <div class="card-timestamp">
+                <%= opp.created_at.strftime("%d %b %Y") %>
+              </div>
+            </div>
+            <div class="bottom">
+              <%= link_to user_path(User.find(opp.owner_id)), :class => "user-chip" do %>
+                <div class="card-image">
+                  <%= image_tag User.find(opp.owner_id).avatar.url %>
+                </div>
+                <div class="user-name"><%= User.find(opp.owner_id).name %></div>
+              <% end %>
+              <% if opp.deadline_date.present? && opp.deadline_date < Time.now %>
+                <center>
+                  <div class ="disabled">
+                    pac completed
+                  </div>
+                </center>
+              <%else%> 
+                <center>  
+                  <%= link_to "view pac", pac_path(opp), :class => "learnbutton btn-primary" %>
+                </center>
+              <%end%>
+            </div>
+          </div>
+        <% else %>
+          <% if User.find(opp.user_id).organization_id == current_user.organization_id %>
+            <div class="vsa result">
+              <div class="head" style="height:50px;"> 
+                <h4 class="opphead">
+                  mentor
+                </h4>
+              </div>
+              <div class="oppname">
+                recommended
+              </div>
+              <div>
+                <h5 style="margin-bottom:0px;">
+                  <% if opp.rec_type.present? %>
+                    <div class="oppname">
+                      <%= opp.rec_type %>
+                    </div>
+                  <% end %>
+                  <%#= link_to truncate(opp.user.name, :length => 20), user_path(opp.user.id), :class => "oppname" %>
+                </h5>
+              </div> 
+              <% if opp.user.organization_id? && opp.user.organization.active_license? %>
+                <center>
+                  <%#= image_tag(opp.user.organization.avatar.url, :class => "skill_logo") %>
+                </center>
+              <% end %>
+              <% if opp.user.organization.present? %>
+                <div class="description" style="padding-top:10px;">
+                  <%= opp.user.organization.title %>
+                </div>
+              <%end%>
+              <div class="card-info">
+                <div class="card-timestamp">
+                  <%= opp.created_at.strftime("%d %b %Y") %>   
+                </div>
+                <div class="card-stats">
+                  <% unless opp.likers(User).count == 0 %>
+                  <div class="info-divider">|</div>
+                  <%if opp.likers(User).count == 1 %><span class="orangenum"><%= opp.likers(User).count %></span> <span class="bluelike">Like</span><%else%><span class="orangenum"><%= opp.likers(User).count %></span> <span class="bluelike"> Likes</span><%end%>
+                  <% end %>
+                  <% unless opp.comments.count == 0 %> 
+                  <% if opp.comments.count == 1 %><span class="orangenum"><%= opp.comments.count %></span> <span class="bluelike"> Comment</span><%else%><span class="orangenum"><%= opp.comments.count %></span> <span class="bluelike"> Comments</span><%end%>
+                  <% end %>
+                </div>
+              </div>
+              <div class="bottom">
+                <% if User.exists?(:id => opp.user_id) %>
+                  <%= link_to user_path(User.find(opp.user_id)), :class => "user-chip" do %>
+                    <div class="card-image">
+                      <%= image_tag User.find(opp.user_id).avatar.url %>
+                    </div>
+                    <div class="user-name"><%= User.find(opp.user_id).name %></div>
+                  <% end %>
+                <% end %>
+                <% if opp.recommendation_applications.present? %>
+                  <% if opp.recommendation_applications.sort_by{ |e| e[:created_at]}.first.created_at < Time.now && opp.recommendation_applications.sort_by{ |e| e[:created_at]}.first.created_at > Time.now - 60.days %> <!-- Get the logic out of this view!!! -->
+                    <center>
+                      <div class ="disabled">
+                        connection made
+                      </div>
+                    </center>
+                  <%else%>
+                    <center>
+                      <%= link_to "see full post", recommendation_path(opp), :class =>"learnbutton btn-primary" %>
+                    </center>
+                  <%end%>
+                <%else%>
+                  <center>
+                    <%= link_to "see full post", recommendation_path(opp), :class =>"learnbutton btn-primary" %>
+                  </center>
+                <%end%>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+
+      <% end %>
+    </div>
+  <%end%>    
+<% end %>
+
+

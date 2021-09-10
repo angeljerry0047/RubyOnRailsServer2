@@ -1,0 +1,69 @@
+.invites {
+  .search_header {
+    padding: 0 10px;
+    width: 840px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: right;
+    margin-bottom: 15px;
+    .query {
+      font-size: 20px;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+    form {
+      input[type=text] {
+        padding: 3px;
+        margin-bottom: 0;
+      }
+    }
+  }
+  .content {
+    text-align: center;
+  }
+  .connection {
+    border: 1px solid #CCC;
+    text-align: center;
+    display: inline-block;
+    padding: 10px 15px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    width: 170px;
+    height: 155px; 
+    &.private {
+    }
+  }
+  form {
+    input[type=submit]:disabled, button:disabled {
+      background-color: #004C93;
+      color: #FFF;
+    }
+    margin-bottom: 0px;
+    img {
+      border: 1px solid #1A6D48;
+      height: 82px;
+      margin: 10px 0;
+    }
+    input[type="submit"] {
+      border: 1px solid #1A6D48;
+      background-color: #2CC45E;
+      color: #FFF;
+    }
+  }
+  .pagination {
+    border-top: 1px solid #CCC;
+    padding-top: 30px;
+    margin-top: 20px;
+    a {
+      border: 1px solid #ccc;
+      padding: 2px 5px;
+      margin-right: 5px;
+      font-size: 20px;
+      &.active {
+        background-color: #0088cc;
+        border: 1px solid #1A6D48;
+        color: #FFF;
+      }
+    }
+  }
+}

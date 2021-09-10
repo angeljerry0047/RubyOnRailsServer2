@@ -1,0 +1,122 @@
+<%= stylesheet_link_tag "application/list-post", :media => "all" %>
+
+<div class="filter-group-list">
+  <div class="filter-group-head">
+    Show content from:
+  </div>
+  <% current_user.unique_groups.each do |group| %>
+    <div class="filter-group-item">
+      <%= link_to group.title, inquiries_path(:organization_id => group.id) %>
+    </div>
+  <% end %>
+  <div class="filter-group-item show-all">
+    <%= link_to "All Groups", inquiries_path() %>
+  </div>
+</div>
+
+<% if @inquiries.count < 1 %>
+  <div class="no-post-message">Looks like no one in this group has posted a question yet.</div>
+  <%= link_to "Ask a question now", new_inquiry_path(), :class => "btn-primary" %>
+<% else %>
+
+  <div class="table-head">
+    <div class="main-column">
+      <div class="title">Title</div>
+    </div>
+    <div class="user-column">User</div>
+  </div>
+  <div class="clear"></div>
+
+  <% @inquiries.sort_by{ |p| p.created_at}.reverse.each do |post| %>
+    <% if User.exists?(:id => post.user_id) %>
+      <%= link_to inquiry_path(post), :class => "list-post ripple-button" do %>
+
+        <div class="list-main">
+          <div class="title"><%= post.title %></div>
+          <div class="info">
+            <span class="org-title"><%= Organization.find(post.organization_id).title %></span>
+            <br/>
+            <% if ((Time.now - post.created_at)/3600).floor < 1 && ((Time.now - post.created_at)/60).floor != 1 %>
+              Posted <span class="number">
+              <%= ((Time.now - post.created_at)/60).floor %>
+              </span> minutes ago
+            <% elsif ((Time.now - post.created_at)/60).floor == 1 %>
+              Posted <span class="number">
+              1</span> minute ago
+            <% elsif ((Time.now - post.created_at)/3600).floor < 24 && ((Time.now - post.created_at)/3600).floor != 1 %>
+              Posted <span class="number">
+              <%= ((Time.now - post.created_at)/3600).floor %>
+              </span> hours ago
+            <% elsif ((Time.now - post.created_at)/3600).floor ==1 %>
+              Posted <span class="number">
+              1</span> hour ago
+            <% else %>
+              <span>
+              <%= (post.created_at).strftime("%d %b %Y") %>
+              </span>
+            <% end %>
+            <span> • </span>
+            <span class="number">
+              <%= post.likers(User).count %>
+            </span> Likes
+            <span> • </span>
+            <span class="number">
+              <%= post.comments.count %>
+            </span> Answers <!-- this should be "Comments" if not on inquiries, otherwise "Answers" -->
+          </div>
+        </div>
+
+        <div class="post-list-user">
+          <div class="user-chip">
+            <div class="user-image">
+              <%= image_tag User.find(post.user_id).avatar.url %>
+            </div>
+            <div class="user-name">
+              <%= User.find(post.user_id).name %>
+            </div>
+          </div>
+        </div>
+        <div class="clear"></div>
+
+      <% end #link to post path %>
+    <% end #if user exists %>
+  <% end #do for each post %>
+<% end #if there are posts here %>
+
+<div class="clear"></div>
+
+<table style="display:none;">
+  <tr>
+    <th>Title</th>
+    <th>Body</th>
+    <th>User</th>
+    <th>Organization</th>
+    <th>Category</th>
+    <th>Best practice category</th>
+    <th>Document</th>
+    <th>Is public</th>
+    <th>Got point</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @inquiries.each do |inquiry| %>
+  <tr>
+    <td><%= inquiry.title %></td>
+    <td><%= inquiry.body %></td>
+    <td><%= inquiry.user_id %></td>
+    <td><%= inquiry.organization_id %></td>
+    <td><%= inquiry.category %></td>
+    <td><%= inquiry.best_practice_category_id %></td>
+    <td><%= inquiry.documents %></td>
+    <td><%= inquiry.is_public %></td>
+    <td><%= inquiry.got_point %></td>
+    <td><%= link_to 'Show', inquiry %></td>
+    <td><%= link_to 'Edit', edit_inquiry_path(inquiry) %></td>
+    <td><%= link_to 'Destroy', inquiry, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<%#= link_to 'New Inquiry', new_inquiry_path %>

@@ -1,0 +1,43 @@
+@import "master";
+
+#comments {
+	background: transparent;
+}
+
+.comment {
+  .picture{
+    border-radius: 50%;
+    display: block;
+    height: 36px;
+    overflow: hidden;
+    position: absolute;
+    width: 36px;
+    img{
+      display: block;
+      height: 100%;
+      position: relative;
+      width: 100%;
+    }
+  }
+  .info{
+    display: block;
+    margin-left: 52px;
+    position: relative;
+    .name{
+      color: $primary-color;
+      font: $caption;
+      text-decoration: none;
+      &:hover{
+        text-decoration: none;
+      }
+    }
+    .date{
+      color: $nutral-color3;
+      font: $caption;
+    }
+    .text{
+      color: $nutral-color4;
+      font: $body1;
+    }
+  }
+}

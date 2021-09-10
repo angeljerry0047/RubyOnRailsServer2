@@ -1,0 +1,8 @@
+<ul>
+  <% children.each do |c| %>
+    <li>
+      <%= c.title %> <%= c.id %>
+      <%= render 'shared/recursive_ul', :children => c.children %>
+    </li>
+  <% end %>
+</ul>

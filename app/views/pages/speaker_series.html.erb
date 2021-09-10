@@ -1,0 +1,99 @@
+<% title "speaker series" %>
+<!--to update page after evergreen, update speaker information and remove comment tags. DOUBLE CHECK ALIGNMENTS!!! zm 6/3/14 -->
+<% if !user_signed_in? %>
+	<div class="speaker-signups"><h2 style="color:#e47b2c; text-align:center; padding-right:75px;">Speaker Series</h2>
+	<div style="font-size: 18px; text-align:center; padding-right:75px;"><font color="#006699">Leadership. Influence. Performance.</font></div>
+						<br/>
+						<div style="width:450px;"><b>Thank you all</b> for your continued support of our serve2perform Speaker
+						Series.</div>
+						 
+						 <h3 style="color:#e47b2c; margin-bottom: 0px">Hear from our past speakers</h3>
+
+						 <div style="font-size: 18px;"><font color="#006699"><em>click name to access speech</em></font></div>
+						 
+						
+						 <div class="speakers" style="clear:left;"><div style="float:left; margin-right:10px;"><%= image_tag "josteinsolhiem.jpg" , :alt =>'josteinsolhiem'%></div><div><a href="https://vimeo.com/87582290" target="blank">Jostein Solhiem</a><br />CEO, Ben & Jerry's Homemade, Inc</div></div>
+
+						 <div class="speakers" style="clear:left; padding-top: 5px;"><div style="float:left; margin-right:10px;"><%= image_tag "jefffurman.png", :alt =>'jefffurman' %></div><div><a href="https://vimeo.com/87582290" target="blank">Jeff Furman</a><br />Chair of the Board, Ben & Jerry's Homemade, Inc</div></div>
+
+						 <div class="speakers" style="clear:left; padding-top: 5px;"><div style="float:left; margin-right:10px;"><%= image_tag "marcosjimenez.jpg", :alt =>'marcosjimenez' %></div><div><a href="https://vimeo.com/92743054" target="blank">Marcos Jimenez</a><br />CEO, Softtek USA</div></div>
+
+						 <div class="speakers" style="clear:left; padding-top: 5px;"><div style="float:left; margin-right:10px;"><%= image_tag "donniesmith.jpg", :alt =>'donniesmith', :style => "width:84px; height:84px;" %></div><div><a href="http://youtu.be/SUpE7HYb0Rc" target="blank">Donnie Smith</a><br />CEO & President, Tyson Foods, Inc.</div></div>
+						</div>
+	<div class="speaker-tease">
+		<h3 style="color:#e47b2c; text-align:center;">Shelley Simpson of J.B. Hunt on Influence</h3>
+	<div style="text-align: left"><!--<%= image_tag "ssjbhunt.png" %> -->
+		<iframe class="speaker-video" src="//player.vimeo.com/video/98478518" width="430" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div>
+	<div style="clear:both">	
+
+	<br />
+	<strong>Shelley Simpson is the Chief Marketing Officer of J.B. Hunt Transport Services, Inc., President of J.B. Hunt Integrated Capacity Solutions (ICS) and Truck, and is an Executive Vice President of the parent company.  </strong> She spoke on how to scale your influence. <br /><br />
+  	<b>Thank you</b> to all who attended the event, both in person and virtually. Your support helps drive this series further!
+	</div>
+
+	</div>
+<%else%>
+	<div class="speaker-signups"><h2 style="color:#e47b2c; text-align:center; padding-right:75px;">Speaker Series</h2>
+	<div style="font-size: 18px; text-align:center; padding-right:75px;"><font color="#006699">Leadership. Influence. Performance.</font></div>
+						<br/>
+						<div style="width:450px;"><b>Thank you all</b> for your continued support of our serve2perform Speaker
+						Series. </div>
+
+						
+						 <h3 style="color:#e47b2c; margin-bottom: 0px">Hear from our past speakers</h3>
+
+						 <div style="font-size: 18px;"><font color="#006699"><em>click name to access speech</em></font></div>
+
+						 <div class="speakers" style="clear:left;"><div style="float:left; margin-right:10px;"><%= image_tag "josteinsolhiem.jpg" %></div><div><a href="https://vimeo.com/87582290" target="blank">Jostein Solhiem</a><br />CEO, Ben & Jerry's Homemade, Inc</div></div>
+
+						 <div class="speakers" style="clear:left; padding-top: 5px;"><div style="float:left; margin-right:10px;"><%= image_tag "jefffurman.png" %></div><div><a href="https://vimeo.com/87582290" target="blank">Jeff Furman</a><br />Chair of the Board, Ben & Jerry's Homemade, Inc</div></div>
+
+						 <div class="speakers" style="clear:left; padding-top: 5px;"><div style="float:left; margin-right:10px;"><%= image_tag "marcosjimenez.jpg" %></div><div><a href="https://vimeo.com/92743054" target="blank">Marcos Jimenez</a><br />CEO, Softtek USA</div></div>
+
+						 <div class="speakers" style="clear:left; padding-top: 5px;"><div style="float:left; margin-right:10px;"><%= image_tag "donniesmith.jpg", :style => "width:84px; height:84px;" %></div><div><a href="http://youtu.be/SUpE7HYb0Rc" target="blank">Donnie Smith</a><br />CEO & President, Tyson Foods, Inc.</div></div>
+						 <br /><br /><br/>
+						
+						</div>
+
+	<div class="speaker-tease">
+		<h3 style="color:#e47b2c; text-align:center;">Shelley Simpson of J.B. Hunt on Influence</h3>
+	<div style="text-align: left"><!--<%= image_tag "ssjbhunt.png" %> -->
+		<iframe class="speaker-video" src="//player.vimeo.com/video/98478518" width="430" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> </div>
+	<div style="clear:both">	
+
+	<br />
+	<strong>Shelley Simpson is the Chief Marketing Officer of J.B. Hunt Transport Services, Inc., President of J.B. Hunt Integrated Capacity Solutions (ICS) and Truck, and is an Executive Vice President of the parent company.  </strong>She spoke on how to scale your influence. <br /><br />
+  	<b>Thank you</b> to all who attended the event, both in person and virtually. Your support helps drive this series further!
+	</div>
+	</div>
+<% end %>
+
+<div class="speaker-testimonials" style="padding-top:10px;">
+<h3>What Members are Saying</h3>
+<em>“If you’re seeking a way to supercharge your work day, I think it would be tough to find a better way 
+to start your morning than the serve2perform Speakers Series. Just the networking alone was great, 
+offering face time with regional leaders representing a wide range of businesses and non-profits. But 
+then, to have the opportunity to hear and ask questions of business giants from a legendary company 
+on a topic of particular importance to me—what a treat and learning experience right here in my own
+backyard! I am so anxious to hear who will be coming to northwest Arkansas next!”</em>
+<br />
+<br />
+<strong>Kelly Zega</strong>
+<br />
+<strong>Public Affairs</strong>
+<br />
+<strong>Cox Communications</strong>
+<br />
+<br />
+<em>“Even though I watched the presentation and listened to the dialogue via Webinar, I was still 
+very connected to the audience and the speaker in question. When I needed to ask a question, the 
+webinar format was user friendly enough that it allowed me to ask one without any difficulty. I look 
+forward to future Speaker Series and being exposed to more interesting people from around the world.”</em>
+<br />
+<br />
+<strong>Deron Bankston</strong>
+<br />
+<strong>IT Service Management – RFP & Contracts Manager</strong>
+<br />
+<strong>Corning Incorporated</strong>
+</div>

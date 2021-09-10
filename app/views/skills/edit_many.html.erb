@@ -1,0 +1,26 @@
+<%= stylesheet_link_tag "application/skills", :media => "all" %>
+<% title "manage my post" %>
+<div class='span12' style="margin-left:0px;">
+  <div class="topper">
+      <h4 class="pull-left">My Active Posts</h4>
+  </div>
+  
+  <%= render 'skill_table', :opportunities => @owned_opportunities %>
+  
+  <div class="head_wrap"><h4>My Deactivated Posts</h4></div>
+  <%= render 'skill_table_historical', :opportunities => @past_opportunities %>
+
+  <div class="head_wrap"><h4>My Action Plans</h4></div>
+  <%= render 'skill_table_action_plans', :action_plans => @action_plans %>
+
+<div class="head_wrap"><h4>My Collaboration Team</h4></div>
+ <%= render 'skill_table_collaboration_teams', :pacs => @pacs %>
+
+
+
+ <div class="head_wrap"><h4>My Performance Feedback</h4></div>
+  <%= render 'skill_table_feedback', :opportunities => current_user.opportunities_with_feedback %>
+
+</div>
+
+<%= render 'devise/registrations/auto_complete_org_name' %>

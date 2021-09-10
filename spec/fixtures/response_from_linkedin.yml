@@ -1,0 +1,48 @@
+--- !ruby/hash:LinkedIn::Mash
+company_type: !ruby/hash:LinkedIn::Mash
+  code: C
+  name: Public Company
+founded_year: 1911
+description: ! "IBM is a global technology and innovation company headquartered in
+  Armonk, NY.  It is the largest technology and consulting employer in the world,
+  with approximately 427,000 employees serving clients in 170 countries. IBM offers
+  a wide range of technology and consulting services; a broad portfolio of middleware
+  for collaboration, predictive analytics, software development and systems management;
+  and the world's most advanced servers and supercomputers. Utilizing its business
+  consulting, technology and R&D expertise, IBM helps clients become \"smarter\" as
+  the planet becomes more digitally interconnected. This includes working with organizations
+  and governments to build systems that improve traffic congestion, availability of
+  clean water, and the health and safety of populations. IBM invests more than $6
+  billion a year in R&D, just completing its 18th year of patent leadership. IBM Research
+  has received recognition beyond any commercial technology research organization
+  and is home to 5 Nobel Laureates, 9 US National Medals of Technology, 5 US National
+  Medals of Science, 6 Turing Awards, and 10 Inductees in US Inventors Hall of Fame.
+  The company was behind the inventions of the PC; SABRE travel reservation system;
+  UPC codes, Watson, the Jeopardy!-playing computing system, and much more.\r\n\r\nOfficial
+  IBM LinkedIn account. Managed by George Faulkner and Keith Kaplan. This page follows
+  the IBM Social Computing Guidelines."
+employee_count_range: !ruby/hash:LinkedIn::Mash
+  code: I
+  name: 10001+
+industries: !ruby/hash:LinkedIn::Mash
+  total: 1
+  all:
+  - !ruby/hash:LinkedIn::Mash
+    code: '96'
+    name: Information Technology & Services
+locations: !ruby/hash:LinkedIn::Mash
+  total: 1
+  all:
+  - !ruby/hash:LinkedIn::Mash
+    address: !ruby/hash:LinkedIn::Mash
+      city: Armonk, New York
+      postal_code: '10504'
+      street1: International Business Machines Corp.
+    contact_info: !ruby/hash:LinkedIn::Mash
+      fax: ''
+      phone1: ''
+name: IBM
+status: !ruby/hash:LinkedIn::Mash
+  code: OPR
+  name: Operating
+website_url: http://www.ibm.com

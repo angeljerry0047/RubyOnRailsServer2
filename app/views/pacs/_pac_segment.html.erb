@@ -1,0 +1,22 @@
+<div class='pac_segment <%= defined?(hidden) && hidden ? 'hidden': '' %>'>
+  <% if pac.errors.count > 0 %>
+  	  <% pac.errors.each do |attribute, error|  %>	 
+      	<%= bootstrap_alert(content_tag(:p, error)) %>
+      	
+  	  <% end %>	
+  <% end %>
+    <div class="row">
+      <div class="span7">
+        <%= hidden_field_tag 'pacs[][id]', pac.id %>
+        <%= hidden_field_tag 'pacs[][owner_id]', (defined?(historical) && historical) ? nil : current_user.id %>
+        <%= hidden_field_tag 'pacs[][ghost]', !!defined?(hidden) && hidden, :class => 'ghost_pac_segment' %>
+        
+        <%= render 'pacs/newform', :pac => pac %>
+      </div>
+      <div class="span5 filter" style="margin-top:0px;">    
+        <%= render 'pacs/pac_filter', :pac => pac %>
+        
+      </div>
+    </div>
+  
+</div>

@@ -1,0 +1,5 @@
+= simple_form_for(@coupon_use) do |f|
+  = f.fields_for :coupon do |builder|
+    = builder.label :code, 'Please enter your code to take the assessment'
+    = builder.input :code
+  = f.submit

@@ -1,0 +1,37 @@
+<div class="opportunity wrap row">
+  <div class="topper">
+    <div class="span12">
+      <span>Scholarships Request</span>
+    </div>
+  </div>
+  <div class="span12">
+    <div class="row">
+      <div class="span1">
+      </div>
+      <div class="span4">
+        <h5> Member </h5>
+      </div>
+      <div class="span4">
+        <h5> Skill </h5>
+      </div>
+      <div class="span6">
+      </div>  		  		  		
+    </div>
+  </div>
+  <% Array(@opportunity_scholarships).each do |os| %>
+    <div class="row">
+    <div class="span1">
+    </div>	  		
+    <div class="span4">
+      <%= os.user.name %>
+    </div>
+    <div class="span4">
+      <%= os.opportunity.title %>
+    </div>
+    <%= link_to "Accept", { :action => :scholarship_request, :id => os.id, :event => "accepted"},  :class => "btn btn-primary roundedge"  %>
+    <%= link_to "Reject", { :action => :scholarship_request, :id => os.id, :event => "rejected"},  :class => "btn btn-primary roundedge"  %>
+    <br/><br/>
+  </div>    		    	
+<% end %>
+  <br/>
+</div>

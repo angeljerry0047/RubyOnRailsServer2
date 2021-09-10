@@ -1,0 +1,28 @@
+<div class="" id="assessment-signup">
+  <div class="row">
+    <div class="span12">
+      <h2 class="page title">serve2perform® Assessment Tool</h2>
+      <h4 class="page title-sec" id="selectPath">Select your desired path below</h4>
+      <div class="span5" id="purchase">
+        <h3>Single User License</h3>
+        <h1><span class="dollar">$</span>19<span class="cents">99</span></h1>
+        <h4>*Annual Fee</h4>
+        <%= link_to 'Purchase Assessment', new_single_user_license_purchase_path(:assessment_id => params[:assessment_id]), :class => "link"%>
+      </div>
+
+      <!--	<div class="span5" id="coupon">
+                                <h3>Company Pre-Paid</h3>
+                                <h1><%= image_tag "couponicon.png" %></h1>
+                                <h4>*Check with your company for their pre-paid code</h4>
+                          <%= link_to 'Redeem', new_coupon_use_path, :class => "link" %>
+                        </div> -->
+    </div>
+
+    <div class="span12" id="skip_assess">
+      <h4><%= link_to 'Skip Assessment', edit_user_registration_path(:frm => "newuser") %></h4>
+      <h3>What is the serve2perform® Assessment?</h3>
+      <p>The Performance<span id="gpa">GPA</span><span id="tm_s">&#0153;</span> Assessment is a tool to help individuals measure their scope of leadership, influence and performance.</p>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,127 @@
+@import "master";
+
+.result{
+  background-color: $nutral-color1;
+  box-sizing: border-box;
+  box-shadow: 0 2px 4px $nutral-color3;
+  display: block;
+  overflow: hidden;
+  padding: 16px;
+  position: relative;
+  top: 0;
+  @include transition(all, $fast, ease-in-out);
+  width: 100%;
+  &:hover{
+    box-shadow: 0 2px 12px $nutral-color3;
+    top: -4px;
+  }
+  .head{
+    display: none;
+  }
+  div{
+    .oppname{
+      color: $nutral-color4;
+      font: $subhead;
+    }
+    h5{
+      margin: 0;
+      .oppname{
+        color: $primary-color;
+        font: $headline;
+      }
+    }
+    h4{
+      margin: 0;
+      padding-bottom: 16px;
+      text-transform: none;
+      .ideaname{
+        color: $primary-color;
+        font: $headline;
+      }
+    }
+  }
+  .card-info{
+    display: block;
+    height: 16px;
+    margin-top: 8px;
+    position: relative;
+    width: 100%;
+    .card-timestamp{
+      color: $nutral-color3;
+      float: left;
+      font: $caption;
+      height: 100%;
+      padding-top: 4px;
+    }
+    .info-divider{
+      color: $nutral-color3;
+      float: left;
+      height: 100%;
+      padding: 0 8px;
+    }
+    .card-stats{
+      float: left;
+      height: 100%;
+    }
+  }
+  .description{
+    color: $nutral-color4;
+    font: $body1;
+    text-align: left;
+  }
+  .orangenum{
+    color: $primary-color;
+    font: $caption;
+  }
+  .bluelike{
+    color: $nutral-color3;
+    font: $caption;
+  }
+  .bottom{
+    padding-top: 16px;
+    .learnbutton{
+      margin: 0;
+      max-width: none;
+      &:hover{
+        text-decoration: none;
+      }
+    }
+    .disabled{
+      color: $nutral-color3;
+      font: $subhead;
+      padding: 16px;
+    }
+    .user-chip{
+      background-color: $nutral-color1;
+      cursor: pointer;
+      display: block;
+      height: 36px;
+      margin-bottom: 16px;
+      position: relative;
+      width: 100%;
+      .card-image{
+        background-color: $nutral-color3;
+        border-radius: 50%;
+        display: block;
+        float: left;
+        height: 36px;
+        margin: 0;
+        overflow: hidden;
+        position: relative;
+        width: 36px;
+        img{
+          height: 100%;
+        }
+      }
+      .user-name{
+        color: $primary-color;
+        display: block;
+        float: left;
+        font: $subhead;
+        margin-left: 8px;
+        margin-top: 10px;
+        position: relative;
+      }
+    }
+  }
+}

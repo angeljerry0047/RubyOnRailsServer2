@@ -1,0 +1,175 @@
+@import "master";
+
+.mentorship_circles {
+  .knockout-headline {
+    font: $knockout-headline;
+    text-transform: uppercase;
+  }
+}
+
+.mentorship_circles.show, .collaboration_circles.show{
+  .container{
+    background-color: transparent;
+    box-shadow: none;
+    padding: 0;
+  }
+  .btn-primary {
+    max-width: 100%;
+  }
+  .user-chip{
+    background-color: transparent;
+    cursor: pointer;
+    display: block;
+    height: 36px;
+    left: -16px;
+    padding: 16px;
+    position: relative;
+    text-decoration: none;
+    top: -16px;
+    transition: all $fast;
+    width: 100%;
+    &:hover{
+      background-color: $nutral-color2;
+    }
+    .picture{
+      border-radius: 50%;
+      display: block;
+      height: 36px;
+      overflow: hidden;
+      position: absolute;
+      width: 36px;
+      img{
+        display: block;
+        height: 100%;
+        position: relative;
+        width: 100%;
+      }
+    }
+    .name{
+      color: $primary-color;
+      line-height: 36px;
+      padding-left: 56px;
+    }
+  }
+  .column{
+    box-sizing: border-box;
+    display: block;
+    margin-bottom: 16px;
+    position: relative;
+    .title{
+      color: $primary-color;
+      font: $headline;
+      padding-bottom: 8px;
+    }
+    .info{
+      color: $nutral-color3;
+      font: $caption;
+      line-height: 16px;
+      padding-bottom: 8px;
+      .primary-color{
+        color: $primary-color;
+      }
+    }
+    .like{
+      color: $primary-color;
+    }
+    .body{
+      text-align: left;
+    }
+    .subhead{
+      color: $nutral-color4;
+      font: $subhead;
+      font-weight: bold;
+      padding: 8px 0;
+    }
+    .member-list{
+      .user-chip{
+        left: 0;
+        top: 0;
+      }
+    }
+  }
+  .field{
+    textarea{
+      box-sizing: border-box;
+      padding: 8px;
+      width: 100%;
+    }
+  }
+}
+
+.mentorship_circles.new, .mentorship_circles.edit, .collaboration_circles.new{
+  .field, .control-group{
+    margin-top: 16px;
+    input, textarea{
+      box-sizing: border-box;
+      width: 100%;
+    }
+    input{
+      height: 42px;
+    }
+  }
+  .actions{
+    .btn-primary{
+      margin-left: 0;
+      max-width: none;
+    }
+  }
+}
+
+/* desktop ================================================== */
+
+@media (min-width: $desktop-min) {
+
+  .mentorship_circles.show, .collaboration_circles.show{
+    .column{
+      float: left;
+      padding-right: 16px;
+    }
+    .column.small{
+      width: 24%;
+    }
+    .column.large{
+      width: 70%;
+    }
+  }
+
+  .mentorship_circles.new, .mentorship_circles.edit, .collaboration_circles.new{
+    .headline, .field, .control-group, .actions{
+      margin: auto;
+      width: 70%;
+      select{
+        width: 32%;
+      }
+    }
+  }
+
+}
+
+
+/* tablet & phone ================================================== */
+
+@media (max-width: $tablet-max) {
+
+  .mentorship_circles.show, .collaboration_circles.show{
+    .column{
+      float: none;
+      padding-right: 0;
+      width: 100%;
+      .user-chip{
+        left: -16px;
+      }
+    }
+  }
+
+  .mentorship_circles.new, .mentorship_circles.edit, .collaboration_circles.new{
+    .field, .control-group{
+      margin-left: 0;
+      width: 100%;
+      select{
+        width: 100%;
+      }
+    }
+  }
+
+}

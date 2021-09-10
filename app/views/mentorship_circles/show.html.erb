@@ -1,0 +1,153 @@
+<%= stylesheet_link_tag "mentorship_circles", :media => "all" %>
+<%= stylesheet_link_tag "application/list-post", :media => "all" %>
+
+<div class="board">
+  <%= link_to user_path(@mentorship_circle.mentor_id), :class => "user-chip" do %>
+    <div class="picture">
+      <%= image_tag User.find(@mentorship_circle.mentor_id).avatar.url %>
+    </div>
+    <div class="name"><%=User.find(@mentorship_circle.mentor_id).name %></div>
+  <% end %>
+  <div class="column small">
+
+    <div class="info">
+      <%= Organization.find(@mentorship_circle.organization_id).title %>
+
+      </br>
+      <% if ((Time.now - @mentorship_circle.created_at)/3600).floor < 1 && ((Time.now - @mentorship_circle.created_at)/60).floor != 1 %>
+        Posted <span class="number">
+        <%= ((Time.now - @mentorship_circle.created_at)/60).floor %>
+        </span> minutes ago
+      <% elsif ((Time.now - @mentorship_circle.created_at)/60).floor == 1 %>
+        Posted <span class="number">
+        1</span> minute ago
+      <% elsif ((Time.now - @mentorship_circle.created_at)/3600).floor < 24 && ((Time.now - @mentorship_circle.created_at)/3600).floor != 1 %>
+        Posted <span class="number">
+        <%= ((Time.now - @mentorship_circle.created_at)/3600).floor %>
+        </span> hours ago
+      <% elsif ((Time.now - @mentorship_circle.created_at)/3600).floor ==1 %>
+        Posted <span class="number">
+        1</span> hour ago
+      <% else %>
+        <span>
+        <%= (@mentorship_circle.created_at).strftime("%d %b %Y") %>
+        </span>
+      <% end %>
+
+      </br>
+      <% if @mentorship_circle.start_date? && @mentorship_circle.end_date? %>
+      </br>
+        <%= @mentorship_circle.start_date.strftime("%d %b %Y") %> – <%= @mentorship_circle.end_date.strftime("%d %b %Y") %>
+	<% end %>
+	<% if @mentorship_circle.frequency? %>
+      </br>
+        <%= @mentorship_circle.frequency %>
+      <% end %>
+      <% if @mentorship_circle.meeting_time? %>
+      </br>
+        <%= @mentorship_circle.meeting_time %>
+      <% end %>
+      <% if @mentorship_circle.location? %>
+      </br>
+        <%= @mentorship_circle.location %>
+	<% end %>
+	
+
+      <%if @mentorship_circle.mentor_id == current_user.id %>
+        </br></br>
+        <%= link_to 'Edit', edit_mentorship_circle_path %>
+        | <%= link_to 'Delete', @mentorship_circle, :method => :delete, data: { confirm: 'Are you sure?'} %>
+      <% elsif (GroupAdmin.where(group_id: @mentorship_circle.organization_id, admin_id: current_user.id).exists?) %>
+        </br></br>
+        <%= link_to 'Delete', @mentorship_circle, :method => :delete, data: { confirm: 'Are you sure?'} %>
+      <%end%>
+
+
+    </div>
+  </div>
+
+  <div class="column large">
+    <div class="title"><%= @mentorship_circle.mctype %></div>
+
+
+    <!--
+    <%if @mentorship_circle.mctype? %>
+    <div class="subhead">
+      Type
+    </div>
+    <div class="body">
+      <%= @mentorship_circle.mctype %>
+    </div>
+    <% end %>
+    -->
+    
+    <%if @mentorship_circle.description? %>
+    <!--
+    <div class="subhead">
+        Description
+      </div>
+     -->
+      <div class="body">
+        <%= @mentorship_circle.description %>
+      </div>
+    <% end %>
+
+    <%if @mentorship_circle.expectations? %>
+      <div class="subhead">
+        Expectations
+      </div>
+      <div class="body">
+        <%= @mentorship_circle.expectations %>
+      </div>
+    <% end %>
+
+    <%if @mentorship_circle.expectations? %>
+      <div class="subhead">
+        Members <i><%= @mentorship_circle.users.count %> of <%= @mentorship_circle.max_mentees %></i>
+      </div>
+
+      <%if @mentorship_circle.users.count != 0 %>
+        <%- @mentorship_circle.users.each do |user| %>
+          <div class="member-list">
+            <%= link_to user_path(user.id), :class => "user-chip" do %>
+              <div class="picture">
+                <%= image_tag User.find(user.id).avatar.url %>
+              </div>
+              <div class="name"><%=User.find(user.id).name %></div>
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
+      
+    <% end %>
+
+    <%- unless @mentorship_circle.mentor == current_user %>
+      <%- unless @mentorship_circle.includes_user?(current_user.id) %>
+        <%- if @mentorship_circle.full? %>
+          <p style="margin-top: 15px">
+            <span class="label label-important">Opportunity is Full</span>
+          </p>
+        <% else %>
+          <%= form_tag('/mentorship_circles/join', method: 'post') do %>
+            <%= hidden_field_tag(:mentorship_circle_id, @mentorship_circle.id) %>
+            <%= submit_tag("Connect to Mentor", :class => "btn-primary", :style => "margin-left: 0") %>
+          <% end %>
+        <% end %>
+      <% else %>
+        <%= form_tag('/mentorship_circles/leave', method: 'post') do %>
+          <%= hidden_field_tag(:mentorship_circle_id, @mentorship_circle.id) %>
+          <%= submit_tag("Leave Mentorship", :class => "btn-primary", :style => "margin-left: 0") %>
+        <% end %>
+      <% end %>
+    <% end %>
+
+  </div>
+
+  <div class="clear"></div>
+  
+</div>
+
+<div class="board">
+  <%= render "comments/form" %>
+  <%= render "comments/comments" %>
+</div>

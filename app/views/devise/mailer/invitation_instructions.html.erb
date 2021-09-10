@@ -1,0 +1,8 @@
+<p>Hello <%= @resource.name %>!</p>
+
+<p>You have been invited by <%= @resource.invited_by.name %> to join serve2perform; where you can collaborate with collegues, learn skills from peers, and teach newfound skills to others! Click the link below to accept your invitation and join in.</p>
+
+<p><%= link_to 'Accept invitation', accept_invitation_url(@resource, :invitation_token => @resource.raw_invitation_token) %></p>
+
+<p>Thanks,</p>
+The serve2perform team

@@ -1,0 +1,101 @@
+<!doctype html>
+<html>
+<head>
+	<title>serve2mentor - Give to grow. Grow to give.</title>
+
+	<meta charset="utf-8">
+	<meta name="description" content="GPA serve2perform - Give to grow. Grow to give.">
+  <meta name="description" content="<%= content_for?(:description) ? yield(:description) : site_description %>">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="msapplication-TileColor" content="2b5797">
+	<meta name="msapplication-TileImage" content="/assets/mstile-144x144.png">
+
+	<%= stylesheet_link_tag "application/home", :media => "all" %>
+
+	<%= favicon_link_tag 'apple-touch-icon-57x57.png', :alt =>'apple-touch-icon-57x57', sizes: '57x57' %>
+	<%= favicon_link_tag 'apple-touch-icon-114x114.png', :alt =>'apple-touch-icon-114x114', sizes: '114x114' %>
+	<%= favicon_link_tag 'apple-touch-icon-144x144.png', :alt =>'apple-touch-icon-144x144', rel: 'apple-touch-icon', sizes: '144x144' %>
+	<%= favicon_link_tag 'apple-touch-icon-60x60.png', :alt =>'apple-touch-icon-60x60', rel: 'apple-touch-icon', sizes: '60x60' %>
+	<%= favicon_link_tag 'apple-touch-icon-120x120.png', :alt =>'apple-touch-icon-120x120', rel: 'apple-touch-icon', sizes: '120x120' %>
+	<%= favicon_link_tag 'apple-touch-icon-76x76.png', :alt =>'apple-touch-icon-76x76', rel: 'apple-touch-icon', sizes: '76x76' %>
+	<%= favicon_link_tag 'apple-touch-icon-152x152.png', :alt =>'apple-touch-icon-152x152', rel: 'apple-touch-icon', sizes: '152x152' %>
+	<%= favicon_link_tag 'favicon-192x192.png', :alt =>'favicon-192x192', rel: 'icon', sizes: '192x192' %>
+	<%= favicon_link_tag 'favicon-160x160.png', :alt =>'favicon-160x160', rel: 'icon', sizes: '160x160' %>
+	<%= favicon_link_tag 'favicon-96x96.png', :alt =>'favicon-96x96', rel: 'icon', sizes: '96x96' %>
+	<%= favicon_link_tag 'favicon-16x16.png', :alt =>'favicon-16x16', rel: 'icon', sizes: '16x16' %>
+	<%= favicon_link_tag 'favicon-32x32.png', :alt =>'favicon-32x32', rel: 'icon', sizes: '32x32' %>
+
+	<%= csrf_meta_tags %>
+
+  <!--[if lte IE 9]>
+     <script>
+        document.createElement('header');
+        document.createElement('nav');
+        document.createElement('footer');
+     </script>
+  <![endif]-->
+
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-45912545-1']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+</head>
+
+<body class="home">
+	<header>
+		<%= image_tag 's2mentor_top_banner_logo_white.png', alt: 'GPA serve2perform', class: 'logo' %>
+		<%= link_to users_path, class: "login-button" do %>
+			<%= image_tag 'login_button.png', alt: 'Login', class: 'login-img' %>
+		<% end %>
+	</header>
+
+	<main role="main">
+	  <article>
+			<section class="intro">
+				<h1>
+					Mentoring the serve2perform<sub>&reg;</sub> way.<br>
+					Give to grow. Grow to give.
+				</h1>
+			</section>
+
+
+
+			<section class="options">
+				<h1>
+					Please select a mentoring option below.
+				</h1>
+				<section class="options__blocks">
+					<%= link_to ondemand_path, :class => "options__link" do %>
+						<img alt="Become a Mentor" src="assets/on_demand_learning_button.png" class="options__image">
+					<% end %>
+					<%= link_to new_mentorship_circle_path, :class => "options__link" do %>
+						<img alt="Be a Mentor" src="assets/be_a_mentor_button.png" class="options__image">
+					<% end %>
+					<%= link_to mentorship_circles_path, :class => "options__link" do %>
+						<img alt="Browse Mentors" src="assets/browse_mentors_button.png" class="options__image">
+					<% end %>
+				</section>
+			</section>
+	  </article>
+
+		<footer>
+			<div class="footer__layout">
+				<img src="/assets/s2p-white.png" class="footer__logo" alt="Serve2Perform logo" />
+				<div class="footer__links">
+					<%= link_to 'Privacy Policy', "/docs/privacy_policy_updated.pdf", :target => "_blank", :class => "footer__link"  %>
+					<%= link_to 'Terms of Use', "/docs/terms_of_use.pdf", :target => "_blank", :class => "footer__link"%>
+				</div>
+			</div>
+			&copy; 2014 – <%= Time.zone.now.year %> Grandslam Performance Associates, LLC. Patent Pending.
+		</footer>
+
+	</main>
+</body>
+</html>

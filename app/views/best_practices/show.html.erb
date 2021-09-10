@@ -1,0 +1,122 @@
+<%= stylesheet_link_tag "application/best_practice", :media => "all" %>
+<%= javascript_include_tag "application/best_practice" %>
+
+<div class="board">
+  <% if @best_practice.anonymous? %>
+    <div class="user-chip" style="cursor:default;" onmouseover = "this.style.backgroundColor = 'transparent'" onmouseout  = "this.style.backgroundColor = 'transparent'">
+      <div class="picture">
+        <%= image_tag "/assets/missing-avatar1.png" %>
+      </div>
+      <div class="name">Anonymous</div>
+    </div>
+  <% else %>
+    <%= link_to user_path(@best_practice.user.id), :class => "user-chip" do %>
+      <div class="picture">
+        <%= image_tag @best_practice.user.avatar.url %>
+      </div>
+      <div class="name"><%=@best_practice.user.name %></div>
+    <% end %>
+  <% end %>
+  <div class="column small">
+
+    <div class="info">
+      <%= Organization.find(@best_practice.organization_id).title %>
+      </br>
+      <% if @best_practice.category? %>
+        <%= @best_practice.category %>
+        </br>
+      <% end %>
+      <% if ((Time.now - @best_practice.created_at)/3600).floor < 1 && ((Time.now - @best_practice.created_at)/60).floor != 1 %>
+        Posted <span class="number">
+        <%= ((Time.now - @best_practice.created_at)/60).floor %>
+        </span> minutes ago
+      <% elsif ((Time.now - @best_practice.created_at)/60).floor == 1 %>
+        Posted <span class="number">
+        1</span> minute ago
+      <% elsif ((Time.now - @best_practice.created_at)/3600).floor < 24 && ((Time.now - @best_practice.created_at)/3600).floor != 1 %>
+        Posted <span class="number">
+        <%= ((Time.now - @best_practice.created_at)/3600).floor %>
+        </span> hours ago
+      <% elsif ((Time.now - @best_practice.created_at)/3600).floor ==1 %>
+        Posted <span class="number">
+        1</span> hour ago
+      <% else %>
+        <span>
+        <%= (@best_practice.created_at).strftime("%d %b %Y") %>
+        </span>
+      <% end %>
+      </br>
+      <span class="likes">
+        <% if @best_practice.likers(User).count == 1 %>
+          <span class="primary-color"><%= @best_practice.likers(User).count %></span> Like
+        <% else %>
+          <span class="primary-color"><%= @best_practice.likers(User).count %></span> Likes
+        <% end %>
+      </span>
+      <span class="likers">
+        <% if @best_practice.likers(User).count < 1 %>
+          Be the first to like this
+        <% else %>
+          <% @best_practice.likers(User).each do |user| %>
+            <div><%= user.name %></div>
+          <% end %>
+        <% end %>
+      </span>
+      </br>
+      <% if @best_practice.comments.count == 1 %>
+        <span class="primary-color"><%= @best_practice.comments.count %></span> Comment
+      <% else %>
+        <span class="primary-color"><%= @best_practice.comments.count %></span> Comments
+      <% end %>      
+    </div>
+
+    <% if current_user == @best_practice.user %>
+      <%= link_to 'Edit', edit_best_practice_path(@best_practice) %>
+      <!-- <%= link_to 'Delete', @best_practice, :method => :delete, data: { confirm: 'Are you sure?'} %> -->
+       | <%= link_to 'Delete', @best_practice, :method => :delete  %>
+    <% elsif (GroupAdmin.where(group_id: @best_practice.organization_id, admin_id: current_user.id).exists?)%>
+    <!-- <%= link_to 'Delete', @best_practice, :method => :delete, data: { confirm: 'Are you sure?'} %> -->
+    |  <%= link_to 'Delete', @best_practice, :method => :delete %>
+    <% end %>
+    </br>
+    <% if current_user.likes?(@best_practice) %>
+      You liked this insight.
+    <%else%>
+      <% unless current_user == @best_practice.user %>
+        <%= link_to 'I like this', like_best_practice_path(:best_practice_id => @best_practice.id), :method => :post, :remote => true, :class => "like" %>
+        <span class="liked">You liked this insight.</span>
+      <% end %>
+    <%end%>
+  </div>
+
+  <div class="column large">
+    <div class="title"><%= @best_practice.title %></div>
+
+    <div class="body"><%= markdown.render(@best_practice.body).html_safe %></div>
+
+    <% if @best_practice.ext_link? %>
+    <div class="subhead">External Link: </div>
+    <%= link_to @best_practice.external_link_display_text, @best_practice.ext_link %>
+    <% end %>
+
+    <% if @best_practice.documents? %>
+    <div class="subhead">Document: </div>
+    <p>
+      <%= link_to @best_practice.documents.path.split("\/").last, @best_practice.documents.url %>
+    </p>
+    <% end %>
+    <!--
+    <%# if @best_practice.idea_help? %>
+      <div class="body"><%#= markdown.render(@best_practice.idea_help).html_safe %></div>
+    <%# end %>
+    -->
+  </div>
+
+  <div class="clear"></div>
+  
+</div>
+
+<div class="board">
+  <%= render "comments/form" %>
+  <%= render "comments/comments" %>
+</div>

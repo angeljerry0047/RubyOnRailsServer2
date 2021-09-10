@@ -1,0 +1,99 @@
+<%= stylesheet_link_tag "application/landing", :media => "all" %>
+<%= stylesheet_link_tag "users", :media => "all" %>
+<div class="row form-wrap">
+  <div class="span12">
+
+    <h2 class="knockout">My Profile</h2>
+    <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), :html => { method: :put, class: 'form-vertical'}) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
+      <%= f.error_notification %>
+      <%= display_base_errors resource %>
+      <%= f.hidden_field :updated_at %>
+      <div class="row">
+        <fieldset>
+          <div class="span2">
+            <legend>Profile Image</legend>
+            <p class="gray-color"><em>Image size must be smaller than 2MB</em></p>
+          </div>
+          <div class="span10">
+            <%= image_tag resource.avatar, alt: 'missing-avatar1' %>
+          </div>
+          <div class="span10 offset2">
+            <%= f.input :avatar, as: :file %>
+            <%= f.input :avatar_cache, as: :hidden %>
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="row">
+        <fieldset>
+          <div class="span2"><legend>Personal Information</legend></div>
+          <div class="span10">
+            <%= f.input :name, :required => true, :autofocus => true, input_html: { class: "span8"} %>
+            <%= f.input :email, :required => true, input_html: { class: "span8"} %>
+
+            <%= f.input :headline, label: 'Title', input_html: { class: "span8"} %>
+            <%= f.input :description, label: 'About You', input_html: { class: "span8", style: "height:20em"} %>
+
+            <% @interests = Interest.alphabetical%>
+            <%= f.association :interests, collection: @interests, label: 'Areas of Interest (Select multiple interests by holding the Ctrl key on PC, or Command key on Mac)', input_html: { :class => "chzn-select int","data-placeholder" => "Choose up to 4 interests...", "data-maxitems" => "3" }%>
+        </div>
+        </fieldset>
+      </div>
+
+      <div class="row">
+        <fieldset>
+          <div class="span2"><legend>Location</legend></div>
+          <div class="span10">
+            <%= f.input :location, label: "City, State", input_html: { class: "span8"} %>
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="row">
+        <fieldset>
+          <div class="span2"><legend>Notifications</legend></div>
+          <div class="span10">
+            <%= f.input :mute_notifications, as: :hidden, input_html: { value: "0", id: "" } %>
+            <%= f.input :mute_notifications, label: "Disable System Notifications", input_html: { class: "span8"} %>
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="row">
+        <fieldset>
+          <div class="span2"><legend>Change Password</legend></div>
+            <div class="span10">
+              <%= f.label "Current Password" %>
+              <%= f.password_field :current_password %>
+              <%= f.label "New Password" %>
+              <%= f.password_field :password, :autocomplete => "off", :class => "span8"   %>
+              <%= f.label "Confirm New Password" %>
+              <%= f.password_field :password_confirmation, :class => "span8"  %>
+            </div>
+        </fieldset>
+      </div>
+
+      <div class="row">
+        <div class="span5">
+          <%= link_to "Previous", :back, :class => 'btn btn-large btn-primary roundedge', :style => "margin-left: 0;" %>
+        </div>
+        <!-- <div class="span5"> -->
+          <%#= link_to 'Add Past skills', users_historical_opportunities_path, :class => 'btn btn-large btn-primary roundedge' %>
+        <!-- </div> -->
+        <div>
+          <% if params[:frm] == "newuser" %>
+            <%= hidden_field_tag :frm, "newuser" %>
+            <%= f.button :submit, 'Next', :class => 'btn btn-large btn-primary roundedge' %>
+          <%else%>
+            <%= f.button :submit, 'Update', :class => 'btn btn-large btn-primary roundedge' %>
+          <%end%>
+        </div>
+      </div>
+
+
+
+    <% end %>
+
+  </div>
+</div>

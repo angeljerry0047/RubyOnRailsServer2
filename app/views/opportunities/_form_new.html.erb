@@ -1,0 +1,84 @@
+<%= form_for(@opportunity) do |f| %>
+  <% if @opportunity.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@opportunity.errors.count, "error") %> prohibited this opportunity from being saved:</h2>
+
+      <ul>
+      <% @opportunity.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label "Group *" %>                           
+    <%= f.select :organization_id, options_for_select(all_groups_sorted.collect { |group| [group.title, group.id] }), include_blank: true, :required => true %>
+  </div>
+
+  <% case params[:type]
+    when "advisor" %>
+
+      <%= f.hidden_field :opportunity_category_id, :value => 18 %>
+      <%= f.hidden_field :title, :value => "Mentor" %>
+      <div class="field">
+        <%= f.label :learning_objectives, "Type *" %>
+        <%= f.select :learning_objectives,
+	    options_for_select(
+	    ["Skill Development",
+             "Career Development",
+             "Leadership Development",
+             "Executive Development"],
+	    @opportunity.learning_objectives
+	    ), include_blank: true, :required => true %>
+      </div>
+      <div class="field">
+        <%= f.label :description, "Description (optional)" %>
+        <%= f.text_area :description, :rows => "4" %>
+      </div>
+
+
+    <% when "intern" %>
+
+      <%= f.hidden_field :opportunity_category_id, :value => 19 %>
+      <div class="field">
+        <%= f.label :title, "Role *" %>
+        <%= f.select :title, options_for_select(["Job Shadow Sponsor", "Job Shadow Student"]), include_blank: true, :required => true %>
+      </div>
+      <div class="field">
+        <%= f.label :description, "Job(s) of Interest *" %>
+        <%= f.text_area :description, :rows => "4", :required => true %>
+      </div>
+
+
+    <% when "volunteer" %>
+
+      <%= f.hidden_field :opportunity_category_id, :value => 21 %>
+      <div class="field">
+        <%= f.label :title, "Type *" %>
+        <%= f.select :title, options_for_select(["Volunteer Opportunity", "Volunteer"]), include_blank: true, :required => true %>
+      </div>
+      <div class="field">
+        <%= f.label :description, "Description of Volunteer Service *" %>
+        <%= f.text_area :description, :rows => "4", :required => true %>
+      </div>
+
+
+    <% when "board_member" %>
+
+      <%= f.hidden_field :opportunity_category_id, :value => 16 %>
+      <div class="field">
+        <%= f.label :title, "Type *" %>
+        <%= f.select :title, options_for_select(["Board Service Opportunity", "Board Member"]), include_blank: true, :required => true %>
+      </div>
+      <div class="field">
+        <%= f.label :description, "Description of Board Service Opportunity*" %>
+        <%= f.text_area :description, :rows => "4", :required => true %>
+      </div>
+
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit "Post", :class => "btn-primary" %>
+  </div>
+<% end %>

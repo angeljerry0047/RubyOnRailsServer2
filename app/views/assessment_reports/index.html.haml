@@ -1,0 +1,6 @@
+- @assessment_reports.each do |ar|
+  = link_to "Assessment Taken #{ar.created_at}", assessment_report_path(ar)
+  %br
+
+
+= link_to 'Take a new Assessment', (@coupon_uses.empty?) ? assessment_path(Assessment.first) : new_assessment_report_path

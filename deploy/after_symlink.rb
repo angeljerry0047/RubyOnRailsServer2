@@ -1,0 +1,1 @@
+run "ln -nfs #{config.shared_path}/uploads #{config.current_path}/public/uploads"

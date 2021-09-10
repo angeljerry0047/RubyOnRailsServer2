@@ -1,0 +1,25 @@
+<% title "templates" %>
+<div class="" id="register-pde">
+
+  <div class="row">
+
+    <div class="span12">
+      <h1 class="ap_blue" style="font-size:50px;">Templates</h1>
+      <h6>Select from the Following</h6>
+      <div  id="purchasePDE" style="padding-top:30px;">
+        <div class="span6">
+          <%= link_to image_tag("AdvisorActionPlanIcon.png", :alt =>'AdvisorActionPlanIcon'), new_coach_action_plan_path %>
+          <br/><br/>
+          <%= link_to "Mentor Action Plan", new_coach_action_plan_path, :class => "ap_green" %>
+        </div>
+        <div class="span5">
+          <%= link_to image_tag("VolunterLeaderIcon.png", :alt =>'VolunterLeaderIcon'), new_volunteer_action_plan_path %>
+          <br/><br/>
+          <%= link_to "Volunteer Action Plan", new_volunteer_action_plan_path, :class => "ap_green" %>
+        </div>
+      </div>	
+    </div>
+
+  </div>
+
+</div>

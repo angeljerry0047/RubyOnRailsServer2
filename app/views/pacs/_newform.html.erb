@@ -1,0 +1,90 @@
+<%= stylesheet_link_tag "application/pac", :media => "all" %>
+<% unless defined? group %>
+  <div class="row">
+    <label class="span2">
+      <div class="control-group">
+        <div class="controls">
+          <%= label_tag "Group *" %>                           
+          <%= select_tag 'best_practice[organization_id]', options_for_select(all_groups_sorted.collect { |group| [group.title, group.id] }), include_blank: true, :class => "required" %>
+          <span class="help-inline">This field is required</span>
+        </div>
+      </div>
+    </label>
+  </div>
+<% end %>
+
+<div class="control-group <%= field_class(pac, :title) %>">
+  <%= label_tag "pacs[][title]", "Title of collaboration team", :class => "control-label" %>
+  <div class="controls">
+    <%= text_field_tag "pacs[][title]", {}, :value => pac.title, :class =>"span7 required string" %>
+    <span class="help-inline">This field is required</span>
+  </div>
+</div>
+
+<div class="control-group <%= field_class(pac, :description) %>">
+  <%= label_tag "pacs[][description]", "Description", :class => "control-label"  %>
+  <div class="controls">
+    <%= text_area_tag "pacs[][description]", pac.description, :class => 'input description span7 required'%>
+    <span class="help-inline">This field is required</span>
+  </div>
+</div>
+
+<h4>Date and Time</h4>
+<div class="row">
+  <label class="span3">
+    <div class="control-group <%= field_class(pac, :start_date) %>">
+      <%= label_tag "pacs[][start_date]", "Start Date", :class => "control-label"  %>
+      <div class="controls">
+        <%= text_field_tag 'pacs[][start_date]', pac.start_date, :placeholder =>"", :class => "span3 required dateTime", maxlength: 5 %>
+        <span class="help-inline">This field is required</span>
+      </div>
+  </div> </label>
+  <label class="span2">
+    <div class="control-group <%= field_class(pac, :deadline_date) %>">
+      <%= label_tag "pacs[][deadline_date]", "Registration deadline", :class => "control-label"  %>
+      <div class="controls">
+        <%= text_field_tag 'pacs[][deadline_date]', pac.deadline_date, :placeholder =>"", :class => "span3 required dateTime" %>
+        <span class="help-inline">This field is required</span>
+      </div>
+  </div> </label>
+</div>
+<div class="row">
+  <label class="span3">
+    <div class="control-group <%= field_class(pac, :start_time) %>">
+      <%= label_tag "pacs[][start_time]", "Start Time", :class => "control-label"  %>
+      <div class="controls">
+        <%= select_tag 'pacs[][start_time]', options_for_select(TimeInterval.times, pac.start_time), :include_blank => true, :placeholder => "", :class =>"span3 required" %>
+        <span class="help-inline">This field is required</span>
+      </div>
+  </div> </label>
+  <label class="span2">
+    <div class="control-group <%= field_class(pac, :end_time) %>">
+      <%= label_tag "pacs[][end_time]", "End Time", :class => "control-label"  %>
+      <div class="controls">
+        <%= select_tag 'pacs[][end_time]', options_for_select(TimeInterval.times, pac.end_time), :include_blank => true, :placeholder => "", :class =>"span3 required" %>
+        <span class="help-inline">This field is required</span>
+      </div>
+  </div> </label>
+</div>
+<h4>Number of members</h4>
+<div class="row">
+  <label class="span3">
+    <div class="control-group <%= field_class(pac, :max_students) %>">
+      <%= label_tag "pacs[][max_students]", "Max", :class => "control-label"  %>
+      <div class="controls">
+        <%= text_field_tag 'pacs[][max_students]', pac.max_students, :placeholder =>"", :class => "span3 required", maxlength: 5 %>
+        <span class="help-inline">This field is required</span>
+      </div>
+  </div> </label>
+  <label class="span2">
+    <div class="control-group <%= field_class(pac, :min_students) %>">
+      <%= label_tag "pacs[][min_students]", "Min", :class => "control-label"  %>
+      <div class="controls">
+        <%= text_field_tag 'pacs[][min_students]', pac.min_students, :placeholder =>"", :class => "span3 required", maxlength: 5 %>
+        <span class="help-inline">This field is required</span>
+      </div>
+  </div> </label>
+</div>
+
+<%#= hidden_field_tag 'pacs[][is_public]', pac.is_public, :value => 0 %>
+

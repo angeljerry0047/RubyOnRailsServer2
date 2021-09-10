@@ -1,0 +1,150 @@
+// Place all the styles related to the admin controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import "global_define";
+@import "master";
+.opportunities {
+.genError{
+ color:#B94A48;
+}
+.genErrorBorder{
+border: solid 1px #B94A48;;
+}
+  #map_to_pop_up{  
+    background-color: #fff;
+    border-radius: 10px 10px 10px 10px;
+    color: #111;
+    width: 338px;
+    padding: 25px;
+    height:200px;
+  }
+  #new_opp {
+    text-align: center;
+    p {
+      margin-bottom: 20px;
+    }
+  }
+
+  span.help-inline {
+    display: none;
+  }
+  .error {
+    span.help-inline {
+      display: block;
+    }
+    .chzn-choices {
+      border: 1px solid #b94a48;
+    }
+  }
+
+  .input.description {
+    min-height: 200px;
+    resize: none;
+  }
+  .input.opportunity_competency_ids {
+    .chzn-select {
+      width: 100%;
+    }
+  }
+}
+
+
+.admin.scholarship_request {
+  hr {
+    border-color: #ccc;
+  }
+  .button {
+    width:  100%;
+    margin: 10px 0;
+    a {
+      font-family: $roboto;
+      font-size: 14px;
+    }
+  }
+
+  .wrap {
+    background-color: #EDEDED;
+    .topper {
+      background-color: #e47b2c;
+      display: inline-block;
+      width: 100%;
+      min-height: 60px;
+      a,span {
+        font-family: $roboto;
+        font-size: 18px;
+        margin-top: 20px;
+        color: #fff;
+        display: inline-block;
+
+      }
+      .next a:before, .prev a:after{
+        content: '';
+        position: relative;
+        top: 4px;
+      }
+      .next a:before {
+        @include arrow(right, #fff, 6px);
+        float: right;
+        right: -5px;
+      }
+      .prev a:after {
+        @include arrow(left, #fff, 6px);
+        float: left;
+        left: -5px;
+      }
+    }
+    
+    h2, h3, h4{
+      text-transform: uppercase;
+    }
+    .title {
+      h4 {
+        margin-bottom: 0;
+      }
+      h2 {
+        margin-top: 0;
+      }
+    }
+    h6 {
+      margin-bottom: 0px;
+    }
+    .about-vsa {
+      a {
+        font-size: 13px;
+        padding:0 30px;
+      }
+    }
+    .avatar {
+      border: 3px solid #ccc;
+      display: block;
+      margin-top: 10px;
+      height: 120px;
+      width: 120px;
+      border-radius: 5px;
+    }
+    .competencies  {
+      h5 {
+        margin:10px 0 0 0;
+        text-transform: uppercase;  
+        font-family: $roboto;
+        span {
+          background-color: #0062a2;
+          color: #fff;
+          padding: 3px 5px;
+          font-size: 12px;
+        }
+      }
+    }
+    .apply {
+      text-align: center;
+      margin: 20px;
+    }
+  }
+}
+
+
+
+
+
+

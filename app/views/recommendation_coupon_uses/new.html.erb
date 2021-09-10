@@ -1,0 +1,18 @@
+<%# NOTE (cmhobbs) is this still relevant? %>
+<div class="container">
+  <div class="row">
+    <div class="span8 center">
+      <h4><span><%= image_tag "lockicon_purchase.png", :alt =>'lockicon_purchase' %></span>Please enter your skill company code</h4>
+      <%= simple_form_for(@opportunity_coupon_use) do |f| %>
+        <%= f.input :opportunity_coupon, :placeholder => "Code", :label => false, :class => "input coupon" %>
+      <%= f.hidden_field :opportunity_id, :value => params[:opportunity_id] %>
+      <div class="form-row last">
+        <%= f.button :submit, 'Submit Code', :class => 'btn btn-large btn-primary roundedge', :id => 'submit' %>
+        <div class="cancel button">
+          <%= link_to 'Cancel', :back  %>
+        </div>
+      </div>
+    <% end %>
+    </div>
+  </div>
+</div>

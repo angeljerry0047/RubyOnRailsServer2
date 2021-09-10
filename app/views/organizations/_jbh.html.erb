@@ -1,0 +1,16 @@
+<%# NOTE (cmhobbs) which one of these custom partials can go away? %>
+<!--JB Hunt Page Starts Here--> 
+    <ul class="nav nav-tabs nav-justified" id ="jbhsl">
+      <li class="active take-all-space-you-can"><a href="#tab-one" data-toggle="tab">Home</a></li>
+      <li class="take-all-space-you-can"><a href="#tab-two" data-toggle="tab">Resources</a></li>
+      <% @organization.best_practice_categories.each do |org| %>
+        <% if org.active_tab? %>
+          <li class="take-all-space-you-can" ><a href="#<%= org.id %>" data-toggle="tab"><%= org.title %></a></li>
+        <% end %>
+    <% end %>
+    <li class="take-all-space-you-can"><a href="#tab-three" data-toggle="tab">Groups</a></li>
+    <% if current_user.role == "admin" %>
+      <li class="take-all-space-you-can" id="img1"> <%= link_to image_tag("Gear.png", :alt =>'Gear', :style => 'width: 30px; height: 30px;'), edit_organization_path(@organization.slug), :style => 'width: 30px; height: 30px;' %></li>
+      <%end%>
+      </ul>
+      <!--JB Hunt Page Ends Here--> 

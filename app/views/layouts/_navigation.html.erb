@@ -1,0 +1,194 @@
+<!--
+<div class="search-banner">
+  <div class="search-banner-main">
+    <div class="icon logo"></div>
+    <div class="search-bar-container">
+      <input type="search" placeholder="Search" class="search-bar"/>
+      <span class="icon i-search"></span>
+    </div>
+    <div class="search-link-container">
+      <a href="#" class="search-link active">All</a>
+      <a href="#" class="search-link">Images</a>
+      <a href="#" class="search-link">Videos</a>
+      <a href="#" class="search-link">Documents</a>
+      <a href="#" class="search-link">Questions</a>
+      <a href="#" class="search-link">Insights</a>
+      <a href="#" class="search-link">Colleagues</a>
+    </div>
+  </div>
+  <div class="search-banner-account">
+    <div class="welcome">
+      <%- if current_user %>
+        Hello,
+        <%= current_user.name %>
+      <%- else %>
+        placeholder
+      <%- end %>
+    </div>
+    <a href="#" class="logout ripple-button">Logout<div class="icon i-logout"></div></a>
+    <%= link_to 'Logout', destroy_user_session_path, :method=>'delete', :data => { :role => "menuitem", :tabindex => "-1" } %>
+  </div>
+</div>
+-->
+
+
+<% if user_signed_in? %>
+<div id="logo" style="height:90px">
+  <%= link_to root_url, :class => 'brand' do %>
+    <%= image_tag "S2PLogowithR.png" , :alt =>'S2PLogowithR'%>
+  <% end %>
+  </div>
+<% else %>
+  <%= link_to site_title, root_url, :class => 'brand' %>
+<% end %>
+
+<% if user_signed_in? %>
+<div id="nav" style="height:95px">
+  <ul class="nav <%= user_signed_in? ? '' : 'unauth' %>">
+
+
+    <li class="dropdown" id="colnav"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><%= image_tag "CollaborateIcon.png", :alt =>'CollaborateIcon', :style => 'display:inline', :class => "colnav" %><%= image_tag "CollaborateIconGreen.png", :alt =>'CollaborateIconGreen', :style => 'display:none', :class => "colnavg" %></a>
+      <a class="dropdown-toggle" data-toggle="dropdown" href="#">Collaborate</a>
+      <ul class="dropdown-menu" id="left-nav" role="menu" aria-labelledby="dLabel">
+        <li role="presentation">
+            <%= link_to 'Create A Collaboration Team', new_pac_path, :data => { :role => "menuitem", :tabindex => "-1" } %>
+          </li>
+
+        <% if current_user.uid.present? && current_user.provider == 'linkedin' %>
+          <li role="presentation">
+            <%= link_to 'Invite Colleagues via LinkedIn', invites_path, :data => { :role => "menuitem", :tabindex => "-1" } %>
+          </li>
+        <% end %>
+
+        <li role="presentation">
+            <%= link_to 'Invite Colleagues via Email', invite_email_invites_path, :data => { :role => "menuitem", :tabindex => "-1" } %>
+          </li>
+
+        <li role="presentation">
+            <%= link_to 'Recommend A Colleague', find_recommendations_path, :data => { :role => "menuitem", :tabindex => "-1" } %>
+          </li>
+      </ul>
+    </li>
+    <li class="dropdown" id="learnnav"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><%= image_tag "LearnIcon.png",:alt =>'LearnIcon', :style => 'display:inline', :class => "learnnav" %><%= image_tag "LearnIconGreen.png",:alt =>'LearnIconGreen', :style => 'display:none', :class => "learnnavg" %></a>
+      <a class="dropdown-toggle" data-toggle="dropdown" href="#">Learn</a>
+      <ul class="dropdown-menu" id="left-nav" role="menu" aria-labelledby="dLabel">
+        <li role="presentation">
+            <%= link_to 'Post A Question', new_inquiry_path, :data => { :role => "menuitem", :tabindex => "-1" } %>
+          </li>
+
+        <li role="presentation">
+            <%= link_to 'Global Learning Marketplace', root_url, :data => { :role => "menuitem", :tabindex => "-1" } %>
+          </li>
+
+      </ul>
+    </li>
+
+    <li class="dropdown" id="teachnav"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><%= image_tag "TeachIcon.png",:alt =>'TeachIcon', :style => 'display:inline', :class => "teachnav" %><%= image_tag "TeachIconGreen.png",:alt =>'TeachIconGreen',:style => 'display:none', :class => "teachnavg" %></a>
+
+      <a class="dropdown-toggle" data-toggle="dropdown" href="#">Teach</a>
+      <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dLabel">
+          <li role="presentation">
+            <%= link_to 'Be A Mentor', new_opportunity_path(:type => "advisor"), :data => { :role => "menuitem", :tabindex => "-1" } %>
+          </li>
+          <li role="presentation">
+            <%= link_to 'Be A Speaker', new_opportunity_path(:type => "speaker"), :data => { :role => "menuitem", :tabindex => "-1" } %>
+          </li>
+          <li role="presentation">
+            <%= link_to 'Be A Volunteer Leader', new_opportunity_path(:type => "volunteer"), :data => { :role => "menuitem", :tabindex => "-1" } %>
+          </li>
+          <li role="presentation">
+            <%= link_to 'Offer An Internship', new_opportunity_path(:type => "intern"), :data => { :role => "menuitem", :tabindex => "-1" } %>
+          </li>
+          <li role="presentation">
+            <%= link_to 'Post An Insight', new_best_practice_path, :data => { :role => "menuitem", :tabindex => "-1" } %>
+          </li>
+      </ul>
+    </li>
+    <li class="dropdown" id="profilenav"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><%= image_tag "MyProfileIcon.png", :alt =>'MyProfileIcon', :style => 'display:inline', :class => "profilenav" %><%= image_tag "MyProfileIconGreen.png" , :alt =>'MyProfileIconGreen', :style => 'display:none', :class => "profilenavg" %></a>
+      <a class="dropdown-toggle" data-toggle="dropdown" href="#">My serve2perform</a>
+      <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dLabel">
+        <li role="presentation"><%= link_to 'View My Profile', user_path(current_user.id), :data => { :role => "menuitem", :tabindex => "-1" }%></li>
+        <li role="presentation"><%= link_to 'Edit My Profile', edit_user_registration_path, :data => { :role => "menuitem", :tabindex => "-1" }%></li>
+        <% if current_user.organization_id? && current_user.organization.active_license? %>
+          <li role="presentation"><%= link_to 'View My Company', organization_path(current_user.organization.slug), :data => { :role => "menuitem", :tabindex => "-1" }%></li>
+        <% end %>
+
+        <% if current_user.taken_assessment? %>
+          <li role="presentation">
+            <%= link_to 'View My Report', assessment_report_path( :id => current_user.assessment_reports.last ), :data => { :role => "menuitem", :tabindex => "-1" }   %>
+          </li>
+        <% else %>
+          <% if current_user.active_license? %>
+            <li role="presentation">
+              <%= link_to 'Take My Assessment', new_assessment_report_path, :data => { :role => "menuitem", :tabindex => "-1" }   %>
+            </li>
+          <% else %>
+            <li role="presentation">
+              <%= link_to 'Take My Assessment', assessment_path(1), :data => { :role => "menuitem", :tabindex => "-1" }   %>
+            </li>
+            <% end %>
+        <% end %>
+
+        <% if current_user.uid.present? && current_user.company_admin? %>
+          <li role="presentation">
+            <%= link_to 'Manage My Company', edit_organization_path(current_user.managed_organization.slug), :data => { :role => "menuitem", :tabindex => "-1" }   %>
+          </li>
+        <% end %>
+
+        <li role="presentation">
+          <%= link_to 'Manage My Activity', edit_many_skills_path %>
+        </li>
+
+      </ul>
+    </li>
+    <li id="membersnav"><%= link_to image_tag("FindMemberIcon.png", :alt =>'FindMemberIcon', :style => 'display:inline', :class => "membersnav"), find_users_path %><%= link_to image_tag("FindMembersIconGreen.png" , :alt =>'FindMembersIconGreen', :style => 'display:none', :class => "membersnavg"), find_users_path %>
+        <%= link_to 'Find Members', find_users_path %>
+    </li>
+
+
+      <li class="dropdown" id="resourcesnav"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><%= image_tag "ResourceIcon.png", :alt =>'ResourceIcon', :style => 'display:inline', :class => "resourcesnav" %><%= image_tag "ResourceIconGreen.png", :alt =>'ResourceIconGreen', :style => 'display:none', :class => "resourcesnavg" %></a>
+      <a class="dropdown-toggle" data-toggle="dropdown" href="#">Resources</a>
+      <ul class="dropdown-menu" id="left-nav" role="menu" aria-labelledby="dLabel">
+       <li role="presentation">
+            <%= link_to 'About', about_path, :data => { :role => "menuitem", :tabindex => "-1" } %>
+          </li>
+        <li role="presentation">
+            <%= link_to 'Knowledge Center', resources_path, :data => { :role => "menuitem", :tabindex => "-1" } %>
+          </li>
+      </ul>
+    </li>
+
+
+
+      <li><%= link_to image_tag("FeedbackIcon.png",:alt =>'CollaborateIcon'), destroy_user_session_path, :method=>'delete', :data => { :role => "menuitem", :tabindex => "-1" } %>
+        <%= link_to 'Logout', destroy_user_session_path, :method=>'delete', :data => { :role => "menuitem", :tabindex => "-1" } %>
+      </li>
+    <% if current_user.managed_organization_id.present? %>
+      <li class="dropdown" id="managenav"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><%= image_tag "ManageCompanyIcon.png", :alt =>'ManageCompanyIcon', :style => 'display:inline', :class => "managenav" %><%= image_tag "ManageCompanyIconGreen.png", :alt =>'ManageCompanyIconGreen', :style => 'display:none', :class => "managenavg" %></a>
+      <a class="dropdown-toggle" data-toggle="dropdown" href="#">Manage My Company</a>
+      <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dLabel">
+      <li role="presentation"><%= link_to 'Create An Internal Resource', new_fast_content_path, :data => { :role => "menuitem", :tabindex => "-1" }%></li>
+     <li role="presentation"><%= link_to 'Create A Facility', new_facility_path, :data => { :role => "menuitem", :tabindex => "-1" }%></li>
+      <li role="presentation"><%= link_to 'View My Administrator Console', manage_user_licenses_path(current_user.managed_organization), :data => { :role => "menuitem", :tabindex => "-1" }%></li>
+    </ul>
+   </li>
+    <% end %>
+    </ul>
+ </div>
+  <% else %>
+    <div style="float:right; position:relative; top:20px;">
+  <%= form_for("user", :url => user_session_path) do |f| %>
+    <div style="float:left; line-height:1px;"><%= f.text_field :email, :label => false, :placeholder => 'Email Address', :style => 'margin-bottom: 5px;width:200px;'  %><br />
+    <%= f.check_box :remember_me, :style => 'margin-top:0;' %>&nbsp &nbspRemember Me</div>
+    <div style="float:left; line-height:1px;">
+    <%= f.password_field :password, :label => false, :placeholder => 'Password', :style => 'width:200px;' %><br />
+    <%= link_to "Forgot your password?", new_password_path('user') %></div>
+    <div style="float:left; margin-left:5px; line-height:1px;">
+    <%= f.submit 'Sign in', :class =>'button btn btn-large btn-primary', :style => 'margin-top:0; height: 41px;background-image: linear-gradient(to bottom, #2c9a47, #2c9a47);background-color: #2c9a47; border-radius:22px; font-size:20px;'  %></div>
+
+      <% end %>
+      </div>
+  <% end %>
+
+
+

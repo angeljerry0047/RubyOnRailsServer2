@@ -1,0 +1,100 @@
+;@import "global_define";
+@import "master";
+
+
+.availability {
+  hr {
+    border-color: $nutral-color3;
+  }
+  .button {
+    width:  100%;
+    margin: 10px 0;
+    a {
+      font-family: $opensansr;
+      font-size: 14px;
+    }
+  }
+
+  .wrap {
+    background-color: $nutral-color2;
+    .topper {
+      background-color: $primary-color;
+      display: inline-block;
+      width: 100%;
+      min-height: 60px;
+      a,span {
+        font-family: $opensansr;
+        font-size: 18px;
+        margin-top: 20px;
+        color: $nutral-color1;
+        display: inline-block;
+
+      }
+      .next a:before, .prev a:after{
+        content: '';
+        position: relative;
+        top: 4px;
+      }
+      .next a:before {
+        @include arrow(right, #fff, 6px);
+        float: right;
+        right: -5px;
+      }
+      .prev a:after {
+        @include arrow(left, #fff, 6px);
+        float: left;
+        left: -5px;
+      }
+    }
+    
+    h2, h3, h4{
+      text-transform: uppercase;
+    }
+    .title {
+      h4 {
+        margin-bottom: 0;
+      }
+      h2 {
+        margin-top: 0;
+      }
+    }
+    h6 {
+      margin-bottom: 0px;
+    }
+    .about-vsa {
+      a {
+        font-size: 13px;
+        padding:0 30px;
+      }
+    }
+    .avatar {
+      border: 3px solid #ccc;
+      display: block;
+      margin-top: 10px;
+      height: 120px;
+      width: 120px;
+      border-radius: 5px;
+    }
+    .competencies  {
+      h5 {
+        margin:10px 0 0 0;
+        text-transform: uppercase;  
+        font-family: $opensansr;
+        span {
+          background-color: $primary-color;
+          color: $nutral-color1;
+          padding: 3px 5px;
+          font-size: 12px;
+        }
+      }
+    }
+    .apply {
+      text-align: center;
+      margin: 20px;
+    }
+    .title2{
+      font-size:16px;
+      font-weight: bold;
+    }
+  }
+}

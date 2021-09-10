@@ -1,0 +1,13 @@
+<h1>Manage Your User Licenses</h1>
+<p>User License Management for <%= @org.title %></p>
+
+<%= form_tag update_many_user_licenses_path, :method => :put do %>
+  <% for user in @users %>
+  <%= fields_for "users[]", user do |user_fields| %>
+  <div><%= user.name %></div>
+<div><%= user_fields.label :active_license %>
+<%= user_fields.check_box :active_license %></div>
+<% end %>
+<% end %>
+<%= submit_tag "Mark as Complete" %>
+<% end %>

@@ -1,0 +1,299 @@
+@import "global_define";
+@import "master";
+
+body.organizations.find_users{
+  input[type="checkbox"]{
+    display: none;
+  }
+  .checkmark{
+    display: block;
+    height: 16px;
+    opacity: 0;
+    position: absolute;
+    right: 16px;
+    top: 24px;
+    transition: opacity $fast;
+    width: 16px;
+  }
+  .checkmark-active{
+    opacity: 1;
+  }
+}
+
+body.organizations.edit {
+
+    form {
+
+
+      .organization_city {
+        width: 41%;
+        float: left;
+      }
+      .organization_state {
+        width: 50%;
+        float: left;
+      }
+    }
+
+}
+
+body.organizations.analytics {
+
+  .period-button-container{
+    box-sizing: border-box;
+    float: left;
+    height: 36px;
+    margin-bottom: 8px;
+    padding: 8px;
+    .period-button{
+      background-color: $nutral-color3;
+      border-radius: 2px;
+      color: $nutral-color1;
+      display: block;
+      padding: 8px;
+      position: relative;
+      text-align: center;
+      transition: all $medium;
+      &:hover{
+        background-color: $nutral-color4;
+        text-decoration: none;
+      }
+      &.active{
+        background-color: $nutral-color4;
+      }
+    }
+  }
+
+  .total-posts{
+    color: $primary-color;
+    font: $title;
+    span{
+      position: absolute;
+      right: 0;
+      top: 16px;
+    }
+  }
+
+  .analytics-category-container{
+    border-bottom: $nutral-color3 1px solid;
+    padding-top: 16px;
+    position: relative;
+    h5{
+      padding-top: 32px;
+    }
+    .category-title, .category-number{
+      font: $title;
+    }
+    .category-number{
+      position: absolute;
+      right: 0;
+      top: 16px;
+    }
+    .category-link{
+      color: $nutral-color3;
+      cursor: pointer;
+      transition: all $fast;
+      &:hover{
+        color: $nutral-color4;
+      }
+    }
+    .category-subcontainer{
+      display: block;
+      position: relative;
+      .chart-container{
+        box-sizing: border-box;
+        height: 250px;
+        margin-bottom: 32px;
+        position: relative;
+        width: 100%;
+        svg{
+          display: block;
+          overflow: visible;
+        }
+        .morris-hover.morris-default-style{
+          text-align: right;
+        }
+      }
+    }
+  }
+
+}
+
+body.organizations.show{
+
+  .pagination {
+    display: none;
+  }
+
+  .infinite-scroll {
+    display: none;
+    color: $nutral-color3;
+    font: $body1;
+    padding-top: 8px;
+  }
+
+  .container{
+    #pac{
+      display: none;
+    }
+  }
+
+
+  .square-image{
+    display: block;
+    float: left;
+    height: 120px;
+    min-width: 120px;
+    position: relative;
+    width: 25%;
+    img{
+      display: block;
+      margin: auto;
+    }
+  }
+  .org-info{
+    display: block;
+    float: left;
+    height: auto;
+    position: relative;
+    .org-title{
+      color: $primary-color;
+      font: $knockout-display1;
+      text-transform: uppercase;
+    }
+    .org-members{
+      color: $nutral-color4;
+      font: $subhead;
+      padding-bottom: 8px;
+    }
+    .org-description{
+      color: $nutral-color3;
+      font: $body1;
+    }
+  }
+
+  .leave-button, .edit-button{
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background-color: transparent;
+      border: none;
+      box-shadow: none;
+      color: $nutral-color3;
+      cursor: pointer;
+      height: 36px;
+      margin: 0;
+      outline: none;
+      padding: 8px 0;
+      text-decoration: none;
+      width: auto;
+      &:hover{
+        color: $nutral-color4;
+      text-decoration: underline;
+      }
+      &:active, &:visited{
+        outline: none;
+      }
+    }
+
+  .leave-group-popup, .remove-member-popup{
+    background-color: $nutral-color1;
+    border-radius: 2px;
+    box-shadow: 0 2px 4px #9e9e9e;
+    box-sizing: border-box;
+    display: none;
+    left: 50vw;
+    max-width: 844px;
+    min-width: 288px;
+    padding: 16px;
+    position: fixed;
+    top: 50vh;
+    width: 80vw;
+    z-index: 10;
+    @include transform(translate(-50%, -50%));
+    .popup-title{
+      font: $title;
+      text-align: center;
+    }
+    .btn-primary{
+      margin: 16px auto;
+    }
+  }
+  .popup-open{
+    display: block;
+  }
+
+  .desktop-tab{
+    display: inline;
+  }
+  .addmember-button{
+
+  }
+}
+
+/* desktop ================================================== */
+
+@media (min-width: $desktop-min) {
+
+  body.organizations.show{
+    .org-info{
+      padding-left: 16px;
+      width: 70%;
+    }
+  }
+
+  body.organizations.analytics {
+    .period-button-container{
+      width: 20%;
+    }
+  }
+
+}
+
+
+/* tablet ================================================== */
+
+@media (min-width: $tablet-min) and (max-width: $tablet-max) {
+
+  body.organizations.show{
+    .square-image{
+      width: 100%;
+    }
+    .org-info{
+      padding-left: 0;
+      width: auto;
+    }
+  }
+
+  body.organizations.analytics {
+    .period-button-container{
+      width: 50%;
+    }
+  }
+
+}
+
+/* phone ================================================== */
+
+@media (max-width: $phone-max) {
+
+  body.organizations.show{
+    .square-image{
+      width: 100%;
+    }
+    .org-info{
+      padding-left: 0;
+      width: auto;
+    }
+    .desktop-tab{
+      display: none;
+    }
+  }
+
+  body.organizations.analytics {
+    .period-button-container{
+      width: 100%;
+    }
+  }
+
+}

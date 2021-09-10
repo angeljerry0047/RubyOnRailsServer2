@@ -1,0 +1,258 @@
+<%= stylesheet_link_tag "application/application", :media => "all" %>
+<%= stylesheet_link_tag "application/dallas", :media => "all" %>
+<%= javascript_include_tag "application/application" %>
+<%= favicon_link_tag 'apple-touch-icon-57x57.png', :alt =>'apple-touch-icon-57x57', sizes: '57x57' %>
+  <%= favicon_link_tag 'apple-touch-icon-114x114.png', :alt =>'apple-touch-icon-114x114', sizes: '114x114' %>
+  <%= favicon_link_tag 'apple-touch-icon-144x144.png', :alt =>'apple-touch-icon-144x144', rel: 'apple-touch-icon', sizes: '144x144' %>
+  <%= favicon_link_tag 'apple-touch-icon-60x60.png', :alt =>'apple-touch-icon-60x60', rel: 'apple-touch-icon', sizes: '60x60' %>
+  <%= favicon_link_tag 'apple-touch-icon-120x120.png', :alt =>'apple-touch-icon-120x120', rel: 'apple-touch-icon', sizes: '120x120' %>
+  <%= favicon_link_tag 'apple-touch-icon-76x76.png', :alt =>'apple-touch-icon-76x76', rel: 'apple-touch-icon', sizes: '76x76' %>
+  <%= favicon_link_tag 'apple-touch-icon-152x152.png', :alt =>'apple-touch-icon-152x152', rel: 'apple-touch-icon', sizes: '152x152' %>
+  <%= favicon_link_tag 'favicon-192x192.png', :alt =>'favicon-192x192', rel: 'icon', sizes: '192x192' %>
+  <%= favicon_link_tag 'favicon-160x160.png', :alt =>'favicon-160x160', rel: 'icon', sizes: '160x160' %>
+  <%= favicon_link_tag 'favicon-96x96.png', :alt =>'favicon-96x96', rel: 'icon', sizes: '96x96' %>
+  <%= favicon_link_tag 'favicon-16x16.png', :alt =>'favicon-16x16', rel: 'icon', sizes: '16x16' %>
+  <%= favicon_link_tag 'favicon-32x32.png', :alt =>'favicon-32x32', rel: 'icon', sizes: '32x32' %>
+<html class="dallas">
+  <body>
+
+    <% if user_signed_in? %>
+      <div class="dallas-header">
+        <% if current_user.organization.avatar? %>
+          <%= image_tag current_user.organization.avatar %>
+        <% else %>
+          <div class="dallas-org-title">
+            <%= current_user.organization.title %>
+          </div>
+        <% end %>
+          <!-- <div class="dallas-logo"></div> -->
+      </div>
+    <% else %>
+      <%= link_to site_title, root_url, :class => 'brand' %>
+    <% end %>
+
+
+    <div class="dallas-navbar">
+      <div class="page-name">Dashboard</div>
+      <%= link_to 'Logout', destroy_user_session_path, :method=>'delete', :data => { :role => "menuitem", :tabindex => "-1" }, :class => 'nav-logout' %>
+    </div>
+
+    <div class="boxlink-container">
+      <div class="boxlink">
+        <div class="boxlink-flipper">
+          <div class="boxlink-tooltip-icon">info
+            <span class="boxlink-tooltip-flag">
+              General inquiries for information
+            </span>
+          </div>
+          <div class="boxlink-front">
+            <div class="boxlink-icon" id="questions"></div><div class="boxlink-text">Questions</div>
+          </div>
+          <div class="boxlink-back">
+            <div class="boxlink-text">Questions</div>
+            <div class="boxlink-link-container">
+              <%= link_to 'View', skills_path(:form_of_learning_id => "question"), :class => "boxlink-link", :data => { :role => "menuitem", :tabindex => "-1" } %>
+              <%= link_to 'Post', new_inquiry_path, :class => "boxlink-link", :data => { :role => "menuitem", :tabindex => "-1" } %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="boxlink">
+        <div class="boxlink-flipper">
+          <div class="boxlink-tooltip-icon">info
+            <span class="boxlink-tooltip-flag">
+              Real world experiences
+            </span>
+          </div>
+          <div class="boxlink-front">
+            <div class="boxlink-icon" id="insights"></div><div class="boxlink-text">Insights</div>
+          </div>
+          <div class="boxlink-back">
+            <div class="boxlink-text">Insights</div>
+            <div class="boxlink-link-container">
+              <%= link_to 'View', skills_path(:form_of_learning_id => "idea"), :class => "boxlink-link", :data => { :role => "menuitem", :tabindex => "-1" } %>
+              <%= link_to 'Post', new_best_practice_path, :class => "boxlink-link", :data => { :role => "menuitem", :tabindex => "-1" } %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="boxlink">
+        <div class="boxlink-flipper">
+          <div class="boxlink-tooltip-icon">info
+            <span class="boxlink-tooltip-flag">
+              Awards and motivation
+            </span>
+          </div>
+          <div class="boxlink-front">
+            <div class="boxlink-icon" id="recognitions"></div><div class="boxlink-text">Recognitions</div>
+          </div>
+          <div class="boxlink-back">
+            <div class="boxlink-text">Recognitions</div>
+            <div class="boxlink-link-container">
+              <%= link_to 'View Badges', recognitions_path, :class => "boxlink-link", :data => { :role => "menuitem", :tabindex => "-1" } %>
+              <%= link_to 'Award a Badge', find_recognitions_path, :class => "boxlink-link", :data => { :role => "menuitem", :tabindex => "-1" } %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="boxlink">
+        <div class="boxlink-flipper">
+          <div class="boxlink-tooltip-icon">info
+            <span class="boxlink-tooltip-flag">
+              Mentorship opportunities
+            </span>
+          </div>
+          <div class="boxlink-front">
+            <div class="boxlink-icon" id="advisors"></div><div class="boxlink-text">Mentorships</div>
+          </div>
+          <div class="boxlink-back">
+            <div class="boxlink-text">Mentorships</div>
+            <div class="boxlink-link-container">
+              <%= link_to 'View', skills_path(:form_of_learning_id => "advisor"), :class => "boxlink-link", :data => { :role => "menuitem", :tabindex => "-1" } %>
+              <%= link_to 'Post', new_opportunity_path(:type => "advisor"), :class => "boxlink-link", :data => { :role => "menuitem", :tabindex => "-1" } %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="boxlink">
+        <div class="boxlink-flipper">
+          <div class="boxlink-tooltip-icon">info
+            <span class="boxlink-tooltip-flag">
+              Group leadership opportunities
+            </span>
+          </div>
+          <div class="boxlink-front">
+            <div class="boxlink-icon" id="volunteers"></div><div class="boxlink-text">Volunteers</div>
+          </div>
+          <div class="boxlink-back">
+            <div class="boxlink-text">Volunteers</div>
+            <div class="boxlink-link-container">
+              <%= link_to 'View', skills_path(:form_of_learning_id => "volunteer"), :class => "boxlink-link", :data => { :role => "menuitem", :tabindex => "-1" } %>
+              <%= link_to 'Post', new_opportunity_path(:type => "volunteer"), :class => "boxlink-link", :data => { :role => "menuitem", :tabindex => "-1" } %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="boxlink">
+        <div class="boxlink-flipper">
+          <div class="boxlink-tooltip-icon">info
+            <span class="boxlink-tooltip-flag">
+              Task-based ideations
+            </span>
+          </div>
+          <div class="boxlink-front">
+            <div class="boxlink-icon" id="collaborations"></div><div class="boxlink-text">Collaborations</div>
+          </div>
+          <div class="boxlink-back">
+            <div class="boxlink-text">Collaborations</div>
+            <div class="boxlink-link-container">
+              <%= link_to 'View Teams', skills_path(:form_of_learning_id => "pacs"), :class => "boxlink-link-collaborate", :data => { :role => "menuitem", :tabindex => "-1" } %>
+              <%= link_to 'Create a Team', new_pac_path, :class => "boxlink-link-collaborate", :data => { :role => "menuitem", :tabindex => "-1" } %>
+              <%= link_to 'Find Members', find_users_path, :class => "boxlink-link-collaborate" %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="boxlink">
+        <div class="boxlink-flipper">
+          <div class="boxlink-tooltip-icon">info
+            <span class="boxlink-tooltip-flag">
+              Job shadowing opportunities
+            </span>
+          </div>
+          <div class="boxlink-front">
+            <div class="boxlink-icon" id="externships"></div><div class="boxlink-text">Externships</div>
+          </div>
+          <div class="boxlink-back">
+            <div class="boxlink-text">Externships</div>
+            <div class="boxlink-link-container">
+              <%= link_to 'View', skills_path(:form_of_learning_id => "intern"), :class => "boxlink-link", :data => { :role => "menuitem", :tabindex => "-1" } %>
+              <%= link_to 'Post', new_opportunity_path(:type => "intern"), :class => "boxlink-link", :data => { :role => "menuitem", :tabindex => "-1" } %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="boxlink">
+        <div class="boxlink-flipper">
+          <div class="boxlink-tooltip-icon">info
+            <span class="boxlink-tooltip-flag">
+              Tools and thought leadership
+            </span>
+          </div>
+          <div class="boxlink-front">
+            <div class="boxlink-icon" id="resources"></div><div class="boxlink-text">Resources</div>
+          </div>
+          <div class="boxlink-back">
+            <div class="boxlink-text">Resources</div>
+            <div class="boxlink-link-container">
+              <a href="http://performancegpa.com/" class="boxlink-link">Performance GPA</a>
+              <%= link_to 'Action Plan Templates', templates_path, :class => "boxlink-link", :data => { :role => "menuitem", :tabindex => "-1" }%>
+              <%= link_to 'Thought Leadership', thoughtleadership_path, :class => "boxlink-link", :data => { :role => "menuitem", :tabindex => "-1" }%>
+              <%= link_to 'About', about_path, :class => "boxlink-link", :data => { :role => "menuitem", :tabindex => "-1" } %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="boxlink">
+        <div class="boxlink-flipper">
+          <div class="boxlink-tooltip-icon">info
+            <span class="boxlink-tooltip-flag">
+              Your profile and activity portfolio
+            </span>
+          </div>
+          <div class="boxlink-front">
+            <div class="boxlink-icon" id="profile"></div><div class="boxlink-text">My serve2perform</div>
+          </div>
+          <div class="boxlink-back">
+            <div class="boxlink-text-small">My serve2perform</div>
+            <div class="boxlink-link-container">
+              <%= link_to 'View My Profile', user_path(current_user.id), :class => "boxlink-link", :data => { :role => "menuitem", :tabindex => "-1" }%>
+              <%= link_to 'Edit My Profile', edit_user_registration_path, :class => "boxlink-link", :data => { :role => "menuitem", :tabindex => "-1" }%>
+              <% if current_user.taken_assessment? %>
+                <%= link_to 'View My Report', assessment_report_path( :id => current_user.assessment_reports.last ), :class => "boxlink-link", :data => { :role => "menuitem", :tabindex => "-1" }   %>
+              <% else %>
+                <% if current_user.active_license? %>
+                  <%= link_to 'Take My Assessment', new_assessment_report_path, :class => "boxlink-link", :data => { :role => "menuitem", :tabindex => "-1" }   %>
+                <% else %>
+                  <%= link_to 'Take My Assessment', assessment_path(1), :class => "boxlink-link", :data => { :role => "menuitem", :tabindex => "-1" }   %>
+                <% end %>
+              <% end %>
+              <%= link_to 'Manage My Activity', edit_many_skills_path, :class => "boxlink-link", :data => { :role => "menuitem", :tabindex => "-1" } %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% if current_user.organization_id? && current_user.organization.active_license? && current_user.managed_organization_id.present? %>
+        <div class="boxlink">
+          <div class="boxlink-flipper">
+            <div class="boxlink-tooltip-icon">info
+            <span class="boxlink-tooltip-flag">
+              Private page for your organization
+            </span>
+          </div>
+            <div class="boxlink-front">
+              <div class="boxlink-icon" id="organization"></div><div class="boxlink-text">
+                Admin
+              </div>
+            </div>
+              <div class="boxlink-back">
+                <div class="boxlink-text">
+                  Admin
+                </div>
+                <div class="boxlink-link-container">
+                  <%= link_to 'View', organization_path(current_user.organization.slug), :class => "boxlink-link", :data => { :role => "menuitem", :tabindex => "-1" }%>
+                  <% if current_user.managed_organization_id.present? %>
+                    <%= link_to 'Create An Internal Resource', new_fast_content_path, :class => "boxlink-link", :data => { :role => "menuitem", :tabindex => "-1" }%>
+                    <%= link_to 'Create A Facility', new_facility_path, :class => "boxlink-link", :data => { :role => "menuitem", :tabindex => "-1" }%>
+                    <%= link_to 'AdminConsole', manage_user_licenses_path(current_user.managed_organization), :class => "boxlink-link", :data => { :role => "menuitem", :tabindex => "-1" }%>
+                  <% end %>
+                </div>
+              </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+
+  </body>
+</html>

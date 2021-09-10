@@ -1,0 +1,16 @@
+@import "master";
+
+.support_requests {
+  input, select {
+    height: 36px;
+  }
+
+  .btn-primary {
+    margin-left: 0;
+  }
+
+  .knockout-title {
+    font: $knockout-headline;
+    text-transform: uppercase;
+  }
+}

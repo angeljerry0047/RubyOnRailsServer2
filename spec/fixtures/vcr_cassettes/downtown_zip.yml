@@ -1,0 +1,68 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://maps.googleapis.com/maps/api/geocode/json?address=98101&language=en&sensor=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Date:
+      - Wed, 27 Mar 2013 20:55:23 GMT
+      Expires:
+      - Thu, 28 Mar 2013 20:55:23 GMT
+      Cache-Control:
+      - public, max-age=86400
+      Access-Control-Allow-Origin:
+      - ! '*'
+      Server:
+      - mafe
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: US-ASCII
+      string: ! "{\n   \"results\" : [\n      {\n         \"address_components\" :
+        [\n            {\n               \"long_name\" : \"98101\",\n               \"short_name\"
+        : \"98101\",\n               \"types\" : [ \"postal_code\" ]\n            },\n
+        \           {\n               \"long_name\" : \"Seattle\",\n               \"short_name\"
+        : \"Seattle\",\n               \"types\" : [ \"locality\", \"political\" ]\n
+        \           },\n            {\n               \"long_name\" : \"King\",\n
+        \              \"short_name\" : \"King\",\n               \"types\" : [ \"administrative_area_level_2\",
+        \"political\" ]\n            },\n            {\n               \"long_name\"
+        : \"Washington\",\n               \"short_name\" : \"WA\",\n               \"types\"
+        : [ \"administrative_area_level_1\", \"political\" ]\n            },\n            {\n
+        \              \"long_name\" : \"United States\",\n               \"short_name\"
+        : \"US\",\n               \"types\" : [ \"country\", \"political\" ]\n            }\n
+        \        ],\n         \"formatted_address\" : \"Seattle, WA 98101, USA\",\n
+        \        \"geometry\" : {\n            \"bounds\" : {\n               \"northeast\"
+        : {\n                  \"lat\" : 47.61852890,\n                  \"lng\" :
+        -122.32199210\n               },\n               \"southwest\" : {\n                  \"lat\"
+        : 47.60317389999999,\n                  \"lng\" : -122.35125510\n               }\n
+        \           },\n            \"location\" : {\n               \"lat\" : 47.60849210,\n
+        \              \"lng\" : -122.3364070\n            },\n            \"location_type\"
+        : \"APPROXIMATE\",\n            \"viewport\" : {\n               \"northeast\"
+        : {\n                  \"lat\" : 47.61852890,\n                  \"lng\" :
+        -122.32199210\n               },\n               \"southwest\" : {\n                  \"lat\"
+        : 47.60317389999999,\n                  \"lng\" : -122.35125510\n               }\n
+        \           }\n         },\n         \"types\" : [ \"postal_code\" ]\n      }\n
+        \  ],\n   \"status\" : \"OK\"\n}\n"
+    http_version: 
+  recorded_at: Wed, 27 Mar 2013 20:55:23 GMT
+recorded_with: VCR 2.4.0

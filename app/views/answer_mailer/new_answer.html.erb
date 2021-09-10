@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  
+  <body>
+
+    <p>
+      Dear <%= @user.name %>,
+    </p>
+      
+    <p>
+      I have posted an answer on the <b><%= @inquiry.category %> question</b> on serve2perform. 
+    </p>
+
+    <p>
+      Click <%= link_to 'here',"https://serve2mentor.com/inquiries/#{@inquiry.id}" %> to <b>View</b>, <b>Like</b>, <b>Answer</b> and join in on the discussion.
+    </p>
+
+    <p>
+      Have a great day!
+    </p>
+  
+  </body>
+</html>
+    

@@ -1,0 +1,98 @@
+<%= simple_form_for(
+      @recommendation,
+      wrapper: :horizontal_form,
+      wrapper_mappings: { radio_buttons: :horizontal_collection }
+    ) do |f| %>
+  <% if @recommendation.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@recommendation.errors.count, "error") %> prohibited this recommendation from being saved:</h2>
+
+      <ul>
+      <% @recommendation.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <!--
+  <div class="rec_types">
+    <%#= f.input :opportunity_category_id,
+    label: "",
+    :collection => OpportunityCategory.recommendable.collect{ |oc| [oc.name,oc.id]},
+    :as => :radio_buttons, :required => true  %>
+  </div>
+  -->
+
+  <%= f.hidden_field :opportunity_category_id, :value => 18 %>
+
+  <div class="rec_types1">
+    <div class="control-group">
+      <div class="controls">
+        <div style="font-size:18px;">Recommendation Type *</div>
+        <%= select_tag 'recommendation[rec_type]', options_for_select(BestPracticeCategory.recommendable.sort_by{ |bp| [bp.title]}.collect{ |bp| [bp.title]}), include_blank: true, :class => "required" %>
+        <span class="help-inline">This field is required</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div style="text-align:center; font-size: 18px;">Please describe your connection with <%#= @user.name %></div> -->
+
+  <div class="con_validation">
+    <%= f.input :con_performance,
+      label: "Please evaluate their previous performance in this role",
+      collection: [['Good', 'Good'], ['Very Good', 'Very Good'], ['Excellent', 'Excellent']],
+      as: :radio_buttons,
+      required: true
+    %>
+  </div>
+
+  <div class="con_validation">
+    <%= f.input :con_type,
+      label: "Type of Connection",
+      collection: [['Acquaintance', 'Acquaintance'], ['Colleague', 'Colleague'], ['Personal', 'Personal']],
+      as: :radio_buttons,
+      required: true
+    %>
+  </div>
+
+  <div class="con_validation">
+    <%= f.input :con_length,
+      label: "Longevity of Connection",
+      collection: [['1-2 years', '1-2 years'], ['3-5 years', '3-5 years'], ['6+ years', '6+ years']],
+      as: :radio_buttons,
+      required: true
+    %>
+  </div>
+
+  <div class="con_validation">
+    <%= f.input :con_strength,
+      label: "Strength of Connection",
+      collection: [['Moderate', 'Moderate'], ['Strong', 'Strong'], ['Very Strong', 'Very Strong']],
+      as: :radio_buttons,
+      required: true
+    %>
+  </div>
+
+  <div class="con_validation">
+    <%= f.input :con_engagement,
+      label: "Frequency of Interaction with Connection",
+      collection: [['Seldom', 'Seldom'], ['Frequent', 'Frequent'], ['Constant', 'Constant']],
+      as: :radio_buttons,
+      required: true
+    %>
+  </div>
+
+  <div class="clear"></div>
+
+  <div class="con_validation">
+    <div style="font-size:18px; font-weight:bold; padding-bottom:10px;">Why do you believe <%= @user.name %> will be effective in this role?</div>
+    <%= f.text_area :con_text, :rows => 3, :style => "width:60%", :required => true %>
+  </div>
+
+  <div class="rec_apply">
+    <button type="submit" class="btn-primary create roundedge btn-center">Submit Recommendation</button>
+    <%= f.hidden_field :user_id, :value => @user.id %>
+  </div>
+
+<% end %>

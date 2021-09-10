@@ -1,0 +1,11 @@
+<% title "invite colleagues via email" %>
+<h1>invite colleagues via email</h1>
+
+
+  <%= form_tag send_email_invites_path do %>
+      <%= label_tag "emails", "Email address(es)"%>
+      <%= text_field_tag "emails", "", :class =>"span8", :placeholder => 'Multiple separated by commas' %>
+      <br/>
+      <%= submit_tag 'Invite', :class => "btn btn-primary btn-large roundedge" %>
+    <% end %>
+

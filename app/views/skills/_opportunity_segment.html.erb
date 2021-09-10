@@ -1,0 +1,21 @@
+<div class='opportunity_segment <%= defined?(hidden) && hidden ? 'hidden': '' %>'>
+  <% if opportunity.errors.count > 0 %>
+  	  <% opportunity.errors.each do |attribute, error|  %>	 
+      	<%= bootstrap_alert(content_tag(:p, error)) %>
+      	
+  	  <% end %>	
+  <% end %>
+    <div class="row">
+      <div class="span7">
+        <%= hidden_field_tag 'opportunities[][id]', opportunity.id %>
+        <%= hidden_field_tag 'opportunities[][owner_id]', (defined?(historical) && historical) ? nil : current_user.id %>
+        <%= hidden_field_tag 'opportunities[][ghost]', !!defined?(hidden) && hidden, :class => 'ghost_opportunity_segment' %>
+        
+        <%= render 'opportunities/form', :opportunity => opportunity %>
+      </div>
+      <div class="span5 filter">    
+        <%= render 'opportunities/opportunity_filter', :opportunity => opportunity %>
+      </div>
+    </div>
+  
+</div>

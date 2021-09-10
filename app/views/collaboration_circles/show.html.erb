@@ -1,0 +1,131 @@
+<%= stylesheet_link_tag "mentorship_circles", :media => "all" %>
+<%= stylesheet_link_tag "application/list-post", :media => "all" %>
+
+<div class="board">
+  <%= link_to user_path(@collaboration_circle.facilitator_id), :class => "user-chip" do %>
+    <div class="picture">
+      <%= image_tag User.find(@collaboration_circle.facilitator_id).avatar.url %>
+    </div>
+    <div class="name"><%=User.find(@collaboration_circle.facilitator_id).name %></div>
+  <% end %>
+  <div class="column small">
+
+    <div class="info">
+      <%= Organization.find(@collaboration_circle.organization_id).title %>
+
+      </br>
+      <% if ((Time.now - @collaboration_circle.created_at)/3600).floor < 1 && ((Time.now - @collaboration_circle.created_at)/60).floor != 1 %>
+        Posted <span class="number">
+        <%= ((Time.now - @collaboration_circle.created_at)/60).floor %>
+        </span> minutes ago
+      <% elsif ((Time.now - @collaboration_circle.created_at)/60).floor == 1 %>
+        Posted <span class="number">
+        1</span> minute ago
+      <% elsif ((Time.now - @collaboration_circle.created_at)/3600).floor < 24 && ((Time.now - @collaboration_circle.created_at)/3600).floor != 1 %>
+        Posted <span class="number">
+        <%= ((Time.now - @collaboration_circle.created_at)/3600).floor %>
+        </span> hours ago
+      <% elsif ((Time.now - @collaboration_circle.created_at)/3600).floor ==1 %>
+        Posted <span class="number">
+        1</span> hour ago
+      <% else %>
+        <span>
+        <%= (@collaboration_circle.created_at).strftime("%d %b %Y") %>
+        </span>
+      <% end %>
+
+      </br>
+      <% if @collaboration_circle.start_date? && @collaboration_circle.end_date? %>
+      </br>
+        <%= @collaboration_circle.start_date.strftime("%d %b %Y") %> – <%= @collaboration_circle.end_date.strftime("%d %b %Y") %>
+      <% end %>
+      <% if @collaboration_circle.meeting_time? %>
+      </br>
+        <%= @collaboration_circle.meeting_time %>
+      <% end %>
+      <% if @collaboration_circle.location? %>
+      </br>
+        <%= @collaboration_circle.location %>
+      <% end %>
+
+      <%if @collaboration_circle.facilitator_id == current_user.id %>
+        </br></br>
+        <%= link_to 'Edit', edit_collaboration_circle_path %>
+        | <%= link_to 'Delete', @collaboration_circle, :method => :delete, data: { confirm: 'Are you sure?'} %>
+      <% elsif (GroupAdmin.where(group_id: @collaboration_circle.organization_id, admin_id: current_user.id).exists?) %>
+        </br></br>
+        <%= link_to 'Delete', @collaboration_circle, :method => :delete, data: { confirm: 'Are you sure?'} %>
+      <%end%>
+
+
+    </div>
+  </div>
+
+  <div class="column large">
+    <div class="title"><%= @collaboration_circle.title %></div>
+
+    <%if @collaboration_circle.description? %>
+      <div class="subhead">
+        Description
+      </div>
+      <div class="body">
+        <%= @collaboration_circle.description %>
+      </div>
+    <% end %>
+
+    <%if @collaboration_circle.expectations? %>
+      <div class="subhead">
+        Expectations
+      </div>
+      <div class="body">
+        <%= @collaboration_circle.expectations %>
+      </div>
+    <% end %>
+
+    <%if @collaboration_circle.expectations? %>
+      <div class="subhead">
+        Members <i><%= @collaboration_circle.users.count %> of <%= @collaboration_circle.max_attendees %></i>
+      </div>
+
+      <%if @collaboration_circle.users.count != 0 %>
+        <%- @collaboration_circle.users.each do |user| %>
+          <div class="member-list">
+            <%= link_to user_path(user.id), :class => "user-chip" do %>
+              <div class="picture">
+                <%= image_tag User.find(user.id).avatar.url %>
+              </div>
+              <div class="name"><%=User.find(user.id).name %></div>
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
+      
+    <% end %>
+
+    <%- unless @collaboration_circle.facilitator == current_user %>
+      <%- unless @collaboration_circle.includes_user?(current_user.id) %>
+        <%- unless @collaboration_circle.full? %>
+          <%= form_tag('/collaboration_circles/join', method: 'post') do %>
+            <%= hidden_field_tag(:collaboration_circle_id, @collaboration_circle.id) %>
+            <%= submit_tag("Join Circle", :class => "btn-primary", :style => "margin-left: 0") %>
+          <% end %>
+        <% end %>
+      <% else %>
+        <%= form_tag('/collaboration_circles/leave', method: 'post') do %>
+          <%= hidden_field_tag(:collaboration_circle_id, @collaboration_circle.id) %>
+          <%= submit_tag("Leave Circle", :class => "btn-primary", :style => "margin-left: 0") %>
+        <% end %>
+      <% end %>
+    <% end %>
+
+  </div>
+
+  <div class="clear"></div>
+  
+</div>
+
+
+<div class="board">
+  <%= render "comments/form" %>
+  <%= render "comments/comments" %>
+</div>

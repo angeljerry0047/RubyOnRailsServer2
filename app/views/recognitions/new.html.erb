@@ -1,0 +1,11 @@
+<%= stylesheet_link_tag "application/recognitions-new", :media => "all" %>
+<%= simple_form_for :recognition, { url: recognitions_path } do |f| %>
+
+  <%= f.collection_radio_buttons(:badge_type_id, badge_types, :id, :name, { :item_wrapper_tag => :div, :item_wrapper_class => "recognitions-radio" }) do |button| %>
+    <%- button.label { button.radio_button + image_tag(button.object.current_image_filename, :style => "max-width: 100px") + button.text } %>
+  <%end %>
+
+  <%= f.hidden_field :user_id, :value => user_id %>
+  <div class="clear"></div>
+  <%= f.button :submit, "Award Badge", :class => "recognition-new-button btn-primary" %>
+<% end %>

@@ -1,0 +1,17 @@
+<% if @changeset.present? %>
+  <h2>Looks like you have some differences, would you like to update your profile with them?</h2>
+  <%= simple_form_for(@user, :as => 'user', :url => registration_path('user'), :html => { :method => :put, :class => 'form-vertical' }) do |f| %>
+    <%= f.input :current_password, :hint => "we need your current password to confirm your changes", :required => true %>
+    <% @changeset.each do |k,v| %>
+      <h2><%= k %></h2>
+      
+      <div class="btn-group" data-toggle-name="user[<%= k %>]" data-toggle="buttons-radio" >
+        <button type="button" value="<%= @user[k] %>" class="btn" data-toggle="button"><%= @user[k] %></button>
+        <button type="button" value="<%= v %>" class="btn" data-toggle="button"><%= v %></button>
+      </div>
+      <input type="hidden" name="user[<%= k %>]" value="<%= @user[k] %>" />
+    <% end %>
+    <%= f.button :submit, 'Update', :class => 'btn btn-large btn-primary roundedge' %>
+  <% end %>
+<% else %>
+<% end %>

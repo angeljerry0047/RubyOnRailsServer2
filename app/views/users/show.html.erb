@@ -1,0 +1,837 @@
+<%= stylesheet_link_tag "application/certifications", :media => "all" %>
+<%= stylesheet_link_tag "application/tabs", :media => "all" %>
+<%= stylesheet_link_tag "users", :media => "all" %>
+<%= javascript_include_tag "application/tabs" %>
+<%= javascript_include_tag "certifications" %>
+<% title "view my profile" %>
+
+<div class="board">
+  <div class="profile-image">
+    <%= image_tag @user.avatar.url %>
+    <%if current_user.id == @user.id%>
+      <div class="controls">
+        <%= link_to 'Edit Profile', edit_user_registration_path %>
+      </div>      
+    <% end %>
+  </div>
+  <div class="profile-info">
+    <div class="profile-name">
+      <%= @user.name %>
+    </div>
+    <div class="date">
+      <a href="mailto:<%= @user.email %>"><%= @user.email %></a>
+    </div>
+    <%if @user.location.present? %>
+      <div class="location">
+        <p><%= @user.location %></p>
+      </div>
+    <%end%>
+    <div class="date">
+      <p>Joined on <%= @user.created_at.strftime("%B %-d, %Y") %></p>
+    </div>
+    <%if @user.interests.length > 0 %> 
+      <div class="profile-title interests-header">My Interests</div>
+      <div class="interests">
+      <% @user.interests.each do |interest| %>
+        <div class="interest" style="margin-bottom: 8px;"><%= interest.name %></div>
+      <% end %>
+        <div class="clear"></div>
+      </div>
+    <%end%>
+  </div>
+  <div class="clear"></div>
+</div>
+
+<div class="board tabs" id="recognitions-tabs">
+  <div class="tabs-header">
+    <div class="tab-container">
+      <div class="tab active-tab ripple-button" data-tab="certifications" data-index="0">
+        Certifications
+      </div>
+      <div class="tab ripple-button" data-tab="recommendations" data-index="1">
+        Recommendations
+      </div>
+      <div class="tab ripple-button" data-tab="badges" data-index="2">
+        Badges
+      </div>
+      <div class="tab-indicator"></div>
+    </div>
+  </div>
+
+  <div class="tab-panel" data-tab="certifications" data-index="0"> <!-- Certifications -->
+    <% if @certifications.length <= 0 %>
+      <div class="panel-text">No Certifications yet. Sign up for Certification courses through your s2p Community membership.</div>
+    <% else %>
+      <div class="certifications-container">
+        <% @certifications.each do |certification| %> <!-- for each certificaiton -->
+        <div class="certification-container">
+          <%= image_tag(certification.image_filename) %>
+        </div>
+        <% end %>
+        <div class="clear"></div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="tab-panel" data-tab="recommendations" data-index="1"> <!-- Recommendations -->
+    <% if Recommendation.where(user_id: @user.id).count <= 0 %>
+      <div class="panel-text">No recommendations yet.</div>
+    <% else %>
+      <%- sorted_user_recommendations(@user).each do |type, recommendations| %>
+        <div class="recommendation-category">
+          <div class="panel-subhead"><%= type %>: <%= recommendations.count %></div>
+            <%- recommendations.each do |recommendation| %>
+
+              <% if User.exists?(:id => recommendation.creator_id) %>
+                <div class="list-post user-list">
+
+                  <%= link_to recommendation_path(recommendation.id), :class => "ripple-button" do %>
+                    <div class="list-user">
+                      <div class="user-chip">
+                        <div class="user-image">
+                          <%= image_tag User.find(recommendation.creator_id).avatar.url %>
+                        </div>
+                        <div class="user-name">
+                          <%= User.find(recommendation.creator_id).name %>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="clear"></div>
+                  <% end #link to user path %>
+                </div>
+              <% end %>
+
+              <!-- <li>
+                <%#= link_to User.find(recommendation.creator_id).name, recommendation_path(recommendation.id) %>
+              </li> -->
+
+            <%- end %>
+          <div class="clear"></div>
+        </div>
+      <%- end %>
+    <% end %>
+    <div class="clear"></div>
+      <% if (current_user.id != @user.id) %>
+        <%= link_to 'Recommend', new_recommendation_path(:user_id => @user.id), :class => "btn-primary", :style => "margin:auto;" %>
+      <% end %>
+    <div class="clear"></div>
+  </div>
+
+  <div class="tab-panel" data-tab="badges" data-index="2"> <!-- Badges -->
+    <% if @badges.length <= 0 %>
+      <div class="panel-text">No Badges yet. <%= link_to "Click here to learn more about Badges.", recognitions_path %></div>
+    <% else %>
+      <%- @badges.each do |badge| %>
+        <%= link_to image_tag((badge.image_filename), :style => "padding:3px; max-width: 100px;"), recognitions_path %>
+        <%#= User.find(badge.user_id).name %>
+      <% end %>
+      <span><%= link_to "Learn More", recognitions_path %></span>
+    <% end %>
+  </div>
+
+</div>
+
+<div class="board tabs" id="main-tabs">
+  <div class="tabs-header">
+    <div class="tab-container">
+      <div class="tab active-tab ripple-button" data-tab="groups" data-index="0">
+        Groups
+      </div>
+      <div class="tab ripple-button" data-tab="activity" data-index="1">
+        Activity
+      </div>
+      <div class="tab-indicator"></div>
+    </div>
+  </div>
+
+  <div class="tab-panel" data-tab="groups" data-index="0"> <!-- Groups -->
+    <% @user.unique_groups.sort_by!{ |g| g.title }.each do |group| %>
+      <% if UserGroup.exists?(group_id: group.id, member_id: current_user.id) %>
+        <%= link_to organization_path(group.slug), :class => "group-container" do %>
+          <div class="square-image">
+            <%= image_tag group.avatar.url %>
+          </div>
+          <div class="org-info">
+            <div class="org-title">
+              <%= group.title %>
+            </div>
+            <div class="org-members">
+              Since <%= (group.created_at).strftime("%d %b %Y") %>
+            </div>
+            <div class="org-description">
+              <%= truncate(group.int_description, length: 144) %>
+            </div>
+          </div>
+          <div class="clear"></div>
+        <% end %>
+      <% end %>
+    <% end %>
+
+    <% @user.associated_groups.sort_by!{ |g| g.title }.each do |group| %>
+      <div class="group-container unavailable">
+        <div class="square-image">
+          <%= image_tag group.avatar.url %>
+        </div>
+        <div class="org-info">
+          <div class="org-title">
+            <%= group.title %>
+          </div>
+          <div class="org-members">
+            Since <%= (group.created_at).strftime("%d %b %Y") %>
+          </div>
+          <div class="org-description">
+            <%= truncate(group.int_description, length: 144) %>
+          </div>
+        </div>
+        <div class="clear"></div>
+        <div class="unavailable-overlay"></div>
+        <div class="unavailable-info">
+          <% if group.admins.first %>
+            Contact 
+            <%= link_to user_path(group.admins.first.id) do %>
+              <%= group.admins.first.name %>
+            <% end %>
+             at <%= group.admins.first.email %> to join the <%= group.title %> group
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+
+  </div>
+
+  <div class="tab-panel" data-tab="activity" data-index="1"> <!-- Activity -->
+
+    <% if @collaboration_circle.count != 0 || @user.collaboration_circles.count != 0 %>
+      <div class="post-type-title profile-title">Collaboration Circles</div>
+    <% end %>
+    <% if @collaboration_circle.count != 0 %>
+      <% @collaboration_circle.sort_by{ |p| p.created_at}.reverse.each do |post| %>
+        <% if (Organization.exists?(:id => post.organization_id)) && (UserGroup.exists?(group_id: post.organization_id, member_id: current_user.id)) %>
+          <%= link_to collaboration_circle_path(post), :class => "list-post ripple-button" do %>
+
+            <div class="list-main">
+              <div class="title"><%= post.title %></div>
+              <div class="info">
+                <span class="org-title"><%= Organization.find(post.organization_id).title %></span>
+                <br/>
+                <% if ((Time.now - post.created_at)/3600).floor < 1 && ((Time.now - post.created_at)/60).floor != 1 %>
+                  Posted <span class="number">
+                  <%= ((Time.now - post.created_at)/60).floor %>
+                  </span> minutes ago
+                <% elsif ((Time.now - post.created_at)/60).floor == 1 %>
+                  Posted <span class="number">
+                  1</span> minute ago
+                <% elsif ((Time.now - post.created_at)/3600).floor < 24 && ((Time.now - post.created_at)/3600).floor != 1 %>
+                  Posted <span class="number">
+                  <%= ((Time.now - post.created_at)/3600).floor %>
+                  </span> hours ago
+                <% elsif ((Time.now - post.created_at)/3600).floor ==1 %>
+                  Posted <span class="number">
+                  1</span> hour ago
+                <% else %>
+                  <span>
+                  <%= (post.created_at).strftime("%d %b %Y") %>
+                  </span>
+                <% end %>
+              </div>
+            </div>
+
+            <div class="post-list-user">
+              <div class="user-chip">
+                <div class="user-image">
+                  <%= image_tag User.find(post.facilitator_id).avatar.url %>
+                </div>
+                <div class="user-name">
+                  <%= User.find(post.facilitator).name %>
+                </div>
+              </div>
+            </div>
+            <div class="clear"></div>
+
+          <% end #link to post path %>
+        <% end #if organization exists %>
+      <% end %>
+    <% end %>
+    <% if @user.collaboration_circles.count != 0 %>
+      <% @user.collaboration_circles.sort_by{ |p| p.created_at}.reverse.each do |post| %>
+        <% if (Organization.exists?(:id => post.organization_id)) && (UserGroup.exists?(group_id: post.organization_id, member_id: current_user.id)) %>
+          <%= link_to collaboration_circle_path(post), :class => "list-post ripple-button" do %>
+
+            <div class="list-main">
+              <div class="title"><%= post.title %></div>
+              <div class="info">
+                <span class="org-title"><%= Organization.find(post.organization_id).title %></span>
+                <br/>
+                <% if ((Time.now - post.created_at)/3600).floor < 1 && ((Time.now - post.created_at)/60).floor != 1 %>
+                  Posted <span class="number">
+                  <%= ((Time.now - post.created_at)/60).floor %>
+                  </span> minutes ago
+                <% elsif ((Time.now - post.created_at)/60).floor == 1 %>
+                  Posted <span class="number">
+                  1</span> minute ago
+                <% elsif ((Time.now - post.created_at)/3600).floor < 24 && ((Time.now - post.created_at)/3600).floor != 1 %>
+                  Posted <span class="number">
+                  <%= ((Time.now - post.created_at)/3600).floor %>
+                  </span> hours ago
+                <% elsif ((Time.now - post.created_at)/3600).floor ==1 %>
+                  Posted <span class="number">
+                  1</span> hour ago
+                <% else %>
+                  <span>
+                  <%= (post.created_at).strftime("%d %b %Y") %>
+                  </span>
+                <% end %>
+              </div>
+            </div>
+
+            <div class="post-list-user">
+              <div class="user-chip">
+                <div class="user-image">
+                  <%= image_tag User.find(post.facilitator_id).avatar.url %>
+                </div>
+                <div class="user-name">
+                  <%= User.find(post.facilitator).name %>
+                </div>
+              </div>
+            </div>
+            <div class="clear"></div>
+
+          <% end #link to post path %>
+        <% end #if organization exists %>
+      <% end %>
+    <% end %>
+
+    <% if @mentorship != nil %>
+      <% @mentorship.sort_by{ |p| p.created_at}.reverse.each do |post| %>
+        <% if (Organization.exists?(:id => post.organization_id)) && (UserGroup.exists?(group_id: post.organization_id, member_id: current_user.id)) %>
+          <%= link_to opportunity_path(post), :class => "list-post ripple-button" do %>
+
+            <div class="list-main">
+              <div class="title">
+                <% if post.title? %>
+                  <%= post.title %>
+                <% else %>
+                  <%= post.learning_objectives %>
+                <% end %>
+              </div>
+              <div class="info">
+                <span class="org-title"><%= Organization.find(post.organization_id).title %></span>
+                <br/>
+                <% if ((Time.now - post.created_at)/3600).floor < 1 && ((Time.now - post.created_at)/60).floor != 1 %>
+                  Posted <span class="number">
+                  <%= ((Time.now - post.created_at)/60).floor %>
+                  </span> minutes ago
+                <% elsif ((Time.now - post.created_at)/60).floor == 1 %>
+                  Posted <span class="number">
+                  1</span> minute ago
+                <% elsif ((Time.now - post.created_at)/3600).floor < 24 && ((Time.now - post.created_at)/3600).floor != 1 %>
+                  Posted <span class="number">
+                  <%= ((Time.now - post.created_at)/3600).floor %>
+                  </span> hours ago
+                <% elsif ((Time.now - post.created_at)/3600).floor ==1 %>
+                  Posted <span class="number">
+                  1</span> hour ago
+                <% else %>
+                  <span>
+                  <%= (post.created_at).strftime("%d %b %Y") %>
+                  </span>
+                <% end %>
+              </div>
+            </div>
+
+            <div class="post-list-user">
+              <div class="user-chip">
+                <div class="user-image">
+                  <%= image_tag User.find(post.owner_id).avatar.url %>
+                </div>
+                <div class="user-name">
+                  <%= User.find(post.owner).name %>
+                </div>
+              </div>
+            </div>
+            <div class="clear"></div>
+
+          <% end #link to post path %>
+        <% end #if organization exists %>
+      <% end %>
+    <% end %>
+
+    <% if @mentorship_circle.count != 0 || @user.mentorship_circles != 0 %>
+      <div class="post-type-title profile-title">Mentorship Circles</div>
+    <% end %>
+    <% if @mentorship_circle.count != 0 %>
+      <% @mentorship_circle.sort_by{ |p| p.created_at}.reverse.each do |post| %>
+        <% if (Organization.exists?(:id => post.organization_id)) && (UserGroup.exists?(group_id: post.organization_id, member_id: current_user.id)) %>
+          <%= link_to mentorship_circle_path(post), :class => "list-post ripple-button" do %>
+
+            <div class="list-main">
+              <div class="title"><%= post.title %></div>
+              <div class="info">
+                <span class="org-title"><%= Organization.find(post.organization_id).title %></span>
+                <br/>
+                <% if ((Time.now - post.created_at)/3600).floor < 1 && ((Time.now - post.created_at)/60).floor != 1 %>
+                  Posted <span class="number">
+                  <%= ((Time.now - post.created_at)/60).floor %>
+                  </span> minutes ago
+                <% elsif ((Time.now - post.created_at)/60).floor == 1 %>
+                  Posted <span class="number">
+                  1</span> minute ago
+                <% elsif ((Time.now - post.created_at)/3600).floor < 24 && ((Time.now - post.created_at)/3600).floor != 1 %>
+                  Posted <span class="number">
+                  <%= ((Time.now - post.created_at)/3600).floor %>
+                  </span> hours ago
+                <% elsif ((Time.now - post.created_at)/3600).floor ==1 %>
+                  Posted <span class="number">
+                  1</span> hour ago
+                <% else %>
+                  <span>
+                  <%= (post.created_at).strftime("%d %b %Y") %>
+                  </span>
+                <% end %>
+              </div>
+            </div>
+
+            <div class="post-list-user">
+              <div class="user-chip">
+                <div class="user-image">
+                  <%= image_tag User.find(post.mentor_id).avatar.url %>
+                </div>
+                <div class="user-name">
+                  <%= User.find(post.mentor).name %>
+                </div>
+              </div>
+            </div>
+            <div class="clear"></div>
+
+          <% end #link to post path %>
+        <% end #if organization exists %>
+      <% end %>
+    <% end %>
+    <% if @user.mentorship_circles.count != 0 %>
+      <% @user.mentorship_circles.sort_by{ |p| p.created_at}.reverse.each do |post| %>
+        <% if (Organization.exists?(:id => post.organization_id)) && (UserGroup.exists?(group_id: post.organization_id, member_id: current_user.id)) %>
+          <%= link_to mentorship_circle_path(post), :class => "list-post ripple-button" do %>
+
+            <div class="list-main">
+              <div class="title"><%= post.title %></div>
+              <div class="info">
+                <span class="org-title"><%= Organization.find(post.organization_id).title %></span>
+                <br/>
+                <% if ((Time.now - post.created_at)/3600).floor < 1 && ((Time.now - post.created_at)/60).floor != 1 %>
+                  Posted <span class="number">
+                  <%= ((Time.now - post.created_at)/60).floor %>
+                  </span> minutes ago
+                <% elsif ((Time.now - post.created_at)/60).floor == 1 %>
+                  Posted <span class="number">
+                  1</span> minute ago
+                <% elsif ((Time.now - post.created_at)/3600).floor < 24 && ((Time.now - post.created_at)/3600).floor != 1 %>
+                  Posted <span class="number">
+                  <%= ((Time.now - post.created_at)/3600).floor %>
+                  </span> hours ago
+                <% elsif ((Time.now - post.created_at)/3600).floor ==1 %>
+                  Posted <span class="number">
+                  1</span> hour ago
+                <% else %>
+                  <span>
+                  <%= (post.created_at).strftime("%d %b %Y") %>
+                  </span>
+                <% end %>
+              </div>
+            </div>
+
+            <div class="post-list-user">
+              <div class="user-chip">
+                <div class="user-image">
+                  <%= image_tag User.find(post.mentor_id).avatar.url %>
+                </div>
+                <div class="user-name">
+                  <%= User.find(post.mentor).name %>
+                </div>
+              </div>
+            </div>
+            <div class="clear"></div>
+
+          <% end #link to post path %>
+        <% end #if organization exists %>
+      <% end %>
+    <% end %>
+
+    <!--
+    <%# if @pac != nil %>
+      <div class="post-type-title profile-title">Collaborations</div>
+      <%# @pac.sort_by{ |p| p.created_at}.reverse.each do |post| %>
+        <%# if (Organization.exists?(:id => post.organization_id)) && (UserGroup.exists?(group_id: post.organization_id, member_id: current_user.id)) %>
+          <%#= link_to pac_path(post), :class => "list-post ripple-button" do %>
+
+            <div class="list-main">
+              <div class="title"><%#= post.title %></div>
+              <div class="info">
+                <span class="org-title"><%#= Organization.find(post.organization_id).title %><span class="org-title">
+                <br/>
+                <%# if ((Time.now - post.created_at)/3600).floor < 1 && ((Time.now - post.created_at)/60).floor != 1 %>
+                  Posted <span class="number">
+                  <%#= ((Time.now - post.created_at)/60).floor %>
+                  </span> minutes ago
+                <%# elsif ((Time.now - post.created_at)/60).floor == 1 %>
+                  Posted <span class="number">
+                  1</span> minute ago
+                <%# elsif ((Time.now - post.created_at)/3600).floor < 24 && ((Time.now - post.created_at)/3600).floor != 1 %>
+                  Posted <span class="number">
+                  <%#= ((Time.now - post.created_at)/3600).floor %>
+                  </span> hours ago
+                <%# elsif ((Time.now - post.created_at)/3600).floor ==1 %>
+                  Posted <span class="number">
+                  1</span> hour ago
+                <%# else %>
+                  <span>
+                  <%#= (post.created_at).strftime("%d %b %Y") %>
+                  </span>
+                <%# end %>
+                <%# if post.complete %>
+                  <span> • </span>
+                  <span>Complete</span>
+                <%# else %>
+                  <span> • </span>
+                  <span class="number">Open</span>
+                <%# end %>
+              </div>
+            </div>
+
+            <div class="post-list-user">
+              <div class="user-chip">
+                <div class="user-image">
+                  <%#= image_tag User.find(post.owner_id).avatar.url %>
+                </div>
+                <div class="user-name">
+                  <%#= User.find(post.owner).name %>
+                </div>
+              </div>
+            </div>
+            <div class="clear"></div>
+
+          <%# end #link to post path %>
+        <%# end #if organization exists %>
+      <%# end %>
+    <%# end %>
+    -->
+
+    <% if @best_practice != nil %>
+      <div class="post-type-title profile-title">Insights</div>
+      <% @best_practice.sort_by{ |p| p.created_at}.reverse.each do |post| %>
+        <% if (Organization.exists?(:id => post.organization_id)) && (UserGroup.exists?(group_id: post.organization_id, member_id: current_user.id)) %>
+          <%= link_to best_practice_path(post), :class => "list-post ripple-button" do %>
+
+            <div class="list-main">
+              <div class="title"><%= post.title %></div>
+              <div class="info">
+                <span class="org-title"><%= Organization.find(post.organization_id).title %></span>
+                <br/>
+                <% if ((Time.now - post.created_at)/3600).floor < 1 && ((Time.now - post.created_at)/60).floor != 1 %>
+                  Posted <span class="number">
+                  <%= ((Time.now - post.created_at)/60).floor %>
+                  </span> minutes ago
+                <% elsif ((Time.now - post.created_at)/60).floor == 1 %>
+                  Posted <span class="number">
+                  1</span> minute ago
+                <% elsif ((Time.now - post.created_at)/3600).floor < 24 && ((Time.now - post.created_at)/3600).floor != 1 %>
+                  Posted <span class="number">
+                  <%= ((Time.now - post.created_at)/3600).floor %>
+                  </span> hours ago
+                <% elsif ((Time.now - post.created_at)/3600).floor ==1 %>
+                  Posted <span class="number">
+                  1</span> hour ago
+                <% else %>
+                  <span>
+                  <%= (post.created_at).strftime("%d %b %Y") %>
+                  </span>
+                <% end %>
+                <span> • </span>
+                <span class="number">
+                  <%= post.likers(User).count %>
+                </span> Likes
+                <span> • </span>
+                <span class="number">
+                  <%= post.comments.count %>
+                </span> Comments
+              </div>
+            </div>
+
+            <div class="post-list-user">
+              <div class="user-chip">
+                <div class="user-image">
+                  <%= image_tag User.find(post.user_id).avatar.url %>
+                </div>
+                <div class="user-name">
+                  <%= User.find(post.user_id).name %>
+                </div>
+              </div>
+            </div>
+            <div class="clear"></div>
+            
+          <% end #link to best_practice path %>
+        <% end #if organization exists %>
+      <% end %>
+    <% end %>
+
+    <% if @fast_content != nil %>
+      <div class="post-type-title profile-title">Internal Resources</div>
+      <% @fast_content.sort_by{ |p| p.created_at}.reverse.each do |post| %>
+        <% if (Organization.exists?(:id => post.organization_id)) && (UserGroup.exists?(group_id: post.organization_id, member_id: current_user.id)) %>
+          <%= link_to fast_content_path(post), :class => "list-post ripple-button" do %>
+
+            <div class="list-main">
+              <div class="title"><%= post.topic %></div>
+              <div class="info">
+                <span class="org-title"><%= Organization.find(post.organization_id).title %></span>
+                <br/>
+                <% if ((Time.now - post.created_at)/3600).floor < 1 && ((Time.now - post.created_at)/60).floor != 1 %>
+                  Posted <span class="number">
+                  <%= ((Time.now - post.created_at)/60).floor %>
+                  </span> minutes ago
+                <% elsif ((Time.now - post.created_at)/60).floor == 1 %>
+                  Posted <span class="number">
+                  1</span> minute ago
+                <% elsif ((Time.now - post.created_at)/3600).floor < 24 && ((Time.now - post.created_at)/3600).floor != 1 %>
+                  Posted <span class="number">
+                  <%= ((Time.now - post.created_at)/3600).floor %>
+                  </span> hours ago
+                <% elsif ((Time.now - post.created_at)/3600).floor ==1 %>
+                  Posted <span class="number">
+                  1</span> hour ago
+                <% else %>
+                  <span>
+                  <%= (post.created_at).strftime("%d %b %Y") %>
+                  </span>
+                <% end %>
+              </div>
+            </div>
+
+            <div class="post-list-user">
+              <div class="user-chip">
+                <div class="user-image">
+                  <%= image_tag User.find(post.user_id).avatar.url %>
+                </div>
+                <div class="user-name">
+                  <%= User.find(post.user).name %>
+                </div>
+              </div>
+            </div>
+            <div class="clear"></div>
+
+          <% end #link to post path %>
+        <% end #if organization exists %>
+      <% end %>
+    <% end %>
+
+  </div>
+</div>
+
+<!-- ===== Old Code =================================================== -->
+
+<div class="wrap row" style='display:none;'>
+  <div class="topper">
+
+    <div class="span12">  
+      <div class="row">
+        <div class="span10 note">
+          <%if current_user.id == @user.id%>
+            <span>This is your public facing individual profile</span>
+          <%end%>
+        </div>
+
+        <%if current_user.id == @user.id%>
+          <div class="span2 next">
+            <span><%= link_to 'Edit Profile', edit_user_registration_path %></span>
+          </div>
+        <%end%>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="span12">
+    <div class="title">
+      <div class="company">
+        <h3><%= @user.try(:headline) %></h3>
+        <% if current_user.id == @user.id %>
+          <% @user.unique_groups.each do |group| %>
+            <div class="title">
+              <% if UserGroup.exists?(group_id: group.id, member_id: current_user.id) %>
+                <%= link_to group.title, organization_path(group.slug) %>
+              <% else %>
+                <%= group.title %>
+              <% end %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+      <h2><%= @user.name %></h2>
+    </div>
+  </div>
+
+  <div class="span12">
+    <div class="row profile">
+      <div class="span3">
+
+        <div class="avatar">
+          <%= image_tag  @user.avatar.url, :class => "round-image" %>
+        </div>
+        <%- if current_user.id != @user.id %>
+          <%= link_to 'Recommend', new_recommendation_path(:user_id => @user.id), :class => "btn-primary" %>
+        <% end %>
+        <div style="padding-top:5px;">
+          <% unless @pac.empty? %>
+              <!-- don't give button -->
+          <%else%>
+            <% unless @user == current_user %>
+              <%= button_to 'Add to team', pac_members_path(user_id: @user), :class =>"btn btn-large btn-primary pac roundedge" %>
+            <% end %>
+          <% end %>
+        </div>
+        <%if @user.location.present? %>
+          <div class="location">
+            <h6>Location</h6>
+            <p><%= @user.location %></p>
+          </div>
+        <%end%>
+        <div class="date">
+          <h6>Member Since</h6>
+          <p><%= @user.created_at.strftime("%B %-d, %Y") %></p>
+        </div>
+        <div class="date">
+          <h6>Contact</h6>
+          <a href="mailto:<%= @user.email %>"><%= @user.email %></a>
+        </div>
+        <% if current_user.id == 33 || current_user.id == 791 || current_user.id == 121 || current_user.id == 884 %> <!-- Adam (33), Bryce (791), or Guillermo (121, 884) -->
+          <div>
+            <h6>Current User Count</h6>
+            <%= @user_count  %>
+          </div>  
+        <% end %>
+        <% if current_user.id == 27 %>
+          <center>
+            <h6>Last Created User ID</h6>
+            <%= User.maximum(:id) %>
+          </center>  
+        <% end %>
+          
+
+        <%if current_user == @user %>
+          <center>
+            <!-- <h4 id="userbadge">My Groups</h4> -->
+            <% unless @appgroups.empty? %>
+              <% @appgroups.each do |groups| %>
+                <%#= link_to groups.group.title, organization_path(groups.group.slug) %>
+                <br/>
+              <% end %>
+            <% end %>
+          </center>
+        <% end %>
+      </div>
+    
+      <div class="span9 user-container">
+
+        <% #unless @user.badges.empty? %>
+          <h4 id="userbadge">My Badges</h4>
+          <div>
+            <%#= link_to "Learn More", recognitions_path %>
+          </div>
+
+          <%- #@user.badges.each do |badge| %>
+            <%#= link_to image_tag((badge.image_filename), :style => "padding:3px;"), recognitions_path %>
+          <% #end %>
+        <% #end %>
+
+        <%if @user.description.present? %>
+          <h4 class="about">
+            About Me
+          </h4>
+          <pre style="margin-right:30px;"><%= @user.try(:description) %></pre>
+        <%end%>
+
+          <%#TODO finish styling and figure out how a user gets commpetencices - is it a roll up of all opportunity commpetencies? %>
+
+        <%if @user.interests.length > 0 %> 
+          <h4 class="competencies">
+            My Interests
+          </h4>
+          <div class="competencies">
+          <% @user.interests.each do |interest| %>
+            <h5><span><%= interest.name %></span></h5>
+          <% end %>
+          </div>
+        <%end%>
+
+        <%#if @competencies.uniq.length > 0 %> 
+          <!-- <h4 class="competencies">
+            Competencies I've Practiced
+          </h4>
+          <div class="competencies">
+            <%# @competencies.uniq.each do |comp| %>
+              <h5><span><%#= comp %></span></h5>
+            <%# end %>
+          </div> -->
+        <%#end%>
+
+        <div class="view-more-button">Show More Info</div>
+        <div class="view-more-container">
+          <%if @user.recommendations.active.length > 0 %> 
+            <h4 class="opportunity_header">
+              Recommended For
+            </h4>
+            <div class="competencies">
+              <% @user.recommendations.active.uniq.each do |rec| %>
+                <h5><span>
+                  <% if rec.opportunity_category.name == "Advisor" %>
+                    <%= link_to "Mentor", recommendation_path(rec) %>
+                  <% else %>
+                    <%= link_to rec.opportunity_category.name, recommendation_path(rec) %>
+                  <% end %>
+                </span></h5>
+                <b>By</b>
+                <h5><span><%= link_to rec.creator.name, user_path(rec.creator) %></span></h5><br />
+              <% end %>
+            </div>
+          <%end%>   
+
+          <% if @user == current_user && @user.all_pacs.length > 0 %>
+            <h4 class="opportunity_header" >
+              My Collaboration Teams
+            </h4>
+            <% @user.all_pacs.uniq.reverse.each do |pac| %>
+              <div class="ideaname" style="padding-bottom:3px;">
+                <%= link_to pac.title, pac_path(pac.id) %>
+                <br/>
+              </div>
+            <% end %>
+          <% end %>
+
+            <%#TODO finish styling and fix the form that populates this list %>
+          <%#if @user.all_opportunities.length > 0 %> 
+            <!-- <h4 class="opportunity_header">
+              My Learning Experience
+            </h4>
+            <div class="opportunities">
+              <%# @user.all_opportunities.uniq.each do |opp| %>
+                <div class="opportunity">
+                  <h5><span><%#= opp.title %></span></h5>
+                  <p><%#= opp.try(:description) %></p>
+                  <div class="competencies">
+                    <h5>Competencies I've Practiced:</h5>
+                    <%# opp.try(:competencies).each do |comp| %>
+                      <h5 class="competency"><span><%#= comp.name %></span></h5>
+                    <%# end %>
+                  </div>
+                </div>
+              <%# end %>
+            </div> -->
+          <%#end%>
+
+          <%if @user.owned_opportunities.length > 0 || @user.best_practices.length > 0 %> 
+            <h4 class="opportunity_header">
+              My Activity
+              <!-- My Teaching Experience -->
+            </h4>
+
+	  <%end %>
+

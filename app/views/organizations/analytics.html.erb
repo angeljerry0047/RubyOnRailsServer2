@@ -1,0 +1,164 @@
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+<%= stylesheet_link_tag "application/organizations", :media => "all" %>
+
+<h2><%= @organization.title %> Analytics</h2>
+
+<p>You are viewing data for the past <b><%= params[:period] %></b>.<br>
+  Please select an option below to view another time period.</p>
+  <div class="period-button-container">
+  <%= link_to "seven days", analytics_organization_path(@organization.slug, :period => "seven days"), :class => "period-button" %>
+  </div>
+  <div class="period-button-container">
+  <%= link_to "thirty days", analytics_organization_path(@organization.slug, :period => "thirty days"), :class => "period-button" %>
+  </div>
+  <div class="period-button-container">
+  <%= link_to "three months", analytics_organization_path(@organization.slug, :period => "three months"), :class => "period-button" %>
+  </div>
+  <div class="period-button-container">
+  <%= link_to "six months", analytics_organization_path(@organization.slug, :period => "six months"), :class => "period-button" %>
+  </div>
+  <div class="period-button-container">
+  <%= link_to "one year", analytics_organization_path(@organization.slug, :period => "one year"), :class => "period-button" %>
+  </div>
+<div class="clear"></div>
+<br><br>
+
+<!--
+<div class="analytics-category-container">
+  <div class="category-title">Total Posts</div>
+  <div class="category-number total"></div>
+  <div class="category-link">Hide Graphs</div>
+  <div class="category-subcontainer" style="display: block">
+
+    <h5>Number of Posts</h5>
+    <p id="mentorshipsThisPeriod" style="display:none;"><%#= direct_stats(@all_posts, @organization, @this_period+" ago", "today").to_json %></p>
+    <p id="mentorshipsLastPeriod" style="display:none;"><%#= direct_stats(@all_posts, @organization, @last_period+" ago", @this_period+" ago").to_json %></p>
+    <div id="mentorshipChart" class="chart-container"></div>
+
+  </div>
+</div>
+-->
+
+<div class="analytics-category-container">
+  <div class="category-title">Mentorships</div>
+  <div class="category-number mentorships"></div>
+  <div class="category-link">Hide Graphs</div>
+  <div class="category-subcontainer">
+
+    <h5>Number of Posts</h5>
+    <p id="mentorshipsThisPeriod" style="display:none;"><%= opportunity_stats(18, @organization, @this_period+" ago", "today").to_json %></p>
+    <p id="mentorshipsLastPeriod" style="display:none;"><%= opportunity_stats(18, @organization, @last_period+" ago", @this_period+" ago").to_json %></p>
+    <div id="mentorshipChart" class="chart-container"></div>
+
+    <h5>Number of Connections</h5>
+    <p id="mentorshipConnections" style="display:none;"><%= connections_for_opportunity(18, @organization, @this_period+" ago", "today").to_json %></p>
+    <div id="mentorshipConnectionsChart" class="chart-container"></div>
+
+  </div>
+</div>
+
+<div class="analytics-category-container">
+  <div class="category-title">Job Shadowing</div>
+  <div class="category-number jobshadowings"></div>
+  <div class="category-link">Show Graph</div>
+  <div class="category-subcontainer">
+
+    <h5>Number of Posts</h5>
+    <p id="jobshadowingThisPeriod" style="display:none;"><%= opportunity_stats(19, @organization, @this_period+" ago", "today").to_json %></p>
+    <p id="jobshadowingLastPeriod" style="display:none;"><%= opportunity_stats(19, @organization, @last_period+" ago", @this_period+" ago").to_json %></p>
+    <div id="jobshadowingChart" class="chart-container"></div>
+
+    <h5>Number of Connections</h5>
+    <p id="jobshadowingConnections" style="display:none;"><%= connections_for_opportunity(19, @organization, @this_period+" ago", "today").to_json %></p>
+    <div id="jobshadowingConnectionsChart" class="chart-container"></div>
+
+  </div>
+</div>
+
+<div class="analytics-category-container">
+  <div class="category-title">Volunteerism</div>
+  <div class="category-number volunteers"></div>
+  <div class="category-link">Show Graph</div>
+  <div class="category-subcontainer">
+
+    <h5>Number of Posts</h5>
+    <p id="volunteersThisPeriod" style="display:none;"><%= opportunity_stats(21, @organization, @this_period+" ago", "today").to_json %></p>
+    <p id="volunteersLastPeriod" style="display:none;"><%= opportunity_stats(21, @organization, @last_period+" ago", @this_period+" ago").to_json %></p>
+    <div id="volunteersChart" class="chart-container"></div>
+
+    <h5>Number of Connections</h5>
+    <p id="volunteerConnections" style="display:none;"><%= connections_for_opportunity(21, @organization, @this_period+" ago", "today").to_json %></p>
+    <div id="volunteerConnectionsChart" class="chart-container"></div>
+
+  </div>
+</div>
+
+<div class="analytics-category-container">
+  <div class="category-title">Board Service</div>
+  <div class="category-number boardservice"></div>
+  <div class="category-link">Show Graph</div>
+  <div class="category-subcontainer">
+
+    <h5>Number of Posts</h5>
+    <p id="boardserviceThisPeriod" style="display:none;"><%= opportunity_stats(16, @organization, @this_period+" ago", "today").to_json %></p>
+    <p id="boardserviceLastPeriod" style="display:none;"><%= opportunity_stats(16, @organization, @last_period+" ago", @this_period+" ago").to_json %></p>
+    <div id="boardserviceChart" class="chart-container"></div>
+
+    <h5>Number of Connections</h5>
+    <p id="boardserviceConnections" style="display:none;"><%= connections_for_opportunity(16, @organization, @this_period+" ago", "today").to_json %></p>
+    <div id="boardserviceConnectionsChart" class="chart-container"></div>
+
+  </div>
+</div>
+
+<div class="analytics-category-container">
+  <div class="category-title">Mentorship Circles</div>
+  <div class="category-number mentorshipcircles"></div>
+  <div class="category-link">Show Graph</div>
+  <div class="category-subcontainer">
+
+    <h5>Number of Posts</h5>
+    <p id="mentorshipcirclesThisPeriod" style="display:none;"><%= direct_stats(@mentorship_circles, @organization, @this_period+" ago", "today").to_json %></p>
+    <p id="mentorshipcirclesLastPeriod" style="display:none;"><%= direct_stats(@mentorship_circles, @organization, @last_period+" ago", @this_period+" ago").to_json %></p>
+    <div id="mentorshipcirclesChart" class="chart-container"></div>
+
+    <h5>Number of Connections</h5>
+    <p id="mentorshipcircleConnections" style="display:none;"><%= connections_for(@mentorship_circles, @organization, @this_period+" ago", "today").to_json %></p>
+    <div id="mentorshipcircleConnectionsChart" class="chart-container"></div>
+
+  </div>
+</div>
+
+<div class="analytics-category-container">
+  <div class="category-title">Collaboration Circles</div>
+  <div class="category-number collaborationcircles"></div>
+  <div class="category-link">Show Graph</div>
+  <div class="category-subcontainer">
+
+    <h5>Number of Posts</h5>
+    <p id="collaborationcirclesThisPeriod" style="display:none;"><%= direct_stats(@collaboration_circles, @organization, @this_period+" ago", "today").to_json %></p>
+    <p id="collaborationcirclesLastPeriod" style="display:none;"><%= direct_stats(@collaboration_circles, @organization, @last_period+" ago", @this_period+" ago").to_json %></p>
+    <div id="collaborationcirclesChart" class="chart-container"></div>
+
+    <h5>Number of Connections</h5>
+    <p id="collaborationcircleConnections" style="display:none;"><%= connections_for(@collaboration_circles, @organization, @this_period+" ago", "today").to_json %></p>
+    <div id="collaborationcircleConnectionsChart" class="chart-container"></div>
+
+  </div>
+</div>
+
+<div class="analytics-category-container">
+  <div class="category-title">Insights</div>
+  <div class="category-number insights"></div>
+  <div class="category-link">Show Graph</div>
+  <div class="category-subcontainer">
+
+    <h5>Number of Posts</h5>
+    <p id="insightsThisPeriod" style="display:none;"><%= direct_stats(@insights, @organization, @this_period+" ago", "today").to_json %></p>
+    <p id="insightsLastPeriod" style="display:none;"><%= direct_stats(@insights, @organization,@last_period+" ago", @this_period+" ago").to_json %></p>
+    <div id="insightsChart" class="chart-container"></div>
+
+  </div>
+</div>

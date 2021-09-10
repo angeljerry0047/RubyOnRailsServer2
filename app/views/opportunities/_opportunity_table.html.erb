@@ -1,0 +1,37 @@
+<% opportunities.each_slice(3) do |row| %>
+  <div class='row'>
+    <% row.each do |vsa| %>
+      <div class='span4'>
+        <div class="result">
+          <div class="head">
+            <h4 class="">
+              <%= truncate vsa.title, :length => 20, :omission => '' %>
+            </h4>
+            <div class="description">
+              <h5>Short Description</h5>
+              <p><%= truncate vsa.description, :length => 40, :omission => '...' %></p>
+            </div>
+          </div>
+          <div class="competencies">
+            <h5>Competencies Offered</h5>
+            <% vsa.competencies.each do |comp| %>
+              <span><%= comp.name %></span>&nbsp;
+            <% end %>
+          </div>
+          <center>
+            <%= link_to "Edit Skill Posting", edit_opportunity_path(vsa), :class =>"btn btn-large btn-primary" %>
+            <br />
+            <br />
+            <%= link_to "Deactivate", opportunity_path(vsa, :expire => true), :class =>"btn btn-danger", :method => :put %>
+          </center>
+          
+          <div class="extra_details">
+            <h5>Days Active<span><%= Time.diff(Time.now, vsa.created_at, "%d").fetch(:diff) %></span></h5>
+            <h5>Date Posted<span><%= vsa.created_at.strftime("%m.%d.%Y") %></span></h5>
+            <h5>Candidates<span><%= vsa.opportunity_applications.count %></span></h5>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>

@@ -1,0 +1,55 @@
+<% opportunities.each_slice(3) do |row| %>
+  <div class='row past'>
+    <% row.each do |vsa| %>
+    <% if vsa.class.name == "Opportunity" %>
+      <div class='span4'>
+         <div class="result">
+          <div class="head">
+            <h4 class="">
+              <%= truncate vsa.title, :length => 20, :omission => '' %>
+            </h4>
+            <div class="description">
+              <h5>Short Description</h5>
+              <p><%= truncate vsa.description, :length => 40, :omission => "..." %></p>
+            </div>
+          </div>
+          <div class="competencies">
+            <h5>Competencies Gained</h5>
+            <% vsa.competencies.each do |comp| %>
+              <span><%= comp.name %></span>&nbsp;
+            <% end %>
+          </div>
+          <center>
+            <%= link_to "Activate", opportunity_path(vsa, :reactivate => true), :method => :put, :class =>"btn btn-large btn-primary roundedge" %>
+          </center>
+          
+          <div class="extra_details">
+            <h5>Date Posted<span><%= vsa.created_at.strftime("%m.%d.%Y") %></span></h5>
+          </div>
+        </div>
+      </div>
+  <% else %>
+      <div class='span4'>
+         <div class="result" style="height:auto">
+          <div class="head">
+            <h4 class="">
+              <%= vsa.opportunity_category.name %>
+            </h4>
+              <div class="description">
+              <h5>Recommended By</h5>
+              <p><%= vsa.creator.name %></p>
+            </div>
+          </div>
+          <center>
+            <%= link_to "Activate", recommendation_path(vsa, :reactivate => true), :method => :put, :class =>"btn btn-large btn-primary roundedge" %>
+          </center>
+          
+          <div class="extra_details">
+            <h5>Date Posted<span><%= vsa.created_at.strftime("%m.%d.%Y") %></span></h5>
+          </div>
+        </div>
+      </div>
+<% end %>
+<% end %>
+</div>
+<% end %>

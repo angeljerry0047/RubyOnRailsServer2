@@ -1,0 +1,36 @@
+<h3>About <%= @organization.title %></h3>
+<%- if @organization.description %>
+  <pre><%= markdown.render(@organization.description).html_safe %></pre>
+<% end %>
+<div class="row" id="vsa_list">
+  <div class="span2"></div>
+  <div class="span9 filter">
+    <div id="vsas">
+      <% Array(@opportunities).each_with_index do |opp, i| %>
+
+        <div class="vsa result">
+        <div class="head" style="height:50px;">
+          <% if opp.opportunity_category.present? %>
+            <% if opp.opportunity_category.name == "Leadership Development Coach" %>
+            <h4 class="opphead" style="padding-top:14px;">
+            coach
+          </h4>
+        <% end %>
+          <h4 class="opphead" style="padding-top:14px;">
+            <%= opp.opportunity_category.name.downcase %>
+          </h4>
+        <% end %>
+        </div>
+        <div class="description">
+          <%= truncate(opp.description, :length => 190) %>
+        </div>
+        <div class="bottom">
+          <center>
+            <%= link_to "view full post", opportunity_path(opp), :class => "learnbutton"  %>
+          </center>
+        </div>
+      </div>
+    <% end %>
+    </div>
+  </div>
+</div>

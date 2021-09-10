@@ -1,0 +1,154 @@
+@import "global_define";
+@import "master";
+body.organizations.edit {
+
+		form {
+
+
+			.organization_city {
+				width: 41%;
+				float: left;
+			}
+			.organization_state {
+				width: 50%;
+				float: left;
+			}
+		}
+
+}
+
+
+
+body.organizations.show {
+
+	.wrap {
+
+		.span12 {
+			background-color: #EDEDED;
+			float: none;
+			margin: 0 auto;
+			padding: 0px 0px 20px 0px;
+
+			.title {
+			float: none;
+			margin: 20px 30px;
+
+				.split {
+					width: 50%;
+					float:left;
+
+					&.rt {
+						height: 100px;
+						.button {
+							width: 132px;
+							height: 60px;
+							float: right;
+
+							&.facebook {
+								margin-right:10px;
+								span {
+									padding-top: 4px;
+								}
+							}
+							&.linkedin {
+								margin-right: 10px;
+							}
+						}
+					}
+				}
+			}
+			.row {
+				margin: 0;
+			}
+			.avatar {
+				/*border: 3px solid #cccccc;*/
+				display: block;
+				margin-top: 10px;
+				height: 120px;
+				width: 120px;
+				/*border-radius: 5px;*/
+			}
+		}
+		.topper {
+			background-color: #EDEDED;
+			display: inline-block;
+			width: 100%;
+			min-height: 60px;
+
+			a {
+				color: #fff;
+				font-family: $roboto;
+				font-size: 18px;
+				margin-top: 20px;
+				display: inline-block;
+
+				&:after {
+
+				}
+			}
+		}
+		.banner {
+			display: block;
+			margin: -6px auto;
+			width: 851px;
+			float: none;
+		}
+		#vsas {
+			margin-left: 10px;
+			.vsa {
+				width: 290px;
+				margin: 5px;
+				float: left;
+			}
+		}
+		#vsa_list {
+			.filter {
+				margin-left: 25px;
+				
+			}
+			.result{
+				background-color: $table_bg;
+				color: white;
+				padding:20px;
+				overflow: hidden;
+				.head{
+					overflow: hidden;
+					text-align: center;
+					h4 { 
+						text-transform: none;
+						font-family: $roboto;
+						margin-top: 0px;
+					}
+					.organization {
+						min-height: 0px;
+					}
+					.location {
+						min-height: 0px;
+					}
+				}
+				.competencies {
+					overflow: hidden;
+					margin-top: 10px;
+					span {
+						font-size: 13px;
+						background-color: #0599D0;
+						padding: 3px 5px;
+						line-height: 30px; 
+						white-space: nowrap;
+					}
+				}
+				.description {
+					padding-top: 10px;
+					overflow: hidden;
+				}
+				center {
+					padding-top: 10px;
+				}
+			}
+
+		}
+		
+	}
+}
+
+ 

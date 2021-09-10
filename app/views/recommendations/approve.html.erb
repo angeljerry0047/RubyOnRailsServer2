@@ -1,0 +1,33 @@
+<%= stylesheet_link_tag "application/recommendations", :media => "all" %>
+<%= simple_form_for(@recommendation) do |f| %>
+
+<h1 style="color:#2c9a47; text-align:center; margin-bottom:20; margin-top:0;">Congratulations <%= @recommendation.user.name %>!</h1>
+<h1 style="color:#2c9a47; text-align:center; margin-bottom:20; margin-top:0;">You've been Recommended by <%= @recommendation.creator.name %>!</h1>
+
+ <div style="text-align:center; font-size: 18px; margin-top:20px;"><strong>Description of Connection</strong></div>
+ <div class="con_description">
+ 	<div class="con_validator"><strong>Type:</strong> <%= @recommendation.con_type %></div>
+    <div class="con_validator"><strong>Longevity:</strong> <%= @recommendation.con_length %></div>
+    <div class="con_validator"><strong>Engagement:</strong> <%= @recommendation.con_engagement %></div>
+    <div class="con_validator"><strong>Strength:</strong> <%= @recommendation.con_strength %></div>
+    <div class="con_validator"><strong>Previous Performance:</strong> <%= @recommendation.con_performance %></div>
+ </div>
+<hr>
+<div style="text-align:center; font-size: 18px; margin-top:20px;"><strong>Why you'll do well</strong></div>
+<div id="recommendation"> <%= @recommendation.con_text %></div>
+ <div style="text-align:center; font-size: 18px; margin-top:20px;"><strong>Recommended Skill</strong></div>
+<div id="recommendation"> <%= @recommendation.opportunity_category.name %></div>
+ <div style="text-align:center; font-size: 16px; margin-top:20px;"><strong>Recommended Skill Type</strong></div>
+<div id="recommendation"> <%= @recommendation.rec_type %></div>
+
+ <div style="text-align:center; font-size: 18px; margin-top:20px;">Click Approve to post this recommendation to our list of skills.</div>
+ <div style="text-align:center; font-size: 16px; margin-top:20px; width:370px; margin-left:275px;">
+  <%= f.hidden_field :internal, :value => true %>
+  <%#= f.input :internal, as: :boolean, label: ' Make this Recommendation Internal for my Company' %>
+</div>
+ <%= f.hidden_field :approval_status, :value => true %>
+ <div id="approve_recommendation">
+ <%= f.button :submit, 'Approve', :class => 'btn btn-large btn-primary roundedge' %>
+</div>
+
+<%end%>

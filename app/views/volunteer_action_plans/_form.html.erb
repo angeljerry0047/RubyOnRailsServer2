@@ -1,0 +1,81 @@
+<%= form_for(@volunteer_action_plan) do |f| %>
+  <% if @volunteer_action_plan.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@volunteer_action_plan.errors.count, "error") %> prohibited this volunteer_action_plan from being saved:</h2>
+
+      <ul>
+      <% @volunteer_action_plan.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<div class="row">
+  <div class="control-group span4">
+  <div class="controls" style="padding-top:30px;">
+    <label style="font-weight:bold;">Select a volunteerism connection</label> 
+    <%= select_tag 'volunteer_action_plan[liason_name]', options_for_select(@opp_rec_app.collect{ |oc| [oc.sort_by_name, oc.sort_by_id]}), include_blank: true, :class =>"required", :style => "width:100%;" %>
+    <span class="help-inline">This field is required</span>
+  </div>
+</div>
+
+    <br/>
+  <div class="span4 required dateTime" style="padding-top:11px;">
+    <%= f.label "Start Date:", :style => "font-weight:bold;" %>
+    <%= f.text_field :start_date, :class => "span4 required dateTime" %>
+  </div>
+  <div class="span4 required dateTime" id="ap_end_date" style="padding-top:11px;">
+    <%= f.label "End Date:", :style => "font-weight:bold;" %>
+    <%= f.text_field :end_date, :class => "span4 required dateTime" %>
+  </div>
+</div>
+  <div class="field" style="clear:left; padding-top:20px;">
+    <div class="row">
+      <label class="ap_blue span1" style="width:auto;">Learning and Development Goals</label> <label style="font-weight:bold; margin-left:6px; margin-top:2px;" class="span7">(example: Gain leadership experience)</label>
+    </div>
+    <%= f.text_area :goals, :required => true, :rows => 1, :style => "width:98.5%;" %>
+  </div>
+    <br/>
+   <div class="field">
+    <div class="row">
+    <label class="ap_green span5" style="width:248px;">Liaison's Action items</label> <label style="font-weight:bold; margin-left:6px; margin-top:2px;" class="span8">(example: Provide overview of all committees and the role for all committee chairs)</label>
+  </div>
+    <%= f.text_area :liason_action_items, :required => true, :rows => 1, :style => "width:98.5%;" %>
+  </div>
+    <br/>
+  <div class="field">
+    <div class="row">
+      <label class="ap_blue span5" style="width:281px;">Volunteer's Action Items</label> <label style="font-weight:bold; margin-left:6px; margin-top:2px;" class="span7">(example: Chair a board commitee)</label>
+    </div>
+    <%= f.text_area :volunteer_action_items, :required => true, :rows => 1, :style => "width:98.5%;" %>
+  </div>
+    <br/>
+  <div class="span6 required dateTime"  style="margin-left:0px;">
+    <%= f.label "Liaison's Deadlines", :class => "ap_green" %>
+    <%= f.text_field :liason_deadlines, :class => "span6 required dateTime" %>
+  </div>
+  <div class="span6 required dateTime" style="margin-left: auto">
+    <%= f.label "Volunteer's Deadlines:", :class => "ap_blue" %>
+    <%= f.text_field :volunteer_deadlines, :class => "span6 required dateTime" %>
+  </div>
+  <div class="field" style="clear:left;padding-top:20px;">
+    <div class="row">
+    <label class="ap_blue span5" style="width:219px;">Success Indicators</label> <label style="font-weight:bold; margin-left:6px; margin-top:2px;" class="span8">(example: Lead a team of volunteer board members to produce critical deliverables)</label>
+  </div>
+    <%= f.text_area :success_indicators, :required => true, :rows => 1, :style => "width:98.5%;" %>
+  </div>
+  <br/>
+  <div class="field">
+    <div class="row">
+    <label class="ap_blue span5" style="width:227px;">Follow Up Meetings</label> <label style="font-weight:bold; margin-left:6px; margin-top:2px;" class="span4">(Date, time, and location)</label>
+  </div>
+    <%= f.text_area :follow_up_meetings, :required => true, :rows => 1, :style => "width:98.5%;" %>
+  </div>
+  <br/><br/>
+  <center>
+  <div class="actions">
+    <%= f.submit "Create Volunteer Action Plan", :class => 'btn btn-large btn-primary roundedge' %>
+  </div>
+</center>
+<% end %>

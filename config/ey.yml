@@ -1,0 +1,14 @@
+---
+environments:
+  s2p_dev:
+    migrate: true
+    migration_command: rake db:migrate
+    precompile_assets: true
+  salesforce_tester:
+    migrate: true
+    migration_command: rake db:migrate
+    precompile_assets: true
+  serve2perform:
+    migrate: true
+    migration_command: rake db:migrate
+    precompile_assets: true

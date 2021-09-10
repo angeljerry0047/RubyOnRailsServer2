@@ -1,0 +1,90 @@
+<center>
+<h1 class="ap_blue" style="font-size:50px;">Volunteer Action Plan</h1>
+<h4 style="font-weight:normal;">created for <%= @volunteer_action_plan.user.name %> and <%= @volunteer_action_plan.liason.name %> </h4>
+</center>
+
+<div class="span12">
+
+  <div class="span3" style="margin-left:100px;">
+    <center>
+      <h2 class="ap_blue">Volunteer</h2>
+      <%= link_to image_tag(@volunteer_action_plan.user.avatar.url, :style => "border-radius:60px;"), user_path(@volunteer_action_plan.user) %>
+      <br/>
+      <br/>
+      <span class="ap_blue" style="font-size:18px;"><%= link_to @volunteer_action_plan.user.name, user_path(@volunteer_action_plan.user) %></span>
+    </center>
+  </div>
+
+  <div class="span3" style="padding-top:100px;">
+    <center>
+      <span class="ap_black" style="font-size:120px;">&</span>
+    </center>
+  </div>
+
+  <div class="span3">
+    <center>
+      <h2 class="ap_green">Liaison</h2>
+      <%= link_to image_tag(@volunteer_action_plan.liason.avatar.url, :style => "border-radius:60px;"), user_path(@volunteer_action_plan.liason) %>
+      <br/>
+      <br/>
+      <span class="ap_green"><%= link_to @volunteer_action_plan.liason.name, user_path(@volunteer_action_plan.liason) %></span>
+    </center>
+  </div>
+
+</div>
+
+<div class="span12 row" style="padding-top:40px;">
+  <div class="span5" style="padding-left:40px;">
+    <div class="row">
+    <label class="ap_blue span2" >Start Date</label> <label style="margin-left:6px; margin-top:2px;" class="span1"><%= @volunteer_action_plan.start_date.strftime("%m/%d/%Y") %></label>
+  </div>
+  </div>
+
+  <div class="span3" style="padding-left:100px;">
+    <div class="row">
+    <label class="ap_blue span2" >End Date</label> <label style="margin-left:6px; margin-top:2px;" class="span1"><%= @volunteer_action_plan.end_date.strftime("%m/%d/%Y") %></label>
+  </div>
+  </div>
+</div>
+
+<div class="span11">
+  <h2 class="ap_blue" style="margin-bottom:0px;">Goals</h2>
+  <span style="word-wrap:break-word; white-space:pre;"><%= @volunteer_action_plan.goals %></span>
+</div>
+
+<div class="span11">
+  <div class="span5" style="margin-left:0px;">
+    <h2 class="ap_blue">Volunteer's Action Items</h2>
+    <span style="word-wrap:break-word; white-space:pre;"><%= @volunteer_action_plan.volunteer_action_items %></span>
+  </div>
+
+  <div class="span5" style="margin-left:100px;">
+    <h2 class="ap_green">Liaison's Action Items</h2>
+    <span style="word-wrap:break-word; white-space:pre;"><%= @volunteer_action_plan.liason_action_items %></span>
+  </div>
+</div>
+
+<div class="span11">
+  <div class="span5" style="margin-left:0px;">
+    <h2 class="ap_blue">Volunteer's Deadline</h2>
+    <%= @volunteer_action_plan.volunteer_deadlines.strftime("%m/%d/%Y") %>
+  </div>
+
+  <div class="span5" style="margin-left:100px;">
+    <h2 class="ap_green">Liaison's Deadline</h2>
+    <%= @volunteer_action_plan.liason_deadlines.strftime("%m/%d/%Y") %>
+  </div>
+
+</div>
+
+<div class="span11">
+  <div class="span5" style="margin-left:0px;">
+    <h2 class="ap_blue">Sucess Indicators</h2>
+    <span style="word-wrap:break-word; white-space:pre;"><%= @volunteer_action_plan.success_indicators %></span>
+  </div>
+
+  <div class="span5" style="margin-left:100px;">
+    <h2 class="ap_blue">Follow Up Meetings</h2>
+    <span style="word-wrap:break-word; white-space:pre;"><%= @volunteer_action_plan.follow_up_meetings %></span>
+  </div>
+</div>

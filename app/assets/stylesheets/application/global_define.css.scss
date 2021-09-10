@@ -1,0 +1,57 @@
+@import "master";
+
+//Colors
+$primary-bgcolor: #e0e0e0;
+$secondary-bgcolor: #2c9a47;
+$primary-border-color: #D9D9D9;
+$secondary-border-color: #636363;
+$nav-green: #1f7f5c;
+$white: #ffffff;
+$table_bg: #393939;
+$table_border: #2E2E2E;
+
+
+//Font-Family Declarations
+$montserrat: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+$opensansb: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+$opensansr: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $roboto;
+}
+
+@mixin arrow($direction, $color, $size){
+    display: block;
+    height: 0;
+    width: 0;
+    
+    @if $direction == 'top' {
+      border-left: $size solid transparent;
+      border-right: $size solid transparent;
+      border-bottom: $size solid $color;
+    } @else if $direction == 'right' {
+      border-top: $size solid transparent;
+      border-bottom: $size solid transparent;
+      border-left: $size solid $color;
+    } @else if $direction == 'bottom' {
+      border-top: $size solid $color;
+      border-right: $size solid transparent;
+      border-left: $size solid transparent;
+    } @else if $direction == 'left' {
+      border-top: $size solid transparent;
+      border-right: $size solid $color;
+      border-bottom: $size solid transparent;
+    } @else if $direction == 'top-left' {
+      border-top: $size solid $color; 
+      border-right: $size solid transparent;  
+    } @else if $direction == 'top-right' {
+      border-top: $size solid $color; 
+      border-left: $size solid transparent;
+    } @else if $direction == 'bottom-left' {
+      border-bottom: $size solid $color; 
+      border-right: $size solid transparent;  
+    } @else if $direction == 'bottom-right' {
+      border-bottom: $size solid $color; 
+      border-left: $size solid transparent;
+    }
+}

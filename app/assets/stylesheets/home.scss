@@ -1,0 +1,183 @@
+// Place all the styles related to the home controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+@import "global_define";
+@import "master";
+
+#main {
+
+
+
+}
+.container .content {
+	background-color: transparent;
+	box-shadow: none;
+}
+
+.tc {
+	text-align: center;
+	padding: 15px;
+	font-weight: bold;
+	input {
+		vertical-align: top;
+		margin-right: 5px;
+	}
+}
+
+#home {
+	background: none;
+	text-align: center;
+	font-family: $roboto;
+
+	.adam-details {
+		h4 {
+			font-size: 20px;
+		}
+	}
+	h4 {
+		padding: 0 175px;
+		font-size: 20px;
+	}
+
+}
+
+#front-card {
+	width: 960px;
+	height: 350px;
+	left: 220px;
+}
+
+#front-info {
+	background-color: $nutral-color2;
+	width: 400px;
+	height: 350px;  
+	left: 0;
+	top: 0;
+	padding-left: 12px;
+	margin-right: 12px;
+	float: left; 
+}
+
+#register {
+	background-color: $nutral-color2;
+	height: 350px;
+	left: 480px;
+	top: 0;
+	width: 500px;
+	padding-left: 36px;
+	float: left;
+	.button.linkedin {
+		/*margin-left: 150px;*/
+	}
+	.span1 {
+		text-align: center;
+		margin-right: 20px;
+		font-family: $opensansb;
+	}
+}
+
+.sign-in-row {
+	clear:both;
+}
+
+#center-reg {
+	text-align: center;
+	width: 445px;	
+	margin-left:0;
+}
+
+#screens {
+	.span12 {
+		text-align: center;
+	}
+	padding: 0px 20px;
+
+}
+
+#why_promo {
+	background-color: $nutral-color2;
+	text-align: center;
+	font-family: $roboto;
+
+	.center {
+		float: none;
+		margin: 0 auto;
+	}
+	p {
+		font-size: 18px;
+		text-align: justify;
+		font-family: $roboto;
+	}
+}
+#three_promo {
+	background-color: $nutral-color4;
+	.span4 {
+		h3 {
+			color: $nutral-color1;
+			line-height: 28px;
+			margin-left: 3px;
+		}
+		p{ 
+			color: $nutral-color1;
+			margin-top: 4px;
+			margin-left: 3px;
+		}
+	}
+}
+#adam_arroyos {
+	background-color: $nutral-color2;
+	border: 1px solid rgba(35,35,35,0.30);
+	.content {
+		padding: 10px 0 0 0;
+	}
+	.span4 img {
+		float: right;
+	}
+	.span8 {
+		text-align: left;
+		margin-top: 40px;
+
+		h2 {
+			line-height: 28px;
+		}
+		h3 {
+			line-height: 20px;
+		}
+		p {
+			margin-right: 30px;
+		}
+		.download.pdf {
+			width: 300px;
+			float: left;
+			background-color: $primary-color;
+			margin-top: 10px;
+			h4 {
+				font-family: $roboto;
+				margin-top: 20px;
+				font-size: 16px;
+				font-variant: small-caps;
+				text-align: center;
+				text-transform: uppercase;
+
+				a {
+					color: $nutral-color1;
+				}
+				
+			}
+			span {
+					border-right: 1px solid rgba(255,255,255,0.25);
+					float: left;
+					padding: 4px;
+				}
+		}
+	}
+}
+#company {
+	text-align: center;
+	font-family: $roboto;
+	background-color: $nutral-color1;
+	h3 {
+		font-family: $roboto;
+		font: $subhead;
+	}
+}

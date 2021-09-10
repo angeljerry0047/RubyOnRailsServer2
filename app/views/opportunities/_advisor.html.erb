@@ -1,0 +1,91 @@
+<div class="row" id="new_opp">
+  <div class="span12" >
+    <% title "submit to be an mentor" %>
+  </div>
+</div> 
+
+<div class="row">
+  <div class="span12">
+    <div class="span3" style="width:130px;">
+
+      <div class="avatar">
+        <center><%= link_to image_tag(current_user.avatar.url), user_path(current_user.id) %></center>
+      </div>
+
+      <center><%= current_user.name %></center>
+
+    </div>
+
+    <%- # FIXME (cmhobbs+tyreldenison) simple form or traditional forms:  pick one. %>
+    <%= simple_form_for(opportunity) do |f| %>
+      <div class='opportunity_segment <%= defined?(hidden) && hidden ? 'hidden': '' %>'>
+
+        <% if opportunity.errors.count > 0 %>
+          <% opportunity.errors.each do |attribute, error|  %>	 
+            <%= bootstrap_alert(content_tag(:p, error)) %>
+          <% end %>	
+        <% end %>
+
+        <div class="row">
+          <div class="span7">
+            <%= hidden_field_tag 'opportunities[][id]', opportunity.id %>
+            <%= hidden_field_tag 'opportunities[][owner_id]', (defined?(historical) && historical) ? nil : current_user.id %>
+            <%= hidden_field_tag 'opportunities[][ghost]', !!defined?(hidden) && hidden, :class => 'ghost_opportunity_segment' %>
+
+            <h4><%= current_user.name %></h4>
+            <h4><%= current_user.headline %></h4>
+
+            <%if current_user.interests.length > 0 %> 
+              <h4 class="competencies">
+                My Interests
+              </h4>
+
+              <div class="competencies">
+                <% current_user.interests.each do |interest| %>
+                  <ul>
+                    <h5><li><%= interest.name %></li></h5>
+                  </ul>
+                <% end %>
+              </div>
+            <%end%>
+
+            <%= label_tag "opportunities[][learning_objectives]", "Type of Mentor", :class => "control-label"  %>
+            
+            <%- # FIXME (cmhobbs+tyreldenison) string interpolation is a useful tool %>
+            <div class="control-group <%= field_class(opportunity, :description) %>">
+              <%= label_tag "opportunities[][description]", "Describe why you would like to be an mentor", :class => "control-label"  %>
+
+              <div class="controls">
+                <%= text_area_tag "opportunities[][description]", opportunity.description, :class => 'input description span7 required'%>
+                <span class="help-inline">This field is required</span>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <%= hidden_field_tag 'opportunities[][max_students]', opportunity.max_students, :value => 1 %>
+        <%= hidden_field_tag 'opportunities[][min_students]', opportunity.min_students, :value => 1 %>
+
+      </div>
+
+        <div class="row">
+          <%= f.hidden_field :best_practice_category_id, :value => best_practice_category_id %>
+          <%= f.hidden_field :opportunity_category_id, :value => 18 %>
+          <%= f.hidden_field :internal, :value => true %>
+          <%= f.hidden_field :organization_id, :value => organization_id %>
+
+          <div class="span5 offset2">
+            <br/>
+            <%= f.button :submit, 'Submit Post', 
+              :class => 'btn btn-large btn-primary create roundedge',
+              :id    => 'btnCreate' %>
+          </div>
+
+        </div>
+
+    <% end %>
+  </div>
+</div>
+
+<%= render 'devise/registrations/auto_complete_org_name' %>

@@ -1,0 +1,63 @@
+<%= stylesheet_link_tag "application/recommendations", :media => "all" %>
+<% title "recommend colleagues" %>
+    <center>
+      <h2 class="knockout"><% title "recommend colleagues"%> </h2>
+      <h2 class="knockout">recommend colleagues</h2>
+      <h3>
+        Use the search bar to find a connection to recommend
+      </h3>
+    </center>
+
+    <center><label for="text">Search by name, email, or company</label></center>
+    <div class="text-search">
+      <form action"/users/findUser">
+        <input type="text" name="searchUser" class="span12"><p>
+        <input type="submit" value = "">
+      </form>       
+    </div>       
+    <%if @users!= nil%>
+      <div class="span8 filter">
+      <h3 style="padding-bottom: 11px">
+        Member Search Results
+        <div class="count"><%=@users.length%> member(s) found
+        </div>
+      </h3>
+
+      <%if @users.length == 0%>
+        No users found. Try searching again with different criteria.
+      <%else%>
+        <div id="vsas">
+        <% Array(@users).each_with_index do |user, i| %>
+          <div class="vsa result">
+            <%= link_to new_recommendation_path(user_id: user.id) do %>
+              <div class="innerheadf">
+                <h6 class="oppheadf">   
+                  <%= user.name %>
+                </h6>
+              </div>
+              <div class="avatar_resultf">
+                <%= image_tag(user.avatar.url(:wide)) %>
+              </div>
+            <% end %>
+          <div class="bottomf">
+            <div class="organization_name"> 
+              <%if user.organization != nil %>
+                <% if user.organization.active_license? %>
+                <span class="orgnamef"><%= link_to user.organization.title, organization_path(user.organization.slug), :class => "learnbuttonf" %></span>
+            <% else %>
+                <span class="orgnamef"><%= user.organization.title %></span>
+            <% end %>
+            <%end%>
+            </div>     
+          </div>
+        </div>
+      <% end %>
+      </div>  
+
+    <%end%>          
+    </div>
+  <%end
+    if @search == ''
+      flash.now.alert = "Enter a valid search criteria"
+    end
+  %>

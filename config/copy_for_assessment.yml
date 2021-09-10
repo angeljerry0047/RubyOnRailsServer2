@@ -1,0 +1,109 @@
+---
+influence:
+  positional: ! 'This level indicates a scope of influence limited to your position.
+    That is, your pursuit of influence is motivated by the responsibilities of your
+    position and your time and effort are fully dedicated to the acquisition of influence
+    that will help you carry out your responsibilities. You strive to influence the
+    achievement of innovation and results for your area of responsibility and you
+    are committed to preserve the influence entrusted to you through your position.
+    You have achieved recognition as an influencer within your position but you may
+    not be perceived as having a scope of influence that spans past your position.
+    Being a positional influencer is quite an accomplishment; however, this scope
+    of influence could limit your level of engagement which could limit the scope
+    of your contributions and impact to your organization. '
+  functional: ! 'This level indicates a scope of influence limited to your functional
+    department. That is, your pursuit of influence is motivated by the responsibilities
+    of your department and your time and effort are fully dedicated to the acquisition
+    of influence that will help you carry out your departments responsibilities.  You
+    strive to not only influence the achievement of innovation and results for your
+    area of responsibility but also for your department. In addition, you are committed
+    to help your department preserve the influence afforded to it through its functional
+    role. You have achieved recognition as an influencer within your department but
+    you may not be perceived as having a scope of influence that spans past
+    your department. Being a functional influencer is a significant accomplishment;
+    however, this scope of influence could limit your level of versatility which could
+    limit the transferability of your influence to other departments in your organization. '
+  organizational stakeholder: ! 'This level indicates a scope of influence that spans throughout
+    your organization. That is, your pursuit of influence is motivated by the mission
+    of your organization and your time and effort are fully dedicated to the acquisition
+    of influence required to help your organization continue to deliver on its mission.
+    You strive to not only have the influence to achieve innovation and results for
+    your position and functional department but also for the entire organization.
+    In addition, you are committed to help your organization continue to grow its
+    brand and recognition as an influential force of its industry. Though grandslam
+    influence is an exceptional milestone, you will need to continue to invest in
+    the leadership and success of others around you to sustain and grow your engagement
+    and capacity to continue to help your organization achieve mission leadership. '
+leadership:
+  positional: ! 'This level indicates a scope of leadership limited to your position.
+    That is, your leadership is motivated by the responsibilities of your position
+    and your time and effort are fully dedicated to these responsibilities. You strive
+    to lead the achievement of innovation and results for your area of responsibility
+    and you are committed to personify the leadership entrusted to you through your
+    position. You have achieved recognition as a leader within your position but you
+    may not be perceived as having a scope of leadership that spans past your
+    position. Being a positional leader is quite an accomplishment; however, this
+    scope of leadership could limit your level of engagement which could limit the
+    scope of your contributions and impact to your organization.
+
+'
+  functional: ! 'This level indicates a scope of leadership limited to your functional
+    department. That is, your leadership is motivated by the responsibilities of your
+    department and your time and effort are fully dedicated to these responsibilities.
+    You strive to not only lead the achievement of innovation and results for your
+    area of responsibility but also for your department. In addition, you are committed
+    to help your department uphold the leadership entrusted to it through its functional
+    role. You have achieved recognition as a leader within your department but you
+    may not be perceived as having a scope of leadership that spans past your
+    department. Being a functional leader is a significant accomplishment; however,
+    this scope of leadership could limit your level of versatility which could limit
+    the transferability of your leadership to other departments in your organization.
+
+'
+  organizational stakeholder: ! 'This level indicates a scope of leadership that spans throughout
+    your organization. That is, your leadership is motivated by the mission of your
+    organization and your time and effort are fully dedicated to helping your organization
+    continue to deliver on its mission. You strive to not only lead the achievement
+    of innovation and results for your position and functional department but also
+    for the entire organization. In addition, you are committed to help your organization
+    continue to grow its brand and recognition as a leader of its industry. Though
+    grandslam leadership is an exceptional milestone, you will need to continue to
+    invest in the leadership and success of others around you to sustain and grow
+    your engagement and capacity to continue to help your organization achieve mission
+    leadership.
+
+'
+performance:
+  positional: ! 'This level indicates a scope of performance limited to your position.
+    That is, your performance is motivated by the responsibilities of your position
+    and your time and effort are fully dedicated to achieving results within these
+    responsibilities. You strive to be productive and introduce innovation within
+    your area of responsibility and you are committed to achieve the performance metrics
+    provided to you for the year. You have achieved recognition as a performer within
+    your position but you may not be perceived as having a scope of performance that
+    spans past your position. Being a positional performer is quite an accomplishment;
+    however, this scope of performance could limit your full potential and capabilities
+    which would limit your scope of contributions and impact to your organization. '
+  functional: ! 'This level indicates a scope of performance limited to your functional
+    department. That is, your performance is motivated by the responsibilities of
+    your functional department and your time and effort are fully dedicated to achieving
+    results within these responsibilities. You strive to be productive and introduce
+    innovation within your departments areas of responsibility and you are committed
+    to help achieve the performance metrics provided to your department for the year.
+    You have achieved recognition as a performer within your department but you may
+    not be perceived as having a performance capacity that will enable your performance
+    beyond your department. Being a functional performer is a significant accomplishment;
+    however, this scope of performance could limit your level of versatility which
+    could limit the transferability of your performance to other departments in your
+    organization. '
+  organizational stakeholder: ! 'This level indicates a scope of performance that spans throughout
+    your organization. That is, your performance is motivated by the mission of your
+    organization and your time and effort are fully dedicated to helping your organization
+    continue to deliver on its mission. You strive to be productive and introduce
+    innovation throughout your organization and you are committed to help your organization
+    achieve bold performance and sustain its strong brand of excellence. In addition,
+    you are committed to help your organization continue to grow its brand and recognition
+    as a top performer of its industry. Though grandslam performance is an exceptional
+    milestone, you will need to continue to invest in the performance and success
+    of others around you to sustain and grow your engagement and capacity to continue
+    to help your organization achieve big results that advance its mission. '

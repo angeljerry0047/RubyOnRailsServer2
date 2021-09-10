@@ -1,0 +1,212 @@
+.container {
+  max-width: 100% !important;
+  background-color: #e0e0e0 !important;
+  padding-right: 15px !important;
+  padding-left: 15px !important;
+  margin-right: auto !important;
+  margin-left: auto !important;
+  box-shadow: none !important;
+  box-sizing: content-box !important;
+}
+
+.login-form {
+  border-radius: 5px !important;
+  margin: 10px !important;
+  background-color: white !important;
+  padding: 14px !important;
+}
+
+.sessions.new {
+
+  > #main {
+    display: flex;
+  }
+
+  .alert {
+    width: 100%;
+
+    .close {
+      top: 0px !important;
+      right: 0px !important;
+    }
+  }
+  .navbar {
+    margin: 0 !important;
+  }
+
+  .container {
+    width: 100%;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+}
+
+#sign-in-flex-container {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  height: 100%;
+
+  #sign-in-inner-container {
+    margin-left: 60px;
+    margin-right: 60px;
+
+    .left-col {
+      max-width: 800px;
+      padding-right: 50px;
+
+      img {
+        width: 75% !important;
+        display: block !important;
+        margin-bottom: 10px;
+      }
+      .content {
+        font-size: 19px !important;
+        text-align: justify;
+        font-family: Roboto, sans-serif !important;
+        font-weight: 400 !important;
+        color: #000 !important;
+        padding-top: 0 !important;
+        border: none;
+        background: transparent;
+        box-shadow: none;
+      }
+    }
+    
+    .right-col {
+      max-width: 500px;
+      padding: 0;
+
+      .form-group {
+        .form-control {
+          &.email-input,
+          &.password-input {
+            border: 2px solid #dedede;
+            background: #FFF;
+
+            &:focus {
+              border: 2px solid #005aff;
+            }
+          }
+          
+          &.email-input,
+          &.password-input,
+          &:-webkit-autofill::first-line {
+            font-size: 22px !important;
+            font-family: Roboto, sans-serif !important;
+            font-weight: 100 !important;
+            color: #666 !important;
+            height: 60px !important;
+            border-radius: 5px !important;
+            opacity: 1 !important;
+          }
+
+          &.password-input {
+            margin-bottom: 2px !important;
+          }
+
+          &::placeholder {
+            border-color: #CCC !important;
+            color: #666 !important;
+            background: #FFF;
+          }
+        }
+
+        &.password {
+          margin-bottom: 5px !important;
+        }
+      }
+
+      .login-button {
+        font-size: 24px !important;
+        background: #005aff !important;
+        font-family: Roboto, sans-serif !important;
+        height: 60px !important;
+        border-radius: 5px !important;
+        color: #FFF;
+        margin-bottom: 10px !important;
+
+        &:hover,
+        &:active,
+        &:focus,
+        &:visited {
+          color: #FFFF;
+        }
+      }
+
+      .remember-me-input {
+        font-family: Roboto, sans-serif !important;
+        color: #005aff !important;
+        margin-bottom: 20px;
+        font-size: 16px;
+        text-align: left;
+
+        .remember-me-checkbox {
+          vertical-align: top;
+          margin: 0;
+          position: relative;
+          top: 3px;
+        }
+      }
+
+      .forgot-password-link {
+        font-size: 16px !important;
+        font-family: Roboto, sans-serif !important;
+        color: #005aff !important;
+      }
+    }
+  }
+}
+
+
+#new_user {
+  width: 100%;
+  padding: 20px;
+  margin: 0;
+}
+
+@media (max-width: 992px) {
+  .container {
+    margin-top: 0 !important;
+  }
+
+  #sign-in-flex-container {
+    #sign-in-inner-container {
+      margin: 20px 10px;
+      text-align: center;
+    
+      .left-col {
+        max-width: 600px !important;
+        padding: 10px !important;
+
+        img {
+          margin: 0 auto;
+        }
+        .content {
+          text-align: center;
+          text-justify: unset;
+          padding: 10px 0 !important;
+        }
+      }
+      
+      .right-col {
+        margin: 0 auto;
+
+        .form-group {
+
+          .form-control {
+            &.email-input,
+            &.password-input,
+            &:-webkit-autofill::first-line {
+              height: 50px !important;
+            }
+          }
+        }
+
+        .login-button {
+          height: 50px !important;
+        }
+      }
+    }
+  }
+}

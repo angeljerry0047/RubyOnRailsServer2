@@ -1,0 +1,20 @@
+<div class="splash-header col span12 row" style="height:68px; padding-bottom:0; border:none; background-color: #D3D3D3;"><div class="span9" style="text-align:left; padding-top:20px"><%= @department.name %> Resources</div>
+<% if current_user.role == "admin" %>
+<div style="text-align:right; border-left:1px solid; padding-top:20px; height:40px" class="span2"><a href="#fc-upload" class="btn-slide-fc-upload">Upload</a></div>
+<div id="panel-fc-upload" style="display:none; ">
+                      <%= render 'fast_contents/form', :organization_id => @department.organization_id %>
+                    </div>
+                    <div style="clear:both;"></div>
+<% end %>
+   </div>
+   <hr style="border:none; color:#FFD84A; background-color:#FFD84A; height:5px; margin-top:0;">
+   <div class="row">
+   <span class="rec_blue" style="font-size:20px">
+   <ol style="margin-left:45px">
+      <%  @department.fast_contents.each do |fc| %>
+      <li class="" style="margin-bottom:15px"><%= link_to fc.topic, fast_content_path(fc), :class => "" %>
+        <% if fc.emb_link? %><%= image_tag("video_icon_black.png", :class => "fc-icons") %><% end %> <% if fc.ext_link? %><%= image_tag("link_icon_black.png", :class => "fc-icons") %><% end %><% if fc.documents? %><%= image_tag("dociconblack.png", :class => "fc-icons") %><% end %><% if fc.audio? %><%= image_tag("audio_icon_black.png", :class => "fc-icons") %><% end %></li>
+      <% end %>
+    </ol> 
+    </span>
+    </div>

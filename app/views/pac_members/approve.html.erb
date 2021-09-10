@@ -1,0 +1,6 @@
+
+<% if current_user == @pac_member.member %>
+<%= render 'pac_member_approve', :pac_member => @pac_member %>
+<% elsif current_user == @pac_member.pac.owner %>
+<%= render 'pac_owner_approve', :pac_member => @pac_member %>
+<% end %>

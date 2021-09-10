@@ -1,0 +1,117 @@
+<%= form_for(@mentorship_circle) do |f| %>
+  <% if @mentorship_circle.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@mentorship_circle.errors.count, "error") %> prohibited this mentorship_circle from being saved:</h2>
+
+      <ul>
+      <% @mentorship_circle.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%#= f.hidden_field :mentor_id, :value => current_user.id %>
+  </div>
+  <% unless defined? group %>
+    <div class="control-group">
+      <div class="controls">
+        <%= label_tag "Group" %>                           
+        <%= select_tag 'mentorship_circle[organization_id]', options_for_select(all_groups_sorted.collect { |group| [group.title, group.id] }), include_blank: false, :required => true %>
+      </div>
+    </div>
+  <% end %>
+
+  <!--
+  <div class="field">
+    <%= f.label :title %>
+    <%= f.text_field :title, :required => true %>
+  </div>
+  -->
+
+  <div class="field">
+    <%= f.label :mctype, "Type" %>
+    <%= f.select :mctype,
+	options_for_select(
+	["Skill Development",
+	"Career Development",
+	"Leadership Development",
+	"Executive Development"]
+	), include_blank: true, :required => true %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :description %>
+    <%= f.text_area :description, :rows => "4", :required => true %>
+  </div>
+
+  <!--
+  <div class="field">
+    <%= f.label :expectations %>
+    <%= f.text_area :expectations, :rows => "4", :required => true %>
+  </div>
+  -->
+  <!--
+  <div class="field">
+    <%= f.label :min_mentees, "Number of People to Mentor" %>
+    <%= f.number_field :min_mentees, :required => true %>
+  </div>
+  -->
+  <div class="field">
+    <%= f.label :max_mentees, "Maximum Number of People to Mentor" %>
+    <%= f.number_field :max_mentees, :required => true %>
+  </div>
+
+  <!--
+  <div class="field">
+    <%= f.label :location, "In Person, Phone, or Video Conference" %>
+    <%= f.text_area :location, :rows => "2", :required => true %>
+  </div>
+  -->
+
+  <div class="field">
+    <%= f.label :location, "Location" %>
+    <%= f.select :location,
+	options_for_select(
+	["In Person",
+	"Phone",
+	"Video Conference"]
+	), include_blank: true, :required => true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :numsessions, "Number of Sessions" %>
+    <%= f.number_field :numsessions, :min => 0, :required => true %>
+  </div>
+  <div class="field">
+    <%= f.label :frequency, "Frequency of Sessions" %>
+    <%= f.select :frequency,
+	options_for_select(
+	["Bimonthly",
+	"Monthly",
+	"Biweekly"]
+	), include_blank: true, :required => true %>
+  </div>
+  <div class="field">
+    <%= f.label :start_date %>
+    <%= f.date_select :start_date, :start_year => 2019, :end_year => 2023, :required => true %>
+  </div>
+  <div class="field">
+    <%= f.label :end_date %>
+    <%= f.date_select :end_date, :start_year => 2019, :end_year => 2023, :required => true %>
+  </div>
+  <div class="field">
+    <%= f.label :meeting_time, "Day and Time of Sessions" %>
+    <%= f.text_field :meeting_time, :required => true %>
+  </div>
+  <!--
+  <div class="field">
+    <%#= f.label :location_option %><br />
+    <%#= f.text_field :location_option %>
+  </div>
+  -->
+  <div class="actions">
+    <%= f.submit "Post", :class => "btn-primary" %>
+  </div>
+<% end %>

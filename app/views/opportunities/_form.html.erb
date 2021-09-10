@@ -1,0 +1,156 @@
+<div class="span7" style="margin-left: 0px;">
+  <% unless defined? group %>
+    <div class="row">
+      <label class="span2">
+        <div class="control-group">
+          <div class="controls">
+            <%= label_tag "Group *" %>                           
+            <%= select_tag 'opportunities[][organization_id]', options_for_select(all_groups_sorted.collect { |group| [group.title, group.id] }), include_blank: true, :class => "required" %>
+            <span class="help-inline">This field is required</span>
+          </div>
+        </div>
+      </label>
+    </div>
+  <% end %>
+</div>
+
+<!--
+<%# if type == "intern" %>
+	<div class="control-group <%#= field_class(opportunity, :organization_id) %>">
+		<%#= label_tag "opportunities[][organization_name]", "Company Name", :class => "control-label" %>
+		<div class="controls">
+			<%#= text_field_tag 'opportunities[][organization_name]', opportunity.organization.try(:title), :class =>"span7 required string auto_complete_org_name" %>
+			<%#= hidden_field_tag 'opportunities[][organization_id]', opportunity.organization.try(:id), :class => "auto_complete_org_id" %>
+			<span class="help-inline">This field is required</span>
+		</div>
+	</div>
+<%# end %>
+-->
+
+<% if type == "intern" %>
+	<div class="control-group <%= field_class(opportunity, :title) %>">
+		<% if type == "intern" %>
+			<%= label_tag "opportunities[][title]", "Title of Job", :class => "control-label" %>
+		<% else %> 
+			<%= label_tag "opportunities[][title]", "Title of Speaking Topic", :class => "control-label" %>
+		<% end %>
+		<div class="controls">
+			<%= text_field_tag "opportunities[][title]", {}, :value => opportunity.title, :class =>"span7 required string" %>
+			<span class="help-inline">This field is required</span>
+		</div>
+	</div>
+<% else %>
+	<h4><%= current_user.name %></h4>
+	<h4><%= current_user.headline %></h4>
+	<% if type == "volunteer" || type == "advisor" %>
+          <%if current_user.interests.length > 0 %> 
+            <h4 class="competencies">
+              My Interests
+            </h4>
+            <div class="competencies">
+              <% current_user.interests.each do |interest| %>
+              <ul>
+              <h5><li><%= interest.name %></li></h5>
+            </ul>
+              <% end %>
+            </div>
+          <%end%>
+        <% end %>
+<% if type == "advisor" || type == "volunteer" || type == "speaker" %>
+  <% if type == "volunteer" %>
+    <%= label_tag "opportunities[][learning_objectives]", "Volunteer Role of Interest", :class => "control-label"  %>
+  <% elsif type == "advisor" %>
+    <%= label_tag "opportunities[][learning_objectives]", "Type of Mentor", :class => "control-label"  %>
+  <% elsif type == "speaker" %>
+    <%= label_tag "opportunities[][learning_objectives]", "Speaking Topic", :class => "control-label"  %>
+  <% else %>
+    <%= label_tag "opportunities[][learning_objectives]", "Area of Interest", :class => "control-label"  %>
+  <% end %>
+
+  <div class="row">
+          <label class="span2">
+                  <div class="control-group <%= field_class(opportunity, :learning_objectives) %>">
+          <div class="controls">
+          <% if type == "advisor" || type == "speaker" %>             
+            <%= select_tag 'opportunities[][learning_objectives]', options_for_select(BestPracticeCategory.is_public.sort_by{ |bp| [bp.title]}.collect{ |bp| [bp.title]}), :include_blank => true, :placeholder => "", :class =>"locale required" %>
+              <span class="help-inline">This field is required</span>
+          <% elsif type == "volunteer" %>
+            <%= select_tag 'opportunities[][learning_objectives]', options_for_select([['Board of Director', 'Board of Director'], ['Committee Member', 'Committee Member'], ['Operations Advisor', 'Operations Advisor']]), :include_blank => true, :placeholder => "", :class =>"locale required" %>
+              <span class="help-inline">This field is required</span>
+          <% end %>
+                          </div>
+                  </div> </label>
+  </div>
+<% end %>
+<% end %>
+<% if type == "advisor" %>
+<div class="control-group <%= field_class(opportunity, :description) %>">
+	<%= label_tag "opportunities[][description]", "Describe why you would like to be a mentor", :class => "control-label"  %>
+	<div class="controls">
+		<%= text_area_tag "opportunities[][description]", opportunity.description, :class => 'input description span7 required'%>
+		<span class="help-inline">This field is required</span>
+	</div>
+</div>
+<% elsif type == "volunteer" %>
+<div class="control-group <%= field_class(opportunity, :description) %>">
+	<%= label_tag "opportunities[][description]", "Describe why you would like to be a volunteer leader", :class => "control-label"  %>
+	<div class="controls">
+		<%= text_area_tag "opportunities[][description]", opportunity.description, :class => 'input description span7 required'%>
+		<span class="help-inline">This field is required</span>
+	</div>
+</div>
+<% elsif type == "speaker" %>
+<div class="control-group <%= field_class(opportunity, :description) %>">
+	<%= label_tag "opportunities[][description]", "Describe the topic that you want to speak about", :class => "control-label"  %>
+	<div class="controls">
+		<%= text_area_tag "opportunities[][description]", opportunity.description, :class => 'input description span7 required'%>
+		<span class="help-inline">This field is required</span>
+	</div>
+</div>
+<% else %>
+<div class="control-group <%= field_class(opportunity, :description) %>">
+	<%= label_tag "opportunities[][description]", "Description", :class => "control-label"  %>
+	<div class="controls">
+		<%= text_area_tag "opportunities[][description]", opportunity.description, :class => 'input description span7 required'%>
+		<span class="help-inline">This field is required</span>
+	</div>
+</div>
+<%end%>
+
+<% if type == "intern" %>
+<h4>Number of students</h4>
+<div class="row">
+	<label class="span3">
+		<div class="control-group <%= field_class(opportunity, :max_students) %>">
+			<%= label_tag "opportunities[][max_students]", "Max", :class => "control-label"  %>
+			<div class="controls">
+				<%= text_field_tag 'opportunities[][max_students]', opportunity.max_students, :placeholder =>"", :class => "span3 required", maxlength: 5 %>
+				<span class="help-inline">This field is required</span>
+			</div>
+		</div> </label>
+	<label class="span2">
+		<div class="control-group <%= field_class(opportunity, :min_students) %>">
+			<%= label_tag "opportunities[][min_students]", "Min", :class => "control-label"  %>
+			<div class="controls">
+				<%= text_field_tag 'opportunities[][min_students]', opportunity.min_students, :placeholder =>"", :class => "span3 required", maxlength: 5 %>
+				<span class="help-inline">This field is required</span>
+			</div>
+		</div> </label>
+</div>
+<% end %>
+<div class="row">
+	<div class="span3">
+		<% if type == "advisor" || type == "volunteer" %>
+			<%= hidden_field_tag 'opportunities[][max_students]', opportunity.max_students, :value => 1 %>
+			<%= hidden_field_tag 'opportunities[][min_students]', opportunity.min_students, :value => 1 %>
+		<% end %>
+		<% unless @best_practice_category_id.present? || current_user.organization_id.nil? %>
+
+      <%= hidden_field_tag 'opportunities[][internal]', opportunity.internal, :value => 1 %>
+
+  		<% label_tag "opportunities[][industry_id]", "Industry" %>
+  		<% select_tag "opportunities[][industry_id]", options_from_collection_for_select(Industry.order('title ASC'), "id", "title") %>
+
+		<%end%>
+	</div>
+</div>

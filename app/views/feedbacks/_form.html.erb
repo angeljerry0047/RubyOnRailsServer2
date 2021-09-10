@@ -1,0 +1,41 @@
+<%= simple_form_for(@feedback) do |f| %>
+  <% if @feedback.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@recommendation.errors.count, "error") %> prohibited this recommendation from being saved:</h2>
+
+      <ul>
+      <% @recommendation.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+ <div style="text-align:center; font-size: 18px; margin-top:20px;">Please answer the following questions using the scale provided</div>
+ <div>
+<div class="feedback_question" style="padding-top: 15px;">
+  <%= f.input :q1, 
+    :label => "#{@opportunity.owner.name} demonstrated proficiency in #{@opportunity.opportunity_category.competencies[0].name}.", 
+    :collection => [['Neutral', 1], ['Somewhat', 2], ['Agree', 3], ['Strongly Agree', 4]] %>
+</div>
+
+<div class="feedback_question">
+  <%= f.input :q2, 
+    :label => "#{@opportunity.owner.name} demonstrated proficiency in #{@opportunity.opportunity_category.competencies[1].name}.", 
+    :collection => [['Neutral', 1], ['Somewhat', 2], ['Agree', 3], ['Strongly Agree', 4]] %> 
+    </div>
+ 
+<div class="feedback_question">    
+  <%= f.input :q3, 
+    :label => "#{@opportunity.owner.name} demonstrated proficiency in #{@opportunity.opportunity_category.competencies[2].name}.",
+    :collection => [['Neutral', 1], ['Somewhat', 2], ['Agree', 3], ['Strongly Agree', 4]] %>
+    </div>
+    
+<div class="rec_apply">
+  <%= f.button :submit, 'Submit Feedback', 
+          :class => 'btn btn-large btn-primary create roundedge',
+          :id => 'btnCreate'  %>
+
+  <%= f.hidden_field :opportunity_id, :value => @opportunity.id %>
+  </div>
+
+<% end %>

@@ -1,0 +1,34 @@
+<%= simple_form_for(@testimonial) do |f| %>
+
+  <% if @testimonial.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(@testimonial.errors.count, "error") %> 
+        prohibited this testimonial from being saved:
+      </h2>
+
+      <ul>
+        <% @testimonial.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+
+    </div>
+  <% end %>
+
+  <br/>
+
+  <div>
+    <center>
+      <div class="field">
+        <%= f.input :body, :label => "Your Testimonial", input_html: { class: 'input description span7 required'} %>
+      </div>
+    </center>
+
+    <%= f.hidden_field :opportunity_id, :value => @opportunity.id %>
+
+    <div class="testimonial-button">
+      <%= f.button :submit, 'Submit Testimonial', :class => 'btn btn-large btn-primary create roundedge', :id => 'btnCreate' %>
+    </div>
+  </div>
+<% end %>

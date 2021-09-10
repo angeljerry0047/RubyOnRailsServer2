@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  
+  <body>
+
+    <p>
+      Dear <%= @user_name %>,
+    </p>
+
+    <p>
+     Congratulations! You have been awarded the <%= @badge_name %> badge on 
+     serve2perform.
+    </p>
+
+    <p>
+      You can view this and all previous badges by clicking <%= link_to 'here', user_url(@user_id) %>.
+      We congratulate you once again, and wish you the best as you continue your professional development on serve2perform.
+    </p>
+
+    <p>
+      Regards,
+    </p>
+    
+    <p>
+      The serve2perform Team
+    </p>
+
+  </body>
+</html>

@@ -1,0 +1,281 @@
+<%= stylesheet_link_tag "application/recommendations", :media => "all" %>
+
+<div class="board">
+  <%= link_to user_path(@recommendation.user.id), :class => "user-chip" do %>
+    <div class="picture">
+      <%= image_tag @recommendation.user.avatar.url %>
+    </div>
+    <div class="name"><%=@recommendation.user.name %></div>
+  <% end %>
+  <div class="column small">
+
+    <div class="info">
+      Recommendation
+      </br>
+      <% if ((Time.now - @recommendation.created_at)/3600).floor < 1 && ((Time.now - @recommendation.created_at)/60).floor != 1 %>
+        Posted <span class="number">
+        <%= ((Time.now - @recommendation.created_at)/60).floor %>
+        </span> minutes ago
+      <% elsif ((Time.now - @recommendation.created_at)/60).floor == 1 %>
+        Posted <span class="number">
+        1</span> minute ago
+      <% elsif ((Time.now - @recommendation.created_at)/3600).floor < 24 && ((Time.now - @recommendation.created_at)/3600).floor != 1 %>
+        Posted <span class="number">
+        <%= ((Time.now - @recommendation.created_at)/3600).floor %>
+        </span> hours ago
+      <% elsif ((Time.now - @recommendation.created_at)/3600).floor ==1 %>
+        Posted <span class="number">
+        1</span> hour ago
+      <% else %>
+        <span>
+        <%= (@recommendation.created_at).strftime("%d %b %Y") %>
+        </span>
+      <% end %>
+
+      <%if @recommendation.creator_id == current_user.id %>
+        </br></br>
+        <%= link_to edit_opportunity_path do %>
+          Edit Recommendation
+        <%end%>
+      <%end%>
+
+    </div>
+  </div>
+
+  <div class="column large">
+    <div class="title"><%= @recommendation.rec_type %></div>
+
+    <!-- <div class="subhead">
+      Mentor
+    </div> -->
+
+    <div class="recommender">
+      Recommended by <%= link_to User.find(@recommendation.creator_id).name, user_path(@recommendation.creator_id) %>
+    </div>
+    <%if @recommendation.opportunity_category_id? %>
+      <div class="body">
+        <%= @recommendation.con_text %>
+      </div>
+    <% end %>
+
+    <p>
+      <ul>
+	<li><span>Connection strength:</span> <%= @recommendation.con_strength %></li>
+	<li><span>Connection engagement:</span> <%= @recommendation.con_engagement %></li>
+	<li><span>Connection length:</span> <%= @recommendation.con_length %></li>
+	<li><span>Connection type:</span> <%= @recommendation.con_type %></li>
+	<li><span>Connection performance:</span> <%= @recommendation.con_performance %></li>
+      </ul>
+    </p>
+    
+  </div>
+
+  <div class="clear"></div>
+  
+</div>
+
+<div style="display: none;">
+
+  <div class="topper">
+    <div class="span12">  
+      <div class="row">
+        <div class="span10 prev" style="margin-left:0px;">
+          <%= link_to '< Back to your search results', :back, :class => "rec_green_link" %>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+  <center>
+    <h4 class="rec_orange">Recommended as:</h4>
+
+    <% if @recommendation.rec_type.present? && @recommendation.opportunity_category.present? %>
+      <div class="span12" style="margin:0px;">
+      <h1 class="rec_blue"><%= @recommendation.rec_type%> 
+        <% if @recommendation.opportunity_category.name == 'Advisor'%>
+          Mentor
+        <% end %>
+        <% if @recommendation.opportunity_category.name == 'Coach'%>
+          Mentor
+        <% end %>
+      </h1>
+    <% else %>
+        <div class="span12" style="margin:0px;">
+        <%if @recommendation.rec_type.present? %>
+          <div class="span12" style="text-align:center; margin-left:0px; float:none">
+          <h1 class="rec_blue"><%= @recommendation.rec_type%></h1>
+        </div>
+      <% end %>
+        <% if @recommendation.opportunity_category.present? %>
+          <div class="span12" style="margin-left:0px; text-align:center; float:none;">
+          <h1 class="rec_blue"> <%= @recommendation.opportunity_category.name %></h1>
+        </div>
+      <% end %>
+      </div>
+    <% end %>
+    </center> 
+
+    <div class="span12" style="margin-top:25px;">
+
+      <div class="span3">
+
+        <div class="avatar">
+          <center><%= link_to image_tag(@recommendation.user.avatar.url, :style => "border-radius:60px;"), user_path(@recommendation.user.id) %></center>
+
+        </div>
+        <br/>
+        <center><%= link_to @recommendation.user.name, user_path(@recommendation.user), :style => "font-weight:bold;" %></center>
+        <br/> 
+        <% unless current_user == @recommendation.user %> 
+
+          <div id="validate" style="text-align:center; height:50px;">
+          <div class="span2" style="width:61px; margin-left:50px;">
+            <% if current_user.likes?(@recommendation) %>
+              <% if @recommendation.likers(User).count > 0 %>
+              <%if @recommendation.likers(User).count == 1 %><span class="rec_green"><%= @recommendation.likers(User).count %></span> <br/><a href="#itip" onmouseover="tooltip.pop(this, '#itip')" class="rec_green_link">validation</a> <%else%><span class="rec_green"><%= @recommendation.likers(User).count %></span><br/> <a href="#itip" onmouseover="tooltip.pop(this, '#itip')" class="rec_green_link">validation</a> <%end%>
+            <div style="display:none;">
+              <div id="itip">
+                <% @recommendation.likers(User).each do |liker| %>
+                  <% unless liker == current_user %>
+                  <%= link_to liker.name, user_path(liker) %><br/>
+              <% end %>
+              <% end %>
+              </div>
+            </div>
+          <%else%>
+              <span class="rec_green"><%= @recommendation.likers(User).count %></span>
+            <br/><span class="rec_green_link">validation</span>
+          <% end %>
+          <%else%>
+              <% if @recommendation.likers(User).count == 0 %>
+              <span class="rec_green"><%= @recommendation.likers(User).count %></span><br/> <span class="rec_green_link">validations</span>
+          <%end%>
+          <% end %>
+          </div>
+          <div class="span2" style="width:61px; margin-left:0px;">
+            <center>
+
+              <%= link_to image_tag("AgreeButton.png", :alt =>'AgreeButton'), validate_recommendation_path(:recommendation_id => @recommendation.id), :method => :post, :remote => true %>
+
+            </center>
+          </div>
+        </div>
+
+      <% else %>
+
+          <div id="validate" style="text-align:center; height:50px;">
+          <div class="span2" style="width:61px; margin-left:78px;">
+
+            <% if @recommendation.likers(User).count > 0 %>
+              <%if @recommendation.likers(User).count == 1 %><span class="rec_green"><%= @recommendation.likers(User).count %></span> <br/><a href="#itip" onmouseover="tooltip.pop(this, '#itip')" class="rec_green_link">validation</a> <%else%><span class="rec_green"><%= @recommendation.likers(User).count %></span><br/> <a href="#itip" onmouseover="tooltip.pop(this, '#itip')" class="rec_green_link">validation</a> <%end%>
+            <div style="display:none;">
+              <div id="itip">
+                <% @recommendation.likers(User).each do |liker| %>
+                  <% unless liker == current_user %>
+                  <%= link_to liker.name, user_path(liker) %><br/>
+              <% end %>
+              <% end %>
+              </div>
+            </div>
+          <%else%>
+              <span class="rec_green"><%= @recommendation.likers(User).count %></span>
+            <br/><span class="rec_green_link">validations</span>
+          <% end %>
+
+          </div>
+        </div>
+
+      <% end %>
+
+        <br/>
+        <center>
+          <%if @recommendation.approval_status == true %>
+            <% if current_user.active_license? %>
+            <%= button_to 'Connect', {:action => "create", :controller => "recommendation_applications", :recommendation_id => @recommendation.id}, class: 'btn btn-primary btn-large roundedge'%>
+        <% else %>
+            <div class="apply"><%= link_to 'Connect', register_pde_recommendations_path(:id => @recommendation.id), class: 'btn btn-primary btn-large roundedge' %></div>
+        <%end%>
+        <%end%>
+        </center>
+
+      </div>
+
+      <div class="span9" style="margin-left:0; width: 550px;">
+        <div class="row">
+          <div class="span9">
+            <div class ="about_rec">
+              <div class="rec_row">
+                <div class="rec_info">
+                  <h4 class="rec_green">About:
+                  </h4>
+                </div>
+
+              </div>
+            </div>
+
+            <%if @recommendation.approval_status != true %>
+              <h4 style ="color:red;">
+              This Recommendations is Awaiting Approval
+            </h4>
+          <%end%>
+
+            <%if @recommendation.user.description.present? %>
+              <pre><%= @recommendation.user.description %></pre>
+          <% end %>
+
+            <%if @recommendation.con_text.present? %>
+              <h4 class="rec_green" style="font-size:20px;">Why <%=@recommendation.creator.name %> believes <%= @recommendation.user.name%> will be effective in this role</h4>
+            <pre><%= @recommendation.con_text %></pre>
+          <% end %>
+
+            <div class ="about_rec">
+              <div class ="rec_row">
+                <div class="rec_info">
+                  <h4 class="rec_orange">Recommended by:</h4>
+                  <%= @recommendation.creator.name %>
+                </div>
+                <br/>
+                <div class="rec_info">
+                  <h4 class="rec_orange">Type of connection:</h4>
+                  <p><%= @recommendation.con_type %></p>
+                </div>
+              </div>
+              <br/>
+              <div class ="rec_row">
+                <div class="rec_info">
+                  <h4 class="rec_orange">Frequency of interaction<br /> with connection:</h4>
+                  <p><%= @recommendation.con_engagement %></p>
+                </div>
+                <br/>
+                <div class="rec_info">
+                  <h4 class="rec_orange">Length of connection:</h4>
+                  <p><%= @recommendation.con_length %></p>
+                </div>
+              </div>
+              <br/>
+
+              <div class ="rec_row">
+                <div class="rec_info">
+                  <h4 class="rec_orange">Strength of connection:</h4>
+                  <p><%= @recommendation.con_strength %></p>
+                </div> 
+                <br/>
+                <% unless @recommendation.con_performance == nil %>
+                  <div class="rec_info">
+                  <h4 class="rec_orange">Past performance as a<br/> <%= @recommendation.opportunity_category.name %>:</h4>
+                  <p><%= @recommendation.con_performance %></p>
+                </div>
+              <%end %>
+              </div>
+
+            </div> 
+            <%= render "comments/comments" %>
+            <%= render "comments/form" %>     
+          </div>
+        </div>
+
+      </div> 
+
+    </div>
+</div>

@@ -1,0 +1,39 @@
+<%= simple_form_for(resource, :as => resource_name,
+    :url => registration_path(resource_name)) do |f| %>
+  <div class="headline">Sign Up</div>
+
+  <%= f.error_notification %>  
+  <%= display_base_errors resource %>
+  
+  <%= f.input :name, :required => true, :autofocus => true %>
+  
+  <%= f.input :email, :required => true %>
+  
+  <%#= text_field_tag 'user[organization_name]', resource.organization.try(:title), :class => "auto_complete_org_name",  :label => false, :required => true, :placeholder => 'Company' %>
+
+  <%#= f.hidden_field :organization_id, :class =>'auto_complete_org_id' %>
+  <%#= render 'devise/registrations/auto_complete_org_name' %>
+  
+  <%= f.hidden_field :organization_id, :value => 257 %>
+
+  <%#= f.input :location, :required => true, :label => false, :placeholder => 'City, State' %>
+
+  <%= f.input :password, :required => true, :error => "This defaults to 'number' input based on field type" %> 
+
+  <%= f.input :password_confirmation, :required => true %>
+
+  <%#= f.check_box :terms_agreement, :required => true %>
+  
+  <br>
+  <div>
+    <input type="checkbox" required="true">
+    By checking this box, I agree to the
+    <a href="/docs/terms_of_use.pdf" target="_blank">terms of use</a> and
+    <a href="/docs/privacy_policy_updated.pdf" target="_blank">privacy policy.</a>
+  </div>
+    
+  <%= f.button :submit, 'Join Now', :class => 'btn-primary', :id => 'submit' %>
+
+  <div class="clear"></div>
+              
+<% end %>

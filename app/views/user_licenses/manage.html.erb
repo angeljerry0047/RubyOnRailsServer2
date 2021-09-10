@@ -1,0 +1,42 @@
+<h1>Manage Your User Licenses</h1>
+<p>User License Management for <strong style="font-size:18px;"><%= @org.title %></strong></p>
+<p>Available Licenses <strong>(<%= @org.available_licenses %>)</strong> out of <strong>(<%= @org.user_licenses %>)</strong>.</p>
+<p>Check the box next to the user's name and click the update button to activate their license.</p>
+
+<%= form_tag update_many_user_licenses_path, :method => :put do %>		
+			<div>
+				<table>
+				  <tbody>
+				    <% @users.each do |row| %>
+				      <tr>
+				        <% row.each do |column| %>
+				        <%= fields_for "users[]", column do |user_fields| %>
+				          <td>
+				          	<div>
+				           <%= user_fields.check_box :active_license, :style => "margin-right:5px; margin-bottom:7px;" %><%= link_to column.name, user_path(column), :style => "color:#333333" %>:
+				            </div>
+				           <div><% column.badges.each do |badge| %><%= link_to image_tag(badge.mobile_badge_image, :style => "width:14%;"), about_path + "#badge" %><% end %>
+				           </div>
+				          </td>
+				        <% end %>
+				        <% end %>
+				      </tr>
+				    <% end %>
+				  </tbody>
+				</table>
+			</div>
+
+		
+		<%= submit_tag "Update User Licenses", :class => "btn btn-large btn-primary roundedge", :style => "margin-top:20px;" %>
+<% end %> 
+
+<h1>Purchase More Licenses</h1>
+
+
+<%= form_tag(new_user_license_purchase_path, method: "get") do %>
+  <%= label_tag(:q, "Number of Licenses to Purchase:") %>
+  <%= number_field_tag :licenses_purchased, nil, min: 1 %>
+  <div class="update-search">
+  <%= submit_tag "Purchase", :class => "btn btn-large btn-primary roundedge" %>
+  </div>
+<% end %>

@@ -1,0 +1,76 @@
+@import "master";
+
+.simple_form{
+  margin: 50px auto;
+  position: relative;
+  width: 700px;
+  .recognitions-radio{
+    float: left;
+    height: 100px;
+    margin: 10px 40px;
+    padding: 0;
+    width: 270px;
+    label{
+      color: $primary-color;
+      font-size: 20px;
+      input{
+        background-color: #000;
+        margin: 0 10px 0 0;
+        outline: none;
+        position: relative;
+        top: 33px;
+        visibility: visible;
+        -moz-border-bottom-colors: transparent;
+        -moz-border-left-colors: transparent;
+        -moz-border-right-colors: transparent;
+        -moz-border-top-colors: transparent;
+        &:focus{
+          border: none;
+          border-color: transparent;
+          outline: none;
+        }
+      }
+    }
+  }
+  .recognition-new-button{
+    margin: 0 36px;
+  }
+}
+
+/* desktop ================================================== */
+
+@media (min-width: $desktop-min) {
+
+  .recognitions.new{
+  }
+
+}
+
+
+/* tablet ================================================== */
+
+@media (min-width: $tablet-min) and (max-width: $tablet-max) {
+
+  .recognitions.new{
+  }
+
+}
+
+/* phone ================================================== */
+
+@media (max-width: $phone-max) {
+
+  .recognitions.new{
+    .simple_form{
+      margin: none;
+      width: 100%;
+      .recognitions-radio{
+        margin: 16px 0;
+      }
+      .recognition-new-button{
+        margin: 0;
+      }
+    }
+  }
+
+}

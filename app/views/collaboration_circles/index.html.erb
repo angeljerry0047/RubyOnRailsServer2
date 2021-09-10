@@ -1,0 +1,123 @@
+<%= stylesheet_link_tag "application/list-post", :media => "all" %>
+
+<div class="filter-group-list">
+  <div class="filter-group-head">
+    Show content from:
+  </div>
+  <% current_user.unique_groups.sort_by!{ |g| g.title }.each do |group| %>
+    <div class="filter-group-item">
+      <%= link_to group.title, collaboration_circles_path(:organization_id => group.id) %>
+    </div>
+  <% end %>
+  <div class="filter-group-item show-all">
+    <%= link_to "All Groups", collaboration_circles_path() %>
+  </div>
+</div>
+
+<% if @collaboration_circles.count < 1 %>
+  <div class="no-post-message">Looks like no one in this group has posted a key insight yet.</div>
+  <%= link_to "Post a collaboration circle", new_collaboration_circle_path, :class => "btn-primary" %>
+<% else %>
+
+  <div class="table-head">
+    <div class="main-column">
+      <div class="title">Title</div>
+    </div>
+    <div class="user-column">Facilitator</div>
+  </div>
+  <div class="clear"></div>
+
+  <% @collaboration_circles.sort_by{ |p| p.created_at}.reverse.each do |post| %>
+    <% if User.exists?(:id => post.facilitator_id) %>
+      <%= link_to collaboration_circle_path(post.id), :class => "list-post ripple-button" do %>
+
+        <div class="list-main">
+          <div class="title"><%= post.title %></div>
+          <div class="info">
+            <span class="org-title"><%= Organization.find(post.organization_id).title %></span>
+            <br/>
+            <% if ((Time.now - post.created_at)/3600).floor < 1 && ((Time.now - post.created_at)/60).floor != 1 %>
+              Posted <span class="number">
+              <%= ((Time.now - post.created_at)/60).floor %>
+              </span> minutes ago
+            <% elsif ((Time.now - post.created_at)/60).floor == 1 %>
+              Posted <span class="number">
+              1</span> minute ago
+            <% elsif ((Time.now - post.created_at)/3600).floor < 24 && ((Time.now - post.created_at)/3600).floor != 1 %>
+              Posted <span class="number">
+              <%= ((Time.now - post.created_at)/3600).floor %>
+              </span> hours ago
+            <% elsif ((Time.now - post.created_at)/3600).floor ==1 %>
+              Posted <span class="number">
+              1</span> hour ago
+            <% else %>
+              <span>
+              <%= (post.created_at).strftime("%d %b %Y") %>
+              </span>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="post-list-user">
+          <div class="user-chip">
+            <div class="user-image">
+              <%= image_tag User.find(post.facilitator_id).avatar.url %>
+            </div>
+            <div class="user-name">
+              <%= User.find(post.facilitator_id).name %>
+            </div>
+          </div>
+        </div>
+        <div class="clear"></div>
+        
+      <% end #link to post path %>
+    <% end #if user exists %>
+  <% end #do for each post %>
+<% end #if there are posts here %>
+
+<div class="clear"></div>
+
+<div style="display: none;">
+    <h1>Listing collaboration_circles</h1>
+
+    <table>
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Start date</th>
+        <th>End date</th>
+        <th>Start time</th>
+        <th>End time</th>
+        <th>Min attendees</th>
+        <th>Max attendees</th>
+        <th>Expectations</th>
+        <th>Location option</th>
+        <th>Location</th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+
+    <% @collaboration_circles.each do |collaboration_circle| %>
+      <tr>
+        <td><%= collaboration_circle.title %></td>
+        <td><%= collaboration_circle.description %></td>
+        <td><%= collaboration_circle.start_date %></td>
+        <td><%= collaboration_circle.end_date %></td>
+        <td><%= collaboration_circle.meeting_time %></td>
+        <td><%= collaboration_circle.min_attendees %></td>
+        <td><%= collaboration_circle.max_attendees %></td>
+        <td><%= collaboration_circle.expectations %></td>
+        <td><%= collaboration_circle.location_option %></td>
+        <td><%= collaboration_circle.location %></td>
+        <td><%= link_to 'Show', collaboration_circle %></td>
+        <td><%= link_to 'Edit', edit_collaboration_circle_path(collaboration_circle) %></td>
+        <td><%= link_to 'Destroy', collaboration_circle, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+    </table>
+
+    <br />
+
+    <%= link_to 'New Collaboration circle', new_collaboration_circle_path %>
+</div>

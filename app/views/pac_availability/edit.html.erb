@@ -1,0 +1,49 @@
+<%# XXX (cmhobbs) quit using flash for flow control, especially in the view %>
+<% flash.each do |name, msg| %>
+<div class="opportunity wrap row">
+	<div class="topper">
+		<div class="span12">
+			<span>Facility Confirmation Page</span>
+		</div>
+	</div>
+	<div class="span12">
+		<h3><%= @pac.title %></h3>
+		<%= simple_form_for(@pac) do |f| %>
+		<%= f.hidden_field :id, :value => params[:id] %>
+		<% if @pac.opportunity_type_id == 1 %>
+		<div class="row">
+			<%= f.label :facility_name, "Location:", :class => "span2 title2"%>
+			<%= f.label :facility_name, @pac.facility.name, :class => "span3"%>
+		</div>
+		<%end%>
+		<div class="row">
+			<%= f.label :start_date, "Date:", :class => "span2 title2"%>
+			<div class="span2">
+				<%=@pac.start_date.strftime("%m/%d/%Y") %>	
+			</div>
+		</div>
+		<div class="row">
+			<%= f.label :start_time, "Start Time:", :class => "span2 title2"%>
+			<%= f.label :start_time, @pac.start_time, :class => "span2"%>
+		</div>
+		<div class="row">
+			<%= f.label :end_time, "End Time:", :class => "span2 title2"%>
+			<%= f.label :end_time, @pac.end_time, :class => "span2"%>
+		</div>
+		<% if @pac.opportunity_type_id != 1 %>
+		<div class="row">
+			<%= f.input :webcast_id, :label => "Webcast ID:", :class => "span2"%>
+		</div>
+			<% if @pac.opportunity_type_id == 3 || @pac.opportunity_type_id == 4 %>
+			<div class="row">
+			<%= f.association :webcast_facilitator, :label_method => :email %> 
+			</div>
+			<%end%>
+		<%end%>
+		<%= f.submit 'Confirm', :class => "btn btn-primary btn-large roundedge" %>
+		<%= f.submit 'Reject', :class => "btn btn-primary btn-large roundedge" %>
+		<% end %>
+	</div>
+</div>
+
+<% end %>

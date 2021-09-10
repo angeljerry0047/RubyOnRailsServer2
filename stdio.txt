@@ -1,0 +1,4 @@
+Fetching https://github.com/mintotsai/omniauth-salesforce
+Fetching gem metadata from https://rubygems.org/.......
+Fetching gem metadata from https://rubygems.org/.
+Could not find gem 'activesuppor (= 4.0.0)' in any of the gem sources listed in your Gemfile.

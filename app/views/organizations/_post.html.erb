@@ -1,0 +1,324 @@
+<% if post.class.name == "MentorshipCircle" %>
+  <% if User.exists?(:id => post.mentor_id) %>
+    <%= link_to mentorship_circle_path(post), :class => "list-post ripple-button" do %>
+
+      <div class="list-main">
+        <div class="info">
+          <%- if post.mctype? %>
+            <%= post.mctype %> Mentorship
+          <%- else %>
+            Mentorship Circle
+          <% end %>
+        </div>
+        <div class="title"><%= post.title %></div>
+          <div class="info">
+            <span class="org-title"><%= Organization.find(post.organization_id).title %></span>
+            <br/>
+            <% if ((Time.now - post.created_at)/3600).floor < 1 && ((Time.now - post.created_at)/60).floor != 1 %>
+              Posted <span class="number">
+              <%= ((Time.now - post.created_at)/60).floor %>
+              </span> minutes ago
+            <% elsif ((Time.now - post.created_at)/60).floor == 1 %>
+              Posted <span class="number">
+              1</span> minute ago
+            <% elsif ((Time.now - post.created_at)/3600).floor < 24 && ((Time.now - post.created_at)/3600).floor != 1 %>
+              Posted <span class="number">
+              <%= ((Time.now - post.created_at)/3600).floor %>
+              </span> hours ago
+            <% elsif ((Time.now - post.created_at)/3600).floor ==1 %>
+              Posted <span class="number">
+              1</span> hour ago
+            <% else %>
+              <span>
+              <%= (post.created_at).strftime("%d %b %Y") %>
+              </span>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="post-list-user">
+          <div class="user-chip">
+            <div class="user-image">
+              <%= image_tag User.find(post.mentor_id).avatar.url %>
+            </div>
+            <div class="user-name">
+              <%= User.find(post.mentor_id).name %>
+            </div>
+          </div>
+        </div>
+        <div class="clear"></div>
+            
+    <% end #link to mentorship_circle path %>
+  <% end #if user exists %>
+<% end %>
+
+<% if post.class.name == "BestPractice" %>
+  <% if User.exists?(:id => post.user_id) %>
+    <%= link_to best_practice_path(post), :class => "list-post ripple-button" do %>
+
+      <div class="list-main">
+        <div class="title"><%= post.title %></div>
+        <div class="info">
+          <span class="org-title"><%= Organization.find(post.organization_id).title %></span>
+          <br/>
+          <% if ((Time.now - post.created_at)/3600).floor < 1 && ((Time.now - post.created_at)/60).floor != 1 %>
+            Posted <span class="number">
+            <%= ((Time.now - post.created_at)/60).floor %>
+            </span> minutes ago
+          <% elsif ((Time.now - post.created_at)/60).floor == 1 %>
+            Posted <span class="number">
+            1</span> minute ago
+          <% elsif ((Time.now - post.created_at)/3600).floor < 24 && ((Time.now - post.created_at)/3600).floor != 1 %>
+            Posted <span class="number">
+            <%= ((Time.now - post.created_at)/3600).floor %>
+            </span> hours ago
+          <% elsif ((Time.now - post.created_at)/3600).floor ==1 %>
+            Posted <span class="number">
+            1</span> hour ago
+          <% else %>
+            <span>
+            <%= (post.created_at).strftime("%d %b %Y") %>
+            </span>
+          <% end %>
+          <span> • </span>
+          <span class="number">
+            <%= post.likers(User).count %>
+          </span> Likes
+          <span> • </span>
+          <span class="number">
+            <%= post.comments.count %>
+          </span> Comments <!-- this should be "Comments" if not on inquiries, otherwise "Answers" -->
+        </div>
+      </div>
+
+      <div class="post-list-user">
+        <div class="user-chip">
+          <div class="user-image">
+            <%= image_tag User.find(post.user_id).avatar.url %>
+          </div>
+          <div class="user-name">
+            <%= User.find(post.user_id).name %>
+          </div>
+        </div>
+      </div>
+      <div class="clear"></div>
+      
+    <% end #link to best_practice path %>
+  <% end #if user exists %>
+<% end %>
+
+<% if post.class.name == "FastContent" %>
+  <% if User.exists?(:id => post.user_id) %>
+    <%= link_to fast_content_path(post), :class => "list-post ripple-button" do %>
+
+      <div class="list-main">
+        <div class="info">Resource</div>
+        <div class="title"><%= post.topic %></div>
+        <div class="info">
+          <span class="org-title"><%= Organization.find(post.organization_id).title %></span>
+          <br/>
+          <% if ((Time.now - post.created_at)/3600).floor < 1 && ((Time.now - post.created_at)/60).floor != 1 %>
+            Posted <span class="number">
+            <%= ((Time.now - post.created_at)/60).floor %>
+            </span> minutes ago
+          <% elsif ((Time.now - post.created_at)/60).floor == 1 %>
+            Posted <span class="number">
+            1</span> minute ago
+          <% elsif ((Time.now - post.created_at)/3600).floor < 24 && ((Time.now - post.created_at)/3600).floor != 1 %>
+            Posted <span class="number">
+            <%= ((Time.now - post.created_at)/3600).floor %>
+            </span> hours ago
+          <% elsif ((Time.now - post.created_at)/3600).floor ==1 %>
+            Posted <span class="number">
+            1</span> hour ago
+          <% else %>
+            <span>
+            <%= (post.created_at).strftime("%d %b %Y") %>
+            </span>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="post-list-user">
+        <div class="user-chip">
+          <div class="user-image">
+            <%= image_tag User.find(post.user_id).avatar.url %>
+          </div>
+          <div class="user-name">
+            <%= User.find(post.user).name %>
+          </div>
+        </div>
+      </div>
+      <div class="clear"></div>
+
+    <% end #link to post path %>
+  <% end #if user exists %>
+<% end %>
+
+<!--
+<%# if post.class.name == "Inquiry" %>
+  <%# if User.exists?(:id => post.user_id) %>
+    <%#= link_to inquiry_path(post), :class => "list-post ripple-button" do %>
+
+      <div class="list-main">
+        <div class="type">Question</div>
+        <div class="title"><%#= post.title %></div>
+        <div class="info">
+          <span class="org-title"><%#= Organization.find(post.organization_id).title %></span>
+          <br/>
+          <%# if ((Time.now - post.created_at)/3600).floor < 1 && ((Time.now - post.created_at)/60).floor != 1 %>
+            Posted <span class="number">
+            <%#= ((Time.now - post.created_at)/60).floor %>
+            </span> minutes ago
+          <%# elsif ((Time.now - post.created_at)/60).floor == 1 %>
+            Posted <span class="number">
+            1</span> minute ago
+          <%# elsif ((Time.now - post.created_at)/3600).floor < 24 && ((Time.now - post.created_at)/3600).floor != 1 %>
+            Posted <span class="number">
+            <%#= ((Time.now - post.created_at)/3600).floor %>
+            </span> hours ago
+          <%# elsif ((Time.now - post.created_at)/3600).floor ==1 %>
+            Posted <span class="number">
+            1</span> hour ago
+          <%# else %>
+            <span>
+            <%#= (post.created_at).strftime("%d %b %Y") %>
+            </span>
+          <%# end %>
+          <span> • </span>
+          <span class="number">
+            <%#= post.likers(User).count %>
+          </span> Likes
+          <span> • </span>
+          <span class="number">
+            <%#= post.comments.count %>
+          </span> Answers  this should be "Comments" if not on inquiries, otherwise "Answers"
+        </div>
+      </div>
+
+      <div class="post-list-user">
+        <div class="user-chip">
+          <div class="user-image">
+            <%#= image_tag User.find(post.user_id).avatar.url %>
+          </div>
+          <div class="user-name">
+            <%#= User.find(post.user_id).name %>
+          </div>
+        </div>
+      </div>
+      <div class="clear"></div>
+
+    <%# end #link to post path %>
+  <%# end #if user exists %>
+<%# end %>
+-->
+
+<% if post.class.name == "Opportunity" %>
+  <% if User.exists?(:id => post.owner_id) %>
+    <%= link_to opportunity_path(post), :class => "list-post ripple-button" do %>
+
+      <div class="list-main">
+        <div class="title">
+          <% if (post.opportunity_category_id == 18 && post.learning_objectives?) %>
+            <%= post.learning_objectives %> <%= post.title %>
+          <% elsif post.title? %>
+            <%= post.title %>
+          <% else %>
+            <%= post.learning_objectives %>
+          <% end %>
+        </div>
+        <div class="info">
+          <span class="org-title"><%= Organization.find(post.organization_id).title %></span>
+          <br/>
+          <% if ((Time.now - post.created_at)/3600).floor < 1 && ((Time.now - post.created_at)/60).floor != 1 %>
+            Posted <span class="number">
+            <%= ((Time.now - post.created_at)/60).floor %>
+            </span> minutes ago
+          <% elsif ((Time.now - post.created_at)/60).floor == 1 %>
+            Posted <span class="number">
+            1</span> minute ago
+          <% elsif ((Time.now - post.created_at)/3600).floor < 24 && ((Time.now - post.created_at)/3600).floor != 1 %>
+            Posted <span class="number">
+            <%= ((Time.now - post.created_at)/3600).floor %>
+            </span> hours ago
+          <% elsif ((Time.now - post.created_at)/3600).floor ==1 %>
+            Posted <span class="number">
+            1</span> hour ago
+          <% else %>
+            <span>
+            <%= (post.created_at).strftime("%d %b %Y") %>
+            </span>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="post-list-user">
+        <div class="user-chip">
+          <div class="user-image">
+            <%= image_tag User.find(post.owner_id).avatar.url %>
+          </div>
+          <div class="user-name">
+            <%= User.find(post.owner).name %>
+          </div>
+        </div>
+      </div>
+      <div class="clear"></div>
+
+    <% end #link to post path %>
+  <% end #if user exists %>
+<% end %>
+
+<% if post.class.name == "Pac" %>
+  <% if User.exists?(:id => post.owner_id) %>
+    <%= link_to pac_path(post), :class => "list-post ripple-button" do %>
+
+      <div class="list-main">
+        <div class="info">Collaboration</div>
+        <div class="title"><%= post.title %></div>
+        <div class="info">
+          <span class="org-title"><%= Organization.find(post.organization_id).title %><span class="org-title">
+          <br/>
+          <% if ((Time.now - post.created_at)/3600).floor < 1 && ((Time.now - post.created_at)/60).floor != 1 %>
+            Posted <span class="number">
+            <%= ((Time.now - post.created_at)/60).floor %>
+            </span> minutes ago
+          <% elsif ((Time.now - post.created_at)/60).floor == 1 %>
+            Posted <span class="number">
+            1</span> minute ago
+          <% elsif ((Time.now - post.created_at)/3600).floor < 24 && ((Time.now - post.created_at)/3600).floor != 1 %>
+            Posted <span class="number">
+            <%= ((Time.now - post.created_at)/3600).floor %>
+            </span> hours ago
+          <% elsif ((Time.now - post.created_at)/3600).floor ==1 %>
+            Posted <span class="number">
+            1</span> hour ago
+          <% else %>
+            <span>
+            <%= (post.created_at).strftime("%d %b %Y") %>
+            </span>
+          <% end %>
+          <% if post.complete %>
+            <span> • </span>
+            <span>Complete</span>
+          <% else %>
+            <span> • </span>
+            <span class="number">Open</span>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="post-list-user">
+        <div class="user-chip">
+          <div class="user-image">
+            <%= image_tag User.find(post.owner_id).avatar.url %>
+          </div>
+          <div class="user-name">
+            <%= User.find(post.owner).name %>
+          </div>
+        </div>
+      </div>
+      <div class="clear"></div>
+
+    <% end #link to post path %>
+  <% end #if user exists %>
+<% end %>

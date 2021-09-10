@@ -1,0 +1,15 @@
+<%# FIXME (cmhobbs) relocate this %>
+<script>
+  $(document).on('ready', function(){
+    var availableUsers = <%= Hash[User.all.map {|o| [o.name.downcase, o.id] }].to_json.html_safe %>;
+    var availableTags = <%= User.select("name").uniq.map(&:name).to_json.html_safe %>;
+    
+    $(".auto_complete_user_name").autocomplete({
+      source: availableTags
+    }).on('blur', function(e) {
+      var name = $(e.target).val().toLowerCase();
+      var id = availableUsers[name];
+      alert(name + "|" + id);
+    })
+  });
+</script>

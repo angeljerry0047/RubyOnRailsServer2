@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+ <%= csrf_meta_tags %>
+<!-- Matomo -->
+<script type="text/javascript">
+  var _paq = window._paq = window._paq || [];
+  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+  _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
+  _paq.push(["setCookieDomain", "*.serve2mentor.com"]);
+  _paq.push(["setDomains", ["*.serve2mentor.com"]]);
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//analytics.myserve2perform.com/matomo/";
+    _paq.push(['setTrackerUrl', u+'matomo.php']);
+    _paq.push(['setSiteId', '1']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><p><img src="//analytics.myserve2perform.com/matomo/matomo.php?idsite=1&amp;rec=1" style="border:0;" alt="" /></p></noscript>
+<!-- End Matomo Code -->
+
+<%= title :site => "serve2mentor" %>
+<%= metamagic  description: "This innovative platform was designed to help connect corporate    professionals with volunteer service opportunities that will help them grow or acquire skills which will help them elevate their performance.",
+keywords: %(performance management coaching,business strategy,talent Management,coaching services,job performance,continues learning,continues teaching,connecting and engaging people,gpa,grandslam performance,leadership skills,strategic relationship management,business strategy,professional training and coaching,executive coaching,innovation,industry specific skills,performancegpa,career mentors,life coaches,internships,social learning,arkansas salesforce partnership,experiential learning,mentorship,coaching,vital skills,cross training,externship,volunteer,community involvement,collisions, collaboration,learning,development,recognition,gamification,collective knowledge)
+%>
+  <%= render 'layouts/header'%>
+  <body class="<%= controller_name %> <%= action_name %>">
+
+
+    <!-- <header class="navbar navbar-static-top">
+      <nav class="navbar-inner">
+        <div class="container"> -->
+
+        <!-- </div>
+      </nav>
+    </header> -->
+
+    <%= render 'layouts/navbar' %>
+    <%= render 'layouts/menu2' %>
+    <div class="dropdown-blanket"></div>
+    <div id="main" role="main">
+      <div class="container">
+        <% unless @pac.nil? || @pacpage %>
+        <div id ="pac">
+          <%= render @pac %>
+        </div>
+        <% end %>
+        <%= render 'layouts/messages' %>
+        <!-- <div class="content"> -->
+          <%= yield %>
+        <!-- </div> -->
+      </div>
+      <%= render 'layouts/footer'%>
+    </div>
+    <div id="push"></div>
+  </body>
+</html>

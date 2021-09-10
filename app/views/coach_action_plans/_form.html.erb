@@ -1,0 +1,78 @@
+<%= form_for(@coach_action_plan) do |f| %>
+  <% if @coach_action_plan.errors.any? %>
+  <div id="error_explanation">
+  <h2><%= pluralize(@coach_action_plan.errors.count, "error") %> prohibited this coach_action_plan from being saved:</h2>
+
+  <ul>
+    <% @coach_action_plan.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+  <% end %>
+  </ul>
+</div>
+  <% end %>
+<div class="row">
+  <div class="control-group span4">
+    <div class="controls" style="padding-top:30px;">
+      <label style="font-weight:bold;">Select a mentorship connection</label> 
+      <%= select_tag 'coach_action_plan[participant_name]', options_for_select(@opp_rec_app.collect{ |oc| [oc.sort_by_name, oc.sort_by_id]}), include_blank: true, :class =>"required", :style => "width:100%;" %>
+      <span class="help-inline">This field is required</span>
+    </div>
+  </div>
+
+  <br/>
+  <div class="span4 required dateTime" style="padding-top:11px;">
+    <%= f.label "Start Date", :style => "font-weight:bold;" %>
+    <%= f.text_field :start_date, :class => "span4 required dateTime" %>
+  </div>
+  <div class="span4 required dateTime" id="ap_end_date" style="padding-top:11px;">
+    <%= f.label "End Date", :style => "font-weight:bold;" %>
+    <%= f.text_field :end_date, :class => "span4 required dateTime" %>
+  </div>
+</div>
+<div class="field" style="clear:left; padding-top:20px;">
+  <div class="row">
+    <label class="ap_blue span1" style="width:auto;">Learning and Development Goals</label> <label style="font-weight:bold;" class="span7">(example: Become a more effective public speaker)</label>
+  </div>
+  <%= f.text_area :goals, :required => true, :rows => 1, :style => "width:98.5%;" %>
+</div>
+<br/>
+<div class="field">
+  <div class="row">
+    <label class="ap_green span5" style="width:281px;">Mentee's Action Items</label> <label style="font-weight:bold;" class="span7">(example: Deliver 3 presentations and recieve 1-5 evaluation from each)</label>
+  </div>
+  <%= f.text_area :participant_action_items, :required => true, :rows => 1, :style => "width:98.5%;" %>
+</div>
+<br/>
+<div class="field">
+  <div class="row">
+    <label class="ap_blue span5" style="width:248px;">Mentor's Action items</label> <label style="font-weight:bold;" class="span7">(example: Identify and recommend 3 presentation opportunities for participation)</label>
+  </div>
+  <%= f.text_area :coach_action_items, :required => true, :rows => 1, :style => "width:98.5%;" %>
+</div>
+<br/>
+<div class="span6 required dateTime" style="margin-left:0px;">
+  <%= f.label "Mentee's Deadlines", :class => "ap_green" %>
+  <%= f.text_field :participant_deadlines, :class => "span6 required dateTime" %>
+</div>
+<div class="span6 required dateTime" style="margin-left: 0">
+  <%= f.label "Mentor's Deadlines", :class => "ap_blue" %>
+  <%= f.text_field :coach_deadlines, :class => "span6 required dateTime" %>
+</div>
+<div class="field" style="clear:left;padding-top:20px;">
+  <div class="row">
+    <label class="ap_blue span5" style="width:219px;">Success Indicators</label> <label style="font-weight:bold;" class="span8">(example: Improved evaulation score to at least a 4 from the 1st to the 3rd presentations)</label>
+  </div>
+  <%= f.text_area :success_indicators, :required => true, :rows => 1, :style => "width:98.5%;" %>
+</div>
+<br/>
+<div class="field">
+  <div class="row">
+    <label class="ap_blue span5" style="width:227px;">Follow Up Meetings</label> <label style="font-weight:bold;" class="span4">(Date, time, and location)</label>
+  </div>
+  <%= f.text_area :follow_up_meetings, :required => true, :rows => 1, :style => "width:98.5%;" %>
+</div>
+<br/><br/>
+<div class="actions">
+  <%= f.submit "Create Mentor Action Plan", :class => 'btn btn-large btn-primary', :style => "margin-left: 0;" %>
+</div>
+<% end %>

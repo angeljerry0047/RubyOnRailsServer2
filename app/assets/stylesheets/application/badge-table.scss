@@ -1,0 +1,61 @@
+@import "master";
+
+.badge-table{
+  margin: 50px 0;
+  text-align: left;
+  tbody{
+    width: 100%;
+    .tbltall{
+	//border-top: 2px solid $nutral-color3;
+      border-top: none;	
+      height: 150px;
+      line-height: 24px;
+      text-align: center;
+    }
+    tr{
+      th{
+        border-left: none;
+        font-size: 20px;
+      }
+      td{
+        border-left: none;
+        padding: 0 8px 16px;
+        text-align: center;
+      }
+    }
+  }
+  .lefty{
+    text-align: left;
+  }
+}
+
+/* desktop ================================================== */
+
+@media (min-width: $desktop-min) {
+
+  .badge-table{
+    display: block;
+  }
+
+  .badge-table.mobile{
+    display: none;
+  }
+
+}
+
+
+/* tablet and phone ================================================== */
+
+@media (max-width: $tablet-max) {
+
+  .badge-table{
+    display: none;
+  }
+  .badge-table.mobile{
+    display: block;
+    th{
+      text-align: center;
+    }
+  }
+
+}

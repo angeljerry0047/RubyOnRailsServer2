@@ -1,0 +1,364 @@
+@import "global_define";
+@import "master";
+
+.users.find {
+  .filter{
+    .search-results-header{
+      font: $title;
+      padding: 16px 0;
+      width: 100%;
+    }
+  }
+  .user-search{
+    display: block;
+    position: relative;
+    form{
+      margin: 0;
+      .search-input-holder{
+        box-sizing: border-box;
+        padding-right: 124px;
+        width: 100%; 
+        input[type="text"] {
+          margin: 16px 0;
+          width: 100%;
+        }
+      }
+      input[type="submit"] {
+        display: block;
+        float: none;
+        margin: 16px 0;
+        position: absolute;
+        right: 0;
+        top:2px;
+      }
+    }
+  }
+}
+
+
+.certifications-container{
+  display: block;
+  position: relative;
+  width: 100%;
+  .certification-container{
+    color: $primary-color;
+    float: left;
+    font-weight: bold;
+    //height: 120px;
+    min-width: 136px;
+    padding: 16px 0;
+    text-align: center;
+    //width: 20%;
+    img{
+      display: block;
+      margin: auto;
+      max-width: 100px;
+    }
+  }
+}
+
+
+.users.show {
+  .container{
+    background-color: transparent;
+    box-shadow: none;
+    padding: 0;
+    #pac{
+      display: none;
+    }
+  }
+
+  .profile-title{
+    color: $primary-color;
+    font: $knockout-title;
+    text-transform: uppercase;
+  }
+
+  .profile-image{
+    
+    display: block;
+    float: left;
+    height: auto;
+    min-width: 120px;
+    position: relative;
+    width: 25%;
+    img{
+      border-radius: 50%;
+      display: block;
+      margin: auto;
+    }
+    .controls{
+      display: block;
+      padding: 16px 0;
+      text-align: center;
+    }
+  }
+  .profile-info{
+    display: block;
+    float: left;
+    height: auto;
+    position: relative;
+    .profile-name{
+      color: $primary-color;
+      font: $knockout-display1;
+      text-transform: uppercase;
+    }
+    .profile-members{
+      color: $nutral-color4;
+      font: $subhead;
+      padding-bottom: 8px;
+    }
+    .profile-description{
+      color: $nutral-color3;
+      font: $body1;
+    }
+    .interests-header{
+      padding-bottom: 16px;
+      padding-top: 24px;
+    }
+    .interests{
+      .interest{
+        background-color: $primary-color;
+        border-radius: 2px;
+        color: $nutral-color1;
+        display: block;
+        float: left;
+        font: $knockout-subhead;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+        margin-right: 8px;
+        padding: 4px 8px;
+        position: relative;
+      }
+    }
+  }
+
+  .badge-header{
+    span{
+      color: $nutral-color3;
+      font: $body1;
+    }
+  }
+
+  .recommendation-category{
+    padding: 16px 0 32px;
+  }
+
+  .group-container{
+    background-color: $nutral-color1;
+    display: block;
+    padding-bottom: 10px;
+    padding-top: 16px;
+    position: relative;
+    transition: all $fast;
+    &:hover{
+      background-color: $nutral-color2;
+    }
+    .square-image{
+      display: block;
+      float: left;
+      height: 120px;
+      min-width: 120px;
+      position: relative;
+      width: 25%;
+      img{
+        display: block;
+        margin: auto;
+      }
+    }
+    .org-info{
+      display: block;
+      float: left;
+      height: auto;
+      padding: 0 16px;
+      position: relative;
+      .org-title{
+        color: $primary-color;
+        font: $knockout-display1;
+        text-transform: uppercase;
+      }
+      .org-members{
+        color: $nutral-color4;
+        font: $subhead;
+        padding-bottom: 8px;
+      }
+      .org-description{
+        color: $nutral-color3;
+        font: $body1;
+      }
+    }
+  }
+  .group-container.unavailable{
+    background-color: $nutral-color1;
+    &:hover{
+      background-color: $nutral-color1
+    }
+  }
+
+  .unavailable-overlay{
+    background-color: $nutral-color3;
+    height: 100%;
+    opacity: 0.7;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+  .unavailable-info{
+    color: $nutral-color4;
+    display: block;
+    font-weight: bold;
+    padding: 16px;
+    position: relative;
+    a{
+      color: $nutral-color4;
+    }
+  }
+
+  .post-type-title{
+    padding-bottom: 16px;
+    padding-top: 36px;
+  }
+}
+
+.registrations{
+  
+ span.help-inline {
+    display: none;
+  }
+  .error {
+    span.help-inline {
+      display: block;
+    }
+    .chzn-choices {
+      border: 3px solid #b94a48;
+    }
+  }
+
+  .org-name{
+    padding-bottom: 24px;
+  }
+}
+
+.oppheadf {
+  font-weight:normal;
+  display: block;
+  vertical-align: middle;
+  font-size:21px;
+  height: auto;
+  padding-top:0px;
+  margin-top: 0px;
+  font: $title;
+}
+
+.learnbuttonf{
+  font-weight: normal;
+  font-size: 14px;
+  font-family:  $roboto;
+  color: $nutral-color4;
+  letter-spacing: 1px;
+}
+
+a.learnbuttonf:hover{
+  color: $nutral-color4;
+}
+
+.bottomf{
+  background: transparent;
+  padding: 0;
+  color: #fff;
+  height: auto;
+}
+
+.innerheadf {
+  display: table;
+  width: 150px;
+}
+
+.orgnamef{
+  display: table-cell;
+  vertical-align: middle;
+  height: 50px;
+  font-weight: normal;
+  font-size: 14px;
+  font-family: $roboto;
+  color: $nutral-color4;
+  letter-spacing: 1px;
+}
+
+.avatar_resultf {
+  display: block;
+  margin: 0px;
+  height: 120px;
+  width: auto;
+  text-align: center;
+}
+
+.round-image{
+  border-radius: 50%;
+}
+
+/* desktop ================================================== */
+
+@media (min-width: $desktop-min) {
+
+  .users.show{
+    .profile-info{
+      padding-left: 16px;
+      width: 70%;
+    }
+    .org-info{
+      width: 70%;
+    }
+  }
+
+}
+
+/* tablet & phone ================================================== */
+
+@media (max-width: $tablet-max) {
+
+  .users.find{
+    
+  }
+
+  .users.show{
+    .group-container{
+      .profile-image{
+        width: 100%;
+      }
+      .progile-info{
+        padding-left: 0;
+        width: auto;
+      }
+      .square-image{
+        float: none;
+        width: 100%;
+      }
+      .org-info{
+        float: none;
+        width: auto;
+      }
+    }
+  }
+
+  .registrations.edit{
+    overflow-x: hidden;
+    .span2, .span8, .span10, .span12{
+      margin-left: 0;
+      width: 100%;
+    }
+    .row{
+      margin-left: 0;
+    }
+    .offset2{
+      margin-left: 0;
+    }
+    .form-vertical{
+      padding: 0;
+    }
+    .simple_form{
+      width: auto;
+    }
+  }
+
+}

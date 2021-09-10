@@ -1,0 +1,232 @@
+<head>
+	<%= favicon_link_tag 'apple-touch-icon-57x57.png', :alt =>'apple-touch-icon-57x57', sizes: '57x57' %>
+	<%= favicon_link_tag 'apple-touch-icon-114x114.png', :alt =>'apple-touch-icon-114x114', sizes: '114x114' %>
+	<%= favicon_link_tag 'apple-touch-icon-144x144.png', :alt =>'apple-touch-icon-144x144', rel: 'apple-touch-icon', sizes: '144x144' %>
+	<%= favicon_link_tag 'apple-touch-icon-60x60.png', :alt =>'apple-touch-icon-60x60', rel: 'apple-touch-icon', sizes: '60x60' %>
+	<%= favicon_link_tag 'apple-touch-icon-120x120.png', :alt =>'apple-touch-icon-120x120', rel: 'apple-touch-icon', sizes: '120x120' %>
+	<%= favicon_link_tag 'apple-touch-icon-76x76.png', :alt =>'apple-touch-icon-76x76', rel: 'apple-touch-icon', sizes: '76x76' %>
+	<%= favicon_link_tag 'apple-touch-icon-152x152.png', :alt =>'apple-touch-icon-152x152', rel: 'apple-touch-icon', sizes: '152x152' %>
+	<%= favicon_link_tag 'favicon-192x192.png', :alt =>'favicon-192x192', rel: 'icon', sizes: '192x192' %>
+	<%= favicon_link_tag 'favicon-160x160.png', :alt =>'favicon-160x160', rel: 'icon', sizes: '160x160' %>
+	<%= favicon_link_tag 'favicon-96x96.png', :alt =>'favicon-96x96', rel: 'icon', sizes: '96x96' %>
+	<%= favicon_link_tag 'favicon-16x16.png', :alt =>'favicon-16x16', rel: 'icon', sizes: '16x16' %>
+	<%= favicon_link_tag 'favicon-32x32.png', :alt =>'favicon-32x32', rel: 'icon', sizes: '32x32' %>
+	<meta name="msapplication-TileColor" content="2b5797">
+	<meta name="msapplication-TileImage" content="/assets/mstile-144x144.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><%= content_for?(:title) ? yield(:title) : site_title %></title>
+  <meta name="description" content="<%= content_for?(:description) ? yield(:description) : site_description %>">
+  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true&libraries=places"></script>
+  <%= stylesheet_link_tag "application/application", :media => "all" %>
+
+  <%= stylesheet_link_tag "application/navbar", :media => "all" %>
+  <%= stylesheet_link_tag "application/menu", :media => "all" %>
+  <%= stylesheet_link_tag "application/dallas", :media => "all" %>
+  <%= stylesheet_link_tag "application/input-dropdown", :media => "all" %>
+  <!-- <%= javascript_include_tag "application/application" %> -->
+  <%= javascript_include_tag "application" %>
+  <%= javascript_include_tag "application/input-dropdown" %>
+  <%#= javascript_include_tag "application/navbar" %>
+  <%#= javascript_include_tag "application/menu" %>
+  <%#= javascript_include_tag "application/footer" %>
+  <%= csrf_meta_tags %>
+  <%= yield(:head) %>
+  <!--[if IE 9]>
+     <script>
+        document.createElement('header');
+        document.createElement('nav');
+        document.createElement('footer');
+     </script>
+  <link href="/assets/application/skills.css" media="screen" rel="stylesheet" type="text/css" />
+  <link href="/assets/application/speaker_series.css" media="screen" rel="stylesheet" type="text/css" />
+  <link href="/assets/application/opportunities.css" media="screen" rel="stylesheet" type="text/css" />
+  <link href="/assets/application/tooltip.css" media="screen" rel="stylesheet" type="text/css" />
+  <link href="/assets/application/users.css" media="screen" rel="stylesheet" type="text/css" />
+  <link href="/assets/application/signup.css" media="screen" rel="stylesheet" type="text/css" />  
+  <link href="/assets/application/recommendations.css" media="screen" rel="stylesheet" type="text/css" />
+  <link href="/assets/application/organizations.css" media="screen" rel="stylesheet" type="text/css" />
+  <![endif]-->
+  <!--[if IE 8]>
+     <script>
+        document.createElement('header');
+        document.createElement('nav');
+        document.createElement('footer');
+     </script>
+  <link href="/assets/application/skills.css" media="screen" rel="stylesheet" type="text/css" />
+  <link href="/assets/application/speaker_series.css" media="screen" rel="stylesheet" type="text/css" />
+  <link href="/assets/application/opportunities.css" media="screen" rel="stylesheet" type="text/css" />
+  <link href="/assets/application/tooltip.css" media="screen" rel="stylesheet" type="text/css" />
+  <link href="/assets/application/users.css" media="screen" rel="stylesheet" type="text/css" />
+  <link href="/assets/application/signup.css" media="screen" rel="stylesheet" type="text/css" />  
+  <link href="/assets/application/recommendations.css" media="screen" rel="stylesheet" type="text/css" />
+  <link href="/assets/application/organizations.css" media="screen" rel="stylesheet" type="text/css" />
+  <![endif]-->
+  <!--[if IE 7]>
+     <script>
+        document.createElement('header');
+        document.createElement('nav');
+        document.createElement('footer');
+     </script>
+  <link href="/assets/application/skills.css" media="screen" rel="stylesheet" type="text/css" />
+  <link href="/assets/application/speaker_series.css" media="screen" rel="stylesheet" type="text/css" />
+  <link href="/assets/application/opportunities.css" media="screen" rel="stylesheet" type="text/css" />
+  <link href="/assets/application/tooltip.css" media="screen" rel="stylesheet" type="text/css" />
+  <link href="/assets/application/users.css" media="screen" rel="stylesheet" type="text/css" />
+  <link href="/assets/application/signup.css" media="screen" rel="stylesheet" type="text/css" />  
+  <link href="/assets/application/recommendations.css" media="screen" rel="stylesheet" type="text/css" />
+  <link href="/assets/application/organizations.css" media="screen" rel="stylesheet" type="text/css" />
+  <![endif]-->
+  <!--[if lt IE 7]>
+     <script>
+        document.createElement('header');
+        document.createElement('nav');
+        document.createElement('footer');
+     </script>
+  <link href="/assets/application/skills.css" media="screen" rel="stylesheet" type="text/css" />
+  <link href="/assets/application/speaker_series.css" media="screen" rel="stylesheet" type="text/css" />
+  <link href="/assets/application/opportunities.css" media="screen" rel="stylesheet" type="text/css" />
+  <link href="/assets/application/tooltip.css" media="screen" rel="stylesheet" type="text/css" />
+  <link href="/assets/application/users.css" media="screen" rel="stylesheet" type="text/css" />
+  <link href="/assets/application/signup.css" media="screen" rel="stylesheet" type="text/css" />  
+  <link href="/assets/application/recommendations.css" media="screen" rel="stylesheet" type="text/css" />
+  <link href="/assets/application/organizations.css" media="screen" rel="stylesheet" type="text/css" />
+  <![endif]-->
+  
+<script type="text/javascript">
+<!--
+var BrowserDetect = {
+	init: function () {
+		this.browser = this.searchString(this.dataBrowser) || "An unknown browser";
+		this.version = this.searchVersion(navigator.userAgent)
+			|| this.searchVersion(navigator.appVersion)
+			|| "an unknown version";
+		this.OS = this.searchString(this.dataOS) || "an unknown OS";
+	},
+	searchString: function (data) {
+		for (var i=0;i<data.length;i++)	{
+			var dataString = data[i].string;
+			var dataProp = data[i].prop;
+			this.versionSearchString = data[i].versionSearch || data[i].identity;
+			if (dataString) {
+				if (dataString.indexOf(data[i].subString) != -1)
+					return data[i].identity;
+			}
+			else if (dataProp)
+				return data[i].identity;
+		}
+	},
+	searchVersion: function (dataString) {
+		var index = dataString.indexOf(this.versionSearchString);
+		if (index == -1) return;
+		return parseFloat(dataString.substring(index+this.versionSearchString.length+1));
+	},
+	dataBrowser: [
+		{
+			string: navigator.userAgent,
+			subString: "Chrome",
+			identity: "Chrome"
+		},
+		{ 	string: navigator.userAgent,
+			subString: "OmniWeb",
+			versionSearch: "OmniWeb/",
+			identity: "OmniWeb"
+		},
+		{
+			string: navigator.vendor,
+			subString: "Apple",
+			identity: "Safari",
+			versionSearch: "Version"
+		},
+		{
+			prop: window.opera,
+			identity: "Opera",
+			versionSearch: "Version"
+		},
+		{
+			string: navigator.vendor,
+			subString: "iCab",
+			identity: "iCab"
+		},
+		{
+			string: navigator.vendor,
+			subString: "KDE",
+			identity: "Konqueror"
+		},
+		{
+			string: navigator.userAgent,
+			subString: "Firefox",
+			identity: "Firefox"
+		},
+		{
+			string: navigator.vendor,
+			subString: "Camino",
+			identity: "Camino"
+		},
+		{		// for newer Netscapes (6+)
+			string: navigator.userAgent,
+			subString: "Netscape",
+			identity: "Netscape"
+		},
+		{
+			string: navigator.userAgent,
+			subString: "MSIE",
+			identity: "Explorer",
+			versionSearch: "MSIE"
+		},
+		{
+			string: navigator.userAgent,
+			subString: "Gecko",
+			identity: "Mozilla",
+			versionSearch: "rv"
+		},
+		{ 		// for older Netscapes (4-)
+			string: navigator.userAgent,
+			subString: "Mozilla",
+			identity: "Netscape",
+			versionSearch: "Mozilla"
+		}
+	],
+	dataOS : [
+		{
+			string: navigator.platform,
+			subString: "Win",
+			identity: "Windows"
+		},
+		{
+			string: navigator.platform,
+			subString: "Mac",
+			identity: "Mac"
+		},
+		{
+			   string: navigator.userAgent,
+			   subString: "iPhone",
+			   identity: "iPhone/iPod"
+	    },
+		{
+			string: navigator.platform,
+			subString: "Linux",
+			identity: "Linux"
+		}
+	]
+
+};
+BrowserDetect.init();
+
+// -->
+</script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-45912545-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+</head>

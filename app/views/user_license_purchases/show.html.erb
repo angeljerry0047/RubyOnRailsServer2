@@ -1,0 +1,34 @@
+<div class="">
+  <div class="row">
+    <div class="span12">
+      <h2 class="page title">Thank you for your order</h2>
+      <h4 class="page title-sec">We will send you a confirmation email for your records shortly</h4>
+      <h4 class="page title-sec">Your new user licenses are now available for assignment</h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="span8 center">
+      <h4><span><%= image_tag "lockicon_purchase.png" , :alt =>'lockicon_purchase'%>Order confirmation number <%= @user_license_purchase.id %></h4>
+
+
+        <h3 class="order-title">Your Order Details</h3>
+
+        <div class="order-details">
+          <h4><%= "Customer Name:  #{@user_license_purchase.user.name}" %></h4>
+          <h4><%= "Order Number:  #{@user_license_purchase.id}" %></h4>
+          <h4><%= "Order Date:  #{@user_license_purchase.created_at.strftime("%m-%d-%Y")}" %></h4>
+          <h4><%= "Payment Method:  #{@charge_object.card.type}" %></h4>
+        </div>
+
+        <div class="payment-amount">
+          <h4>Total
+            <span><span class="d">$</span><%= @charge_object.amount %><span>.00</span></span>
+          </h4>
+        </div>
+        <div class="begin-assessment">
+          <%= link_to 'Manage User Licenses',  manage_user_licenses_path %>
+        </div>
+
+      </div>
+    </div>
+  </div>

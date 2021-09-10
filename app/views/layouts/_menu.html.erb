@@ -1,0 +1,349 @@
+<div class="menu">
+  <%- if user_signed_in? %>
+  <!-- <div class="menu-logo"></div> -->
+
+  <%#= link_to organization_path(current_user.organization), :class => "menu-item menu-section", :data => { :role => "menuitem", :tabindex => "-1" } do %>
+    <!-- <img src="/assets/menuIconHome.png" class="menu-icon"/>
+    Home -->
+  <%# end %>
+
+
+  <!-- Mentorships ====================================================== -->
+
+  <div class="menu-item menu-section" data-index="0">
+    <img src="/assets/menuIconMentorships.png" class="menu-icon"/>
+    Mentorships
+  </div>
+  <div class="menu-subitem-container" data-index="0">
+    <%= link_to opportunities_path(:opportunity_category_id => 18), :class => "menu-item", :data => { :role => "menuitem", :tabindex => "-1" } do %>
+      <div class="menu-text">View</div>
+    <% end %>
+
+    <%= link_to new_opportunity_path(:type => "advisor"), :class => "menu-item", :data => { :role => "menuitem", :tabindex => "-1" } do %>
+      <div class="menu-text">Post</div>
+    <% end %>
+
+    <%= link_to new_coach_action_plan_path, :class => "menu-item", :data => { :role => "menuitem", :tabindex => "-1" } do %>
+      <div class="menu-text">Action Plan Template</div>
+    <% end %>
+
+    <%= link_to find_users_path, :class => "menu-item", :data => { :role => "menuitem", :tabindex => "-1" } do %>
+      <div class="menu-text">Recommend</div>
+    <% end %>
+
+    <%#= link_to find_recommendations_path, :class => "menu-item", :data => { :role => "menuitem", :tabindex => "-1" } do %>
+      <!-- <div class="menu-text">Recommend</div> -->
+    <%# end %>
+  </div>
+
+  <!-- Mentorships Circles ====================================================== -->
+
+  <div class="menu-item menu-section" data-index="1">
+    <img src="/assets/menuIconMentorshipCircles.png" class="menu-icon"/>
+    Mentorship Circles
+  </div>
+  <div class="menu-subitem-container" data-index="1">
+    <%= link_to mentorship_circles_path(), :class => "menu-item", :data => { :role => "menuitem", :tabindex => "-1" } do %>
+      <div class="menu-text">View</div>
+    <% end %>
+
+    <%= link_to new_mentorship_circle_path(), :class => "menu-item", :data => { :role => "menuitem", :tabindex => "-1" } do %>
+      <div class="menu-text">Post</div>
+    <% end %>
+  </div>
+
+
+  <!-- Job Shadowing ====================================================== -->
+
+  <div class="menu-item menu-section" data-index="2">
+    <img src="/assets/menuIconExternships.png" class="menu-icon"/>
+    Job Shadowing
+  </div>
+  <div class="menu-subitem-container" data-index="2">
+    <%= link_to opportunities_path(:opportunity_category_id => 19), :class => "menu-item", :data => { :role => "menuitem", :tabindex => "-1" } do %>
+      <div class="menu-text">View</div>
+    <% end %>
+
+    <%= link_to new_opportunity_path(:type => "intern"), :class => "menu-item", :data => { :role => "menuitem", :tabindex => "-1" } do %>
+      <div class="menu-text">Post</div>
+    <% end %>
+  </div>
+
+
+  <!-- Volunteer ====================================================== -->
+
+  <div class="menu-item menu-section" data-index="3">
+    <img src="/assets/menuIconVolunteers.png" class="menu-icon"/>
+    Volunteerism
+  </div>
+  <div class="menu-subitem-container" data-index="3">
+    <%= link_to opportunities_path(:opportunity_category_id => 21), :class => "menu-item", :data => { :role => "menuitem", :tabindex => "-1" } do %>
+      <div class="menu-text">View</div>
+    <% end %>
+
+    <%= link_to new_opportunity_path(:type => "volunteer"), :class => "menu-item", :data => { :role => "menuitem", :tabindex => "-1" } do %>
+      <div class="menu-text">Post</div>
+    <% end %>
+
+    <%= link_to new_volunteer_action_plan_path, :class => "menu-item", :data => { :role => "menuitem", :tabindex => "-1" } do %>
+      <div class="menu-text">Action Plan Template</div>
+    <% end %>
+  </div>
+
+
+  <!-- Collaboration Circles ====================================================== -->
+
+  <div class="menu-item menu-section" data-index="4">
+    <img src="/assets/menuIconCollaborations.png" class="menu-icon"/>
+    Collaboration Circles
+  </div>
+  <div class="menu-subitem-container" data-index="4">
+    <%= link_to collaboration_circles_path(), :class => "menu-item", :data => { :role => "menuitem", :tabindex => "-1" } do %>
+      <div class="menu-text">View</div>
+    <% end %>
+
+    <%= link_to new_collaboration_circle_path(), :class => "menu-item", :data => { :role => "menuitem", :tabindex => "-1" } do %>
+      <div class="menu-text">Post</div>
+    <% end %>
+  </div>
+
+
+  <!-- Collaborations ====================================================== -->
+
+  <!--
+  <div class="menu-item menu-section" data-index="3">
+    <img src="/assets/menuIconCollaborations.png" class="menu-icon"/>
+    Collaborations
+  </div>
+  <div class="menu-subitem-container" data-index="3">
+    <%#= link_to pacs_path(), :class => "menu-item", :data => { :role => "menuitem", :tabindex => "-1" } do %>
+      <div class="menu-text">View Teams</div>
+    <%# end %>
+
+    <%#= link_to new_pac_path(), :class => "menu-item", :data => { :role => "menuitem", :tabindex => "-1" } do %>
+      <div class="menu-text">Create a Team</div>
+    <%# end %>
+
+    <%#= link_to find_users_path, :class => "menu-item" do %>
+      <div class="menu-text">Find Members</div>
+    <%# end %>
+  </div>
+  -->
+
+
+  <!-- Insights ====================================================== -->
+
+  <div class="menu-item menu-section" data-index="5">
+    <img src="/assets/menuIconInsights.png" class="menu-icon"/>
+    Insights
+  </div>
+  <div class="menu-subitem-container" data-index="5">
+    <%= link_to best_practices_path(), :class => "menu-item", :data => { :role => "menuitem", :tabindex => "-1" } do %>
+      <div class="menu-text">View</div>
+    <% end %>
+
+    <%= link_to new_best_practice_path(), :class => "menu-item", :data => { :role => "menuitem", :tabindex => "-1" } do %>
+      <div class="menu-text">Post</div>
+    <% end %>
+  </div>
+
+
+  <!-- Questions ====================================================== -->
+  <!--
+  <div class="menu-item menu-section" data-index="5">
+    <img src="/assets/menuIconQuestions.png" class="menu-icon"/>
+    Questions
+  </div>
+  <div class="menu-subitem-container" data-index="5">
+    <%#= link_to inquiries_path(), :class => "menu-item", :data => { :role => "menuitem", :tabindex => "-1" } do %>
+      <div class="menu-text">View</div>
+    <%# end %>
+
+    <%#= link_to new_inquiry_path(), :class => "menu-item", :data => { :role => "menuitem", :tabindex => "-1" } do %>
+      <div class="menu-text">Post</div>
+    <%# end %>
+  </div>
+  -->
+
+
+  <!-- Recognitions ====================================================== -->
+
+  <div class="menu-item menu-section" data-index="6">
+    <img src="/assets/menuIconRecognitions.png" class="menu-icon"/>
+    Peer Recognitions
+  </div>
+  <div class="menu-subitem-container" data-index="6">
+    <%= link_to recognitions_path, :class => "menu-item", :data => { :role => "menuitem", :tabindex => "-1" } do %>
+      <div class="menu-text">View Badges</div>
+    <% end %>
+
+    <%= link_to find_recognitions_path, :class => "menu-item", :data => { :role => "menuitem", :tabindex => "-1" } do %>
+      <div class="menu-text">Award a Badge</div>
+    <% end %>
+  </div>
+
+
+  <!-- Resources ====================================================== -->
+
+  <div class="menu-item menu-section" data-index="7">
+    <img src="/assets/menuIconResources.png" class="menu-icon"/>
+    Share Files and Resources
+  </div>
+  <div class="menu-subitem-container" data-index="7">
+    <%= link_to fast_contents_path(), :class => "menu-item", :data => { :role => "menuitem", :tabindex => "-1" } do %>
+      <div class="menu-text">View</div>
+    <% end %>
+    <%= link_to new_fast_content_path, :class => "menu-item", :data => { :role => "menuitem", :tabindex => "-1" } do %>
+      <div class="menu-text">Post</div>
+    <% end %>
+
+    <%#= link_to templates_path, :class => "menu-item", :data => { :role => "menuitem", :tabindex => "-1" } do %>
+      <!-- <div class="menu-text">Action Plan Templates</div> -->
+    <%# end %>
+
+    <%#= link_to thoughtleadership_path, :class => "menu-item", :data => { :role => "menuitem", :tabindex => "-1" } do %>
+      <!-- <div class="menu-text">Learning Marketplace</div> -->
+    <%# end %>
+
+    <%#= link_to about_path, :class => "menu-item", :data => { :role => "menuitem", :tabindex => "-1" } do %>
+      <!-- <div class="menu-text">About serve2perform</div> -->
+    <%# end %>
+  </div>
+
+
+  <!-- On Demand ====================================================== -->
+
+  <a href="https://gpaondemand.com" target="_blank" class="menu-item menu-section" data-index="8">
+    <img src="/assets/menuIconOnDemand.png" class="menu-icon"/>
+    On Demand Learning
+  </a>
+
+
+
+  <!-- My serve2perform ====================================================== -->
+
+  <div class="menu-item menu-section" data-index="9">
+    <img src="/assets/menuIconProfile.png" class="menu-icon"/>
+    My serve2perform
+  </div>
+  <div class="menu-subitem-container" data-index="9">
+    <%= link_to user_path(current_user.id), :class => "menu-item", :data => { :role => "menuitem", :tabindex => "-1" } do %>
+      <div class="menu-text">View My Profile</div>
+    <% end %>
+
+    <%= link_to edit_user_registration_path, :class => "menu-item", :data => { :role => "menuitem", :tabindex => "-1" } do %>
+      <div class="menu-text">Edit My Profile</div>
+    <% end %>
+
+    <% if current_user.taken_assessment? %>
+      <%= link_to assessment_report_path( :id => current_user.assessment_reports.last ), :class => "menu-item", :data => { :role => "menuitem", :tabindex => "-1" } do %>
+        <div class="menu-text">View My Report</div>
+      <% end %>
+      <%= link_to new_assessment_report_path, :class => "menu-item", :data => { :role => "menuitem", :tabindex => "-1" } do %>
+        <div class="menu-text">Retake My Assessment</div>
+      <% end %>
+    <% else %>
+      <%= link_to new_assessment_report_path, :class => "menu-item", :data => { :role => "menuitem", :tabindex => "-1" } do %>
+        <div class="menu-text">Take My Assessment</div>
+      <% end %>
+    <% end %>
+
+    <%#= link_to edit_many_skills_path, :class => "menu-item", :data => { :role => "menuitem", :tabindex => "-1" } do %>
+      <!-- <div class="menu-text">Manage My Activity</div> -->
+    <%# end %>
+  </div>
+
+
+  <!-- My Groups ====================================================== -->
+
+  <div class="menu-item menu-section" data-index="10">
+    <img src="/assets/menuIconHome.png" class="menu-icon"/>
+    Groups
+  </div>
+  <% current_user.unique_groups.sort_by!{ |g| g.title }.each do |group| %>
+    <div class="menu-subitem-container" data-index="10">
+      <%= link_to organization_path(group.slug), :class => "menu-item", :data => { :role => "menuitem", :tabindex => "-1" } do %>
+        <div class="menu-text"><%= group.title %></div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <!--
+  <div class="menu-item menu-section" data-index="9">
+    <img src="/assets/menuIconGroup.png" class="menu-icon"/>
+    Admin
+  </div>
+  <div class="menu-subitem-container" data-index="9">
+    <%# if current_user.organization_id? && current_user.organization.active_license? %>
+
+      <%# if current_user.managed_organization_id.present? %>
+
+        <%#= link_to new_facility_path, :class => "menu-item", :data => { :role => "menuitem", :tabindex => "-1" } do %>
+          <div class="menu-text">Create A Facility</div>
+        <%# end %>
+
+        <%#= link_to manage_user_licenses_path(current_user.managed_organization), :class => "menu-item", :data => { :role => "menuitem", :tabindex => "-1" } do %>
+          <div class="menu-text">Admin Console</div>
+        <%# end %>
+      <%# end %>
+    <%# end %>
+  </div>
+  -->
+
+
+  <!-- Find members ====================================================== -->
+
+    <%= link_to find_users_path, :class => "menu-item menu-section", :data => {:index => '11'} do %>
+      <img src="/assets/menuIconFind.png" class="menu-icon"/>
+      Find Members
+    <% end %>
+    
+
+  <!-- Logout ====================================================== -->
+  
+    <%= link_to('Logout', destroy_user_session_path, :class =>"menu-item", :data => {:index => '12'}, :method => :delete) %>   
+  <%- else %>
+    <%= link_to('Login', new_user_session_path)  %>  
+  <% end %>
+</div>
+
+<div class="menu-description" data-index="0">
+  Whether you’re looking for career guidance or you have a desire to help others grow their careers, Mentorships enable you to accomplish both. Use this tool to find a match, establish a formal mentorship, develop a work plan and track the progress of the mentor relationship.
+</div>
+<div class="menu-description" data-index="1">
+  Share your insights and knowledge with a group of individuals in person or virtually through web-conference.
+  This feature provides an efficient model to mentor multiple mentees and for mentees to learn alongside peers who will contribute to their learning through a diversity of perspectives and experiences.
+</div>
+<div class="menu-description" data-index="2">
+  One of the best ways to learn is through experience. Post an opportunity for someone to shadow you or respond to an opportunity that interests you. Job Shadowing provides a platform to connect, share and learn while establishing a formal work plan and track your learnings.
+</div>
+<div class="menu-description" data-index="3">
+  Service based learning allows you to grow your leadership while giving your time and experience to a worthwhile cause. You can share volunteer opportunities, volunteer to fulfill your passion for giving back and use the Volunteer tool to track your activities and learnings.
+</div>
+<div class="menu-description" data-index="4">
+  Create small teams within a group to accomplish tasks and achieve goals. Utilizing the collective skills of a team, you can collaborate, delegate and track tasks.
+</div>
+<div class="menu-description" data-index="5">
+  Seek and post career and situational knowledge.
+</div>
+<div class="menu-description" data-index="6">
+  Award and earn badges for achievements, contributions and deeds worthy of praise. Studies show that peer recognition improves engagement, productivity and the overall morale of teams.
+</div>
+<div class="menu-description" data-index="7">
+  A repository of learning resources uploaded by group members and accessible to all group members.
+</div>
+<div class="menu-description" data-index="8">
+  Access our Virtual Learning Marketplace to procure additional learning products and services that cultivate increased individual potential and optimize group performance.
+</div>
+<div class="menu-description" data-index="9">
+  This is your personal profile.
+</div>
+<div class="menu-description" data-index="10">
+  These are each of the groups you are a member of.
+</div>
+<div class="menu-description" data-index="11">
+  Search all serve2perform members.
+</div>
+<div class="menu-description" data-index="12">
+  Log out of serve2perform.
+</div>

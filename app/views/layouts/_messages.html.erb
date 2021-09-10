@@ -1,0 +1,10 @@
+<% flash.each do |alert_type, message| %>
+  <% if message.is_a?(String) %>
+	    <div class="alert alert-<%= alert_type == "notice" ? "success" : "error" %>">
+	      <a class="close" data-dismiss="alert">&#215;</a>
+	      <span id="message">
+	      	<%= message %>
+	      </span>
+	    </div>
+  <% end %>
+<% end %>

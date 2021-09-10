@@ -1,0 +1,19 @@
+<div class="opportunity wrap row">
+  <div class="topper">
+    <div class="span12">
+      <span>Apply For Skill</span>
+    </div>
+  </div>
+  <div class="span12">
+      
+    <h3><%= @opportunity_application.opportunity.title %></h3>
+    <%= simple_form_for(@opportunity_application) do |f| %>
+      <%= f.label :reason_to_apply, "Tell us why you'd like to apply for this skill."%>
+      <%= f.text_area :reason_to_apply, :class =>"span8", :style =>"height:3em;" %>
+      <%= f.hidden_field :opportunity_id, :value => params[:opportunity_id] %>
+      <br/>
+      <%= f.submit 'Apply', :class => "btn btn-primary btn-large roundedge" %>
+    <% end %>    
+    
+  </div>
+</div>

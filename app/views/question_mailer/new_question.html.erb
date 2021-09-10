@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+
+  <p>
+    Dear <%= @user.name %>,
+  </p>
+
+  <p>
+    I have posted a <b><%= @question.category %> question</b> on <%= link_to "serve2mentor.com", root_url %>.
+  </p>
+
+  <p>
+    Click <%= link_to 'here',"https://serve2mentor.com/best_practices/#{@question.id}" %> to <b>View</b>, <b>Like</b>, and to provide an answer to this question.
+  </p>
+
+  <p>
+    Have a great day!
+  </p>
+
+  </body>
+</html>

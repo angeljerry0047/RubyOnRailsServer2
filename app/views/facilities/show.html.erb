@@ -1,0 +1,43 @@
+<%= stylesheet_link_tag "application/fast_content", :media => "all" %>
+<center class="best-practice-header"><%= @facility.name %></center>
+
+
+<br/>
+<br/>
+<% if @facility.name? %>
+<p>
+  <b>Facility:</b>
+  <%= @facility.name %>
+</p>
+<% end %>
+<% if @facility.address? %>
+<p>
+  <b>Address:</b>
+  <%= @facility.address %>
+</p>
+<% end %>
+<% if @facility.city? %>
+<p>
+  <b>City:</b>
+  <%= @facility.city %>
+</p>
+<% end %>
+<% if @facility.state? %>
+<p>
+  <b>State:</b>
+  <%= @facility.state %>
+</p>
+<% end %>
+<% if @facility.approval_name? %>
+<p>
+  <b>Approval Contact:</b>
+  <%= @facility.approval_name %>
+</p>
+<% end %>
+<% if @facility.approval_mail? %>
+<p>
+  <b>Approval Contact Email:</b>
+  <%= mail_to @facility.approval_mail %>
+</p>
+<% end %>
+

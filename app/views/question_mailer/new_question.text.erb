@@ -1,0 +1,8 @@
+Dear <%= @user.name %>,
+
+I have posted a <b><%= @question.category %> question</b> on <%= link_to "serve2mentor.com", root_url %>.
+
+Click <%= link_to 'here',"https://serve2mentor.com/best_practices/#{@question.id}" %> to <b>View</b>, <b>Like</b>,
+and to provide an answer to this question.
+
+Have a great day!

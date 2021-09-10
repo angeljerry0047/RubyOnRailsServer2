@@ -1,0 +1,44 @@
+@import "global_define";
+.historical_opportunities, .opportunities.update_many {
+	.hidden {
+		display: none;
+	}
+	.opportunity_historical {
+		background: #EDEDED;
+		.row {
+		    border-bottom: 1px solid $primary-border-color;
+		    padding: 20px 0px;
+
+		  }
+	}
+	#opportunities__title{
+		width: 40%;
+		display: block;
+	}
+	#right-buttons {
+		margin-left: 480px;
+		margin-right: 20px;
+		text-align: right;
+		#more_opportunities {
+			margin-right: 10px;
+		}
+	}
+	.styled-select {
+		width: 23%;
+		background-position: 95% 39px;
+		label {
+			margin: 0;
+			background-color: #ededed;
+		}
+	}
+	.description {
+		clear: both;
+	}
+	.create {
+		margin-right: 20px;
+	}
+	#opportunities__description {
+		width: 92%;
+		height: 80px;
+	}
+}

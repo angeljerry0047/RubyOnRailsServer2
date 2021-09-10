@@ -1,0 +1,171 @@
+@import "global_define";
+@import "master";
+
+#org_vsas {
+    width:900px;
+    .vsa {
+      width: 150px;
+      margin: 5px;
+      float: left;
+      height: 200px;
+    }
+  }
+
+.avatar_result {
+      display: block;
+      margin-top: 10px;
+      margin-left: 16px;
+      height: 110px;
+      width: 120px;
+      text-align: center;
+    }
+.org-image {
+	background-color: #fff;
+}
+
+.users.show {
+	hr {
+		border-color: #ccc;
+	}
+	.button {
+		width:	100%;
+		margin: 10px 0;
+		a {
+			font-family: $opensansr;
+			font-size: 14px;
+		}
+	}
+	.alert-success {
+		background-color: #dff0d8 !important;
+		border-color: #d6E9c6 !important;
+		color: #468847 !important;
+
+		#flash_notice{
+			height: 100px;
+			&:before {
+				content: '';
+				background-image: image-url("winkie.png");
+				display: block;
+				height: 48px;
+				width: 48px;
+				position: relative;
+				top: 30px;
+				left: 44px;
+			}
+		}
+		.close {
+		position: relative;
+		top: -2px;
+		right: 10px;
+		line-height: 20px;
+		}
+	}
+
+	.wrap {
+		//background-color: #EDEDED;
+		.topper {
+			//background-color: $secondary-bgcolor;
+			display: inline-block;
+			width: 100%;
+			min-height: 60px;
+			span {
+				font-family: $roboto;
+				font-size: 15px;
+				margin-top: 20px;
+				color: #fff;
+				a {
+					color: #fff;
+				}
+				display: inline-block;
+			}
+			.next span:before, .prev span:after{
+				content: '';
+				position: relative;
+				top: 4px;
+			}
+			.next span:before {
+				@include arrow(right, #fff, 6px);
+				float: right;
+				right: -5px;
+			}
+			.prev span:after {
+				@include arrow(left, #fff, 6px);
+				float: left;
+				left: -5px;
+			}
+		}
+		.row.profile {
+			padding: 15px 0;
+		}
+		h2, h3, h4{
+			text-transform: uppercase;
+			margin: 20px 0;
+			&:first-child {
+				margin: 0;
+			}
+		}
+		.title {
+			h4 {
+				margin-bottom: 0;
+			}
+			h2 {
+				margin-top: 0;
+			}
+		}
+		h6 {
+			margin-bottom: 0px;
+		}
+		.title {
+			margin-bottom: 10px;
+			h2,h3 {
+				margin: 0px;
+				min-height: 10px;
+			}
+			.company {
+				float: right; 
+				text-align: right; 
+				padding-right: 30px;
+				.title {
+					font-weight: bold;
+					line-height: 0px
+				}
+			}
+		}
+		.avatar {
+			display: block;
+			margin-top: 10px;
+			height: 120px;
+			width: 120px;
+		}
+		
+		
+		
+		.opportunities {
+			.opportunity {
+				margin-top: 20px;
+			}
+		}
+		.competencies  {
+			h5 {
+				display: inline-block;
+				margin:10px 5px 0 0;
+				text-transform: uppercase;	
+				font-family: $roboto;
+				span {
+					background-color: #0062a2;
+					color: #fff;
+					padding: 3px 5px;
+					font-size: 12px;
+				}
+			}
+		}
+		.apply {
+			text-align: center;
+			margin: 20px;
+		}
+		
+		
+		
+		
+	}
+}

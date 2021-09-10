@@ -1,0 +1,78 @@
+<%= stylesheet_link_tag "application/list-post", :media => "all" %>
+
+<div class="filter-group-list">
+  <div class="filter-group-head">
+    Show content from:
+  </div>
+  <% current_user.unique_groups.sort_by!{ |g| g.title }.each do |group| %>
+    <div class="filter-group-item">
+      <%= link_to group.title, fast_contents_path(:organization_id => group.id) %>
+    </div>
+  <% end %>
+  <div class="filter-group-item show-all">
+    <%= link_to "All Groups", fast_contents_path() %>
+  </div>
+</div>
+
+<% if @fast_contents.count < 1 %>
+  <div class="no-post-message">Looks like no one in this group has posted a resource yet.</div>
+  <%= link_to "Post a resource now", new_fast_content_path(), :class => "btn-primary" %>
+<% else %>
+
+  <div class="table-head">
+    <div class="main-column">
+      <div class="title">Title</div>
+    </div>
+    <div class="user-column">Posted By</div>
+  </div>
+  <div class="clear"></div>
+
+  <% @fast_contents.sort_by{ |p| p.created_at}.reverse.each do |post| %>
+    <% if User.exists?(:id => post.user_id) %>
+      <%= link_to fast_content_path(post), :class => "list-post ripple-button" do %>
+
+        <div class="list-main">
+          <div class="title"><%= post.topic %></div>
+          <div class="info">
+            <span class="org-title"><%= Organization.find(post.organization_id).title %></span>
+            <br/>
+            <% if ((Time.now - post.created_at)/3600).floor < 1 && ((Time.now - post.created_at)/60).floor != 1 %>
+              Posted <span class="number">
+              <%= ((Time.now - post.created_at)/60).floor %>
+              </span> minutes ago
+            <% elsif ((Time.now - post.created_at)/60).floor == 1 %>
+              Posted <span class="number">
+              1</span> minute ago
+            <% elsif ((Time.now - post.created_at)/3600).floor < 24 && ((Time.now - post.created_at)/3600).floor != 1 %>
+              Posted <span class="number">
+              <%= ((Time.now - post.created_at)/3600).floor %>
+              </span> hours ago
+            <% elsif ((Time.now - post.created_at)/3600).floor ==1 %>
+              Posted <span class="number">
+              1</span> hour ago
+            <% else %>
+              <span>
+              <%= (post.created_at).strftime("%d %b %Y") %>
+              </span>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="post-list-user">
+          <div class="user-chip">
+            <div class="user-image">
+              <%= image_tag User.find(post.user_id).avatar.url %>
+            </div>
+            <div class="user-name">
+              <%= User.find(post.user).name %>
+            </div>
+          </div>
+        </div>
+        <div class="clear"></div>
+
+      <% end #link to post path %>
+    <% end #if user exists %>
+  <% end #do for each post %>
+<% end #if there are posts here %>
+
+<div class="clear"></div>

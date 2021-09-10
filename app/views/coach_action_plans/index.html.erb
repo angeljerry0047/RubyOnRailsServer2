@@ -1,0 +1,26 @@
+<%= stylesheet_link_tag "application/coach_action_plans", :media => "all" %>
+<h1>Listing coach_action_plans</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Opportunity</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+  <% @coach_action_plans.each do |coach_action_plan| %>
+    <tr>
+    <td><%= coach_action_plan.user_id %></td>
+    <td><%= coach_action_plan.opportunity_id %></td>
+    <td><%= link_to 'Show', coach_action_plan %></td>
+    <td><%= link_to 'Edit', edit_coach_action_plan_path(coach_action_plan) %></td>
+    <td><%= link_to 'Destroy', coach_action_plan, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Coach action plan', new_coach_action_plan_path %>

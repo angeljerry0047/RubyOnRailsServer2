@@ -1,0 +1,59 @@
+<!-- devise/sessions/new -->
+<%= stylesheet_link_tag "bootstrap/bootstrap-3.4.1.min", :media => "all" %>
+<%= stylesheet_link_tag "bootstrap/sign_in" %>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap"
+      rel="stylesheet" />
+<link rel="preconnect" href="https://fonts.gstatic.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" />
+
+<div id="sign-in-flex-container">
+  <div id="sign-in-inner-container">
+    <div class="row">
+      <div class="left-col col-md-7">
+        <%= image_tag "s2mentor_top_banner_logo_blue.png", class: "img-responsive" %>
+        <p class="content">
+          This platform makes it easy to connect to mentors and mentees, share opportunities, 
+          insights, resources, and gain access to continuous learning. The go-to resource for 
+          experienced leaders who want to give back through mentoring and for professionals 
+          seeking to connect with experienced leaders who can help them grow their professional 
+          network, diversify their skillset, explore career paths, and develop their leadership acumen. 
+        </p>
+      </div>
+      <div class="right-col col-md-5" style="background-color: white !important; border-radius: 10px !important;">
+        <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+
+          <div class="form-group">
+            <%= f.input :email, label: false, autofocus: true, placeholder: 'Email', input_html: { 
+                class: 'form-control email-input'
+              }
+            %>
+          </div>
+
+          <div class="form-group">
+            <%= f.input :password, label: false, placeholder: 'Password', input_html: {
+                class: 'form-control password-input'
+              }
+            %>
+
+            <div class="form-group remember-me-input">
+              <%= f.check_box :remember_me, class: "remember-me-checkbox" %>&nbsp;&nbsp;Remember Me</div>
+            </div>
+
+            <div class="form-group">
+              <%= f.button :submit, "Log In", class: "btn btn-block login-button" %>
+            </div>
+
+          
+            <div class="text-center">
+              <%- if devise_mapping.recoverable? && controller_name != 'passwords' %>
+                <%= link_to "Forgot My Password", new_password_path(resource_name), class: "forgot-password-link" %>
+              <% end -%>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+  
+<%= javascript_include_tag "bootstrap/bootstrap-3.4.1.min" %>

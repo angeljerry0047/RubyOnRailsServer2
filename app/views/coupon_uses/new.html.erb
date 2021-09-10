@@ -1,0 +1,16 @@
+<div class="container">
+  <div class="row">
+    <div class="span8 center">
+      <h4><span><%= image_tag "lockicon_purchase.png" , :alt =>'lockicon_purchase'%></span>Please enter your code to take the assessment
+      </h4>
+      <%= simple_form_for(@coupon_use) do |f| %>
+        <%= f.input :coupon, :placeholder => "Code", :label => false, :class => "input coupon" %>
+        
+         <div class="form-row last">
+        <%= f.button :submit, 'Submit Code', :class => 'btn btn-large btn-primary roundedge', :id => 'submit' %>
+        <div class="cancel button"><%= link_to 'Cancel', :back  %></div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,147 @@
+/********************
+ * FEATURE CAROUSEL *
+ ********************/
+@import "master";
+
+.carousel-container {
+  position:relative;
+  width:960px;
+}
+#carousel {
+  height:380px;
+  width:960px;
+  position:relative;
+  margin-bottom:0.5em;
+  font: $body1;
+}
+.carousel-image {
+  display:block;
+  padding: 10px 30px 93px 21px;
+  background-image: url("frame.png");
+  z-index:200; 
+  width:630px;
+  height:144px;
+}
+.frame2 {
+  background: image-url("frame3.png") no-repeat;
+}
+
+.carousel-feature {
+  position:absolute;
+  top:-1000px;
+  left:-1000px;    
+  height:auto;
+  background-color:transparent;
+  text-align:center;
+  padding: 5px 55px 120px 0;   
+  cursor:pointer;
+  overflow:hidden;
+  margin: 0 0 0 -28px;
+}
+.carousel-feature .circle{
+    height:10px;
+    width:10px;
+    background-color: $primary-color;
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px;
+    border-radius: 50px;
+    border: 1px solid $primary-color;
+    float:left;
+    margin: 4px 5px 0 0;
+}
+.carousel-feature .title{
+    color: $nutral-color4;
+    font-size:25px;
+    float:left;
+    font-weight:bold;
+}
+
+.carousel-feature .caption {
+  width:155px;
+  height:247px;
+  background-color: $primary-color;
+  position: absolute;
+  top:35px;
+  left:547px;
+  color: $nutral-color1;
+  text-align:right;
+  font-size:15px;
+}
+.carousel-feature .caption a{
+  color: $primary-color;
+}
+.carousel-feature .caption span{
+  color: $nutral-color4;
+}
+.carousel-feature .caption p{
+  margin:26px 0 0 0;
+  font-weight:500;
+}
+.triangle
+{
+  content: ' ';
+  position: absolute;
+  width: 0;
+  height: 0;
+  left: 650px;
+  top: 585px;
+  border: 40px solid;
+  border-color: #39c974 #39c974 transparent transparent;
+  z-index:10;
+}
+
+.tracker-summation-container {
+  position:absolute;
+  color: $nutral-color1;
+  right:48px;
+  top:230px;
+  padding:3px;
+  margin:3px;
+  background-color:transparent;
+}
+.tracker-individual-container {
+  position:absolute;
+  color: $nutral-color1;
+  right:48px;
+  top:210px;
+  padding:0;
+  margin:0;
+  display:none;
+  visibility:hidden;
+}
+.tracker-individual-container li {
+  list-style:none;
+}
+.tracker-individual-container .tracker-individual-blip {
+  margin:0 3px;
+  padding:0 3px;
+  color: $nutral-color1;
+  text-align:center;
+  background-color: $nutral-color2;
+}
+.tracker-individual-container .tracker-individual-blip-selected {
+  color: $nutral-color1;
+  font-weight:bold;
+  background-color: $nutral-color4;
+}
+#carousel-left {
+  position:absolute;
+  bottom:33px;
+  left:220px;
+  cursor:pointer;
+}
+#carousel-right {
+  position:absolute;
+  bottom:33px;
+  right:220px;
+  cursor:pointer;
+}
+.carousel-feature .IE{
+  width:684px;
+  height:247px;
+}
+.carousel-feature .frameIE{
+  width: 725px;
+  height:280px;
+  padding:10px 0 50px 0;
+}

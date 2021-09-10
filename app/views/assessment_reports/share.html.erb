@@ -1,0 +1,31 @@
+<div class="share wrap row">
+  <div class="topper">
+    <div class="span12 prev">
+      <%= link_to "Back to your assesment", :back%>
+    </div>
+  </div>
+  <div class="span12">
+
+    <h3>Share your assesment results</h3>
+
+    <%= form_tag share_with_email_assessment_report_path(params[:id]) do %>
+      <%= label_tag "emails", "Email address(es)"%>
+    <%= text_field_tag "emails", "", :class =>"span8", :placeholder => 'Multiple separated by commas' %><br/>
+
+
+    <%= label_tag "subject", "Subject"%>
+    <%= text_field_tag "subject", "Take a look at the serve2perform® Assessment I just completed", :class =>"span8" %><br/>
+
+    <%= label_tag "subject", "Subject"%>
+    <%= text_field_tag "subject", "Take a look at the serve2perform® Assessment I just completed", :class =>"span8" %><br/>
+    
+    <%= label_tag "text", "Message"%>
+    <%= text_area_tag "text", "I wanted to share this assessment with you. What do you think?",  :class =>"span8", :style =>"height:3em;" %><br/>
+
+    <%= hidden_field_tag 'assessment_report_id', @assessment_report.id %>
+    <br/>
+    <%= submit_tag 'Share', :class => "btn btn-primary btn-large roundedge" %>
+  <% end %>
+
+  </div>
+</div>

@@ -1,0 +1,14 @@
+<script>
+  $(document).on('ready', function(){
+    var availableOrganizations = <%= Hash[Organization.s2pcompanies.map {|o| [o.title.downcase, o.id] }].to_json.html_safe %>;
+    var availableTags = <%= Organization.s2pcompanies.select("title").uniq.map(&:title).to_json.html_safe %>;
+    
+    $(".auto_complete_org_name").autocomplete({
+      source: availableTags
+    }).on('blur', function(e) {
+      var orgName = $(e.target).val().toLowerCase();
+      var id = availableOrganizations[orgName];
+      $('.auto_complete_org_id').last().val(id || '');
+    })
+  });
+</script>

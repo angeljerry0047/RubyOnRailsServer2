@@ -1,0 +1,9 @@
+<div id="comments">
+  <% @comments.reverse.each do |comment| %>
+    <div class="comment">
+    <%= link_to comment.user.name, user_path(comment.user.id) %>
+    <b>Posted on:</b> <%= comment.created_at.strftime("%m/%d/%Y") %>
+  <em><%= markdown.render(comment.content).html_safe %></em>
+  </div>
+<% end %>
+</div>

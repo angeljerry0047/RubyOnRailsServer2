@@ -1,0 +1,48 @@
+<%# FIXME (cmhobbs) let's not truncate things like this %>
+<div class='opp'>
+	<div class="historical_opportunity <%= defined?(hidden) && hidden ? 'hidden': '' %>">
+	  
+	    <%# hidden_field_tag 'opportunities[][id]', opportunity.id %>
+	    <%= hidden_field_tag 'opportunities[][ghost]', !!defined?(hidden) && hidden, :class => 'ghost_opportunity_segment' %>
+
+	  
+	  	<div class="row">
+	  		<div class="span2">
+	  			<h4>Past Skill Experience</h4>
+	  		</div>	
+	  		<div class="span10">
+					<%= label_tag "opportunities[][title]", "Title" %>
+					<%= text_field_tag "opportunities[][title]", {}, :value => opportunity.title, :placeholder => '' %>
+					
+			<div class="styled-select">
+			</div>
+			
+			  <div class="styled-select">
+			  	<%= label_tag "opportunities[][start_year]", "Start Year Of Skill"%>
+			  <%= select_tag "opportunities[][start_year]", options_for_select(Date.today.year.downto(1900), opportunity.start_year) %>
+			  </div>
+			  
+			  <div class="styled-select">
+			  	<%= label_tag "opportunities[][start_month]", "Start Month Of Skill"%>
+			  <%= select_tag "opportunities[][start_month]", options_for_select((1..12), opportunity.start_month) %>
+			  </div>
+			  
+			  <div class="styled-select">
+			  	<%= label_tag "opportunities[][end_year]", "End Year Of Skill"%>
+			  <%= select_tag "opportunities[][end_year]", options_for_select(Date.today.year.downto(1900), opportunity.end_year), :include_blank => true %>
+			  </div>
+			  
+			  <div class="styled-select">
+			  	<%= label_tag "opportunities[][end_month]", "End Month Of Skill"%>
+			  <%= select_tag "opportunities[][end_month]", options_for_select((1..12), opportunity.end_month), :include_blank => true %>
+			  </div>
+
+			  <div class="description"><%= label_tag "opportunities[][description]", "Description" %>
+			<%= text_area_tag "opportunities[][description]", opportunity.description, :class => 'input description' %></div>
+
+			<%= render 'shared/hierarchy_select', :competencies => opportunity.competencies , :name => 'opportunities[][competency_ids][]', :id => "opportunity_competency_ids", :hide_label => true, :css_class => "span8", :maxitems => 3 %>
+
+	        </div>
+	    </div>
+	</div>
+</div>

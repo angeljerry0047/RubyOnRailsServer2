@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+
+  <body>
+    <p>
+      Dear <%= @user.name %>,
+    </p>
+
+    <p>
+      I have posted a <b><%= @insight.category %> idea</b> on <%= link_to "serve2mentor.com", root_url %>.
+      It includes a brief overview of the idea and how it has helped me with <%= @insight.category %>.
+    </p>
+
+    <p>
+      Click <%= link_to 'here',"https://serve2mentor.com/best_practices/#{@insight.id}" %> to <b>View</b>, <b>Like</b>, and to
+      <b>Comment</b> on this idea.
+    </p>
+
+    <p>
+      Have a great day!
+    </p>
+
+  </body>
+
+</html>

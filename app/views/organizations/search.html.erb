@@ -1,0 +1,265 @@
+<%= stylesheet_link_tag "application/organizations", :media => "all" %>
+<div class="organization wrap">
+  <div class="span12">
+    <div class="topper">
+      <% if @organization.id == 201 %>
+        <center>
+        <h3>J.B. Hunt Strategic Leadership Program</h3>
+      </center>
+    <% else %>
+        <center>
+        <h3><%= @organization.title %> Learning Marketplace</h3>
+      </center>
+    <% end %>
+    </div>
+    <div class="banner">
+      <% if @organization.banner? %>
+        <%= image_tag @organization.id %>
+      <% end %>
+    </div>
+
+    <div class="title">
+      <div class="split lt">
+        <h4><%= link_to @organization.website, @organization.website_url, :target => "_blank" %></h4>
+      </div>
+      <div class="split rt split">
+        <% if current_user.try(:managed_organization_id) == @organization.id %>
+
+          <%= link_to 'Edit Company', edit_organization_path(@organization.slug), :style => "float:right;" %>
+
+      <% end %>
+        <% if @organization.id == 26 %> 
+          <div  style="float:right; padding-right:16px;">
+          <span><a href="https://donatenow.networkforgood.org/circlesusa?code=circlessite" target="_blank"><img style="margin-top:4.5px;" alt="Donate" src="/assets/circlesdonate.png"></a></span>
+        </div>
+      <%end%>
+      </div>
+    </div>
+    <div class="row">
+      <%= form_tag search_organization_path(@organization.slug), :method => "GET" do %>
+        <div class="text-search">
+        <%= text_field_tag 'text', params[:text], :class => "span12", :placeholder => "Search by Title or Description" %>
+        <%= submit_tag '' ,:class => "span13" %>
+      </div>
+    <% end %>
+      <div class="row" id="vsa_list">
+        <%if @skills.length == 0%>
+          No posts found. Try searching again with different criteria.
+      <%else%>
+          <div id="vsas">
+          <% Array(@skills).reverse.each_with_index do |opp, i| %>  <!-- Get the logic out of this view!!! -->
+            <% if opp.class.name == "Opportunity" %>
+            <div class="vsa result">
+            <div class="head" style="height:50px;">
+              <h4 class="opphead" style="padding-top:14px;">
+                advisor
+              </h4>
+            </div>
+            <div>
+              <% if opp.learning_objectives.present? %>
+                <div class="oppname" style="padding-top:14px; font-size:20px;">
+                <%= opp.learning_objectives %>
+              </div>
+            <% end %>
+              <h5 style="margin-bottom:0px;">
+                <%= link_to opp.owner.name, user_path(opp.owner.id), :class => "oppname" %>
+              </h5>              
+            </div>  
+            <div class="competencies" style="padding-bottom:10px;">
+              <% if opp.owner.organization_id.present? && opp.owner.organization.active_license?  %>
+                <center>
+                <%= link_to image_tag(opp.owner.organization.avatar.url, :class => "skill_logo"), organization_path(opp.owner.organization.slug) %>
+              </center>
+            <% end %>
+            </div>
+            <% if opp.owner.organization.present? %>
+              <div class="description">
+              <%= opp.owner.organization.title %>
+            </div>
+          <%end%>
+            <!-- <div class="description">
+                      <%= truncate(opp.description, :length => 190) %>
+                    </div> -->
+            <div class="bottom">
+              <% if opp.opportunity_applications.present? %>
+                <center>
+                <div class ="disabled">
+                  connection made
+                </div>
+              </center>
+            <%else%> 
+                <center>  
+                <%= link_to "see full post", opportunity_path(opp), :class => "learnbutton" %>
+              </center>
+            <%end%>
+            </div>
+          </div>
+        <% elsif opp.class.name == "BestPractice" %>
+            <div class="vsa result" >
+            <div class="head" style="padding-bottom:1px;height:50px;">
+              <div>
+                <h4 class="opphead" style="padding-top:14px;">insight</h4>
+              </div>
+            </div>
+            <div>
+              <h4> <span class="ideaname"><%= opp.title %></span> <% if opp.emb_link? %><%= image_tag("video_icon_black.png",:alt =>"video_icon_black" ,:class => "fc-icons") %><% end %> <% if opp.ext_link? %><%= image_tag("link_icon_black.png", :class => "fc-icons") %><% end %><% if opp.documents? %><%= image_tag("dociconblack.png",:alt=>"dociconblack", :class => "fc-icons") %><% end %><% if opp.audio? %><%= image_tag("audio_icon_black.png", :alt =>'audio_icon_black', :class => "fc-icons") %><% end %></h4>
+            </div>
+            <div class="description" style="color:#000000;width:240px;padding-left:8px;">
+              <%= truncate(opp.body, :length => 145) %>
+            </div>
+            <div style="padding-top: 10px;">
+              <% unless opp.likers(User).count == 0 %>
+                <%if opp.likers(User).count == 1 %><span class="orangenum"><%= opp.likers(User).count %></span> <span class="bluelike">Like</span><%else%><span class="orangenum"><%= opp.likers(User).count %></span> <span class="bluelike"> Likes</span><%end%>
+            <% end %>
+              <% unless opp.comments.count == 0 %> 
+                <% if opp.comments.count == 1 %><span class="orangenum"><%= opp.comments.count %></span> <span class="bluelike"> Comment</span><%else%><span class="orangenum"><%= opp.comments.count %></span> <span class="bluelike"> Comments</span><%end%>
+            <% end %>
+            </div>
+            <div class="bottom">
+              <center>
+                <%= link_to "see full insight", best_practice_path(opp), :class => "learnbutton" %>
+              </center>
+            </div>
+          </div>
+        <% elsif opp.class.name == "Inquiry" %>
+            <div class="vsa result" >
+            <div class="head" style="padding-bottom:1px;height:50px;">
+              <div>
+                <h4 class="opphead" style="padding-top:14px;">question</h4>
+              </div>
+            </div>
+            <div>
+              <h4> <span class="ideaname"><%= opp.title %></span> <% if opp.documents? %><%= image_tag("dociconblack.png", :class => "fc-icons") %><% end %></h4>
+            </div>
+            <div class="description" style="color:#000000;width:240px;padding-left:8px;">
+              <%= truncate(opp.body, :length => 145) %>
+            </div>
+            <div style="padding-top: 10px;">
+              <% unless opp.likers(User).count == 0 %>
+                <%if opp.likers(User).count == 1 %><span class="orangenum"><%= opp.likers(User).count %></span> <span class="bluelike">Like</span><%else%><span class="orangenum"><%= opp.likers(User).count %></span> <span class="bluelike"> Likes</span><%end%>
+            <% end %>
+              <% unless opp.comments.count == 0 %> 
+                <% if opp.comments.count == 1 %><span class="orangenum"><%= opp.comments.count %></span> <span class="bluelike"> Comment</span><%else%><span class="orangenum"><%= opp.comments.count %></span> <span class="bluelike"> Comments</span><%end%>
+            <% end %>
+            </div>
+            <div class="bottom">
+              <center>
+                <%= link_to "see full question", inquiry_path(opp), :class => "learnbutton" %>
+              </center>
+            </div>
+          </div>
+        <% elsif opp.class.name == "Pac" %>
+            <div class="vsa result">
+            <div class="head" style="padding-bottom:1px;height:50px;">
+              <div>
+                <h4 class="opphead" style="padding-top:14px;">pac</h4>
+              </div>
+            </div>
+            <div>
+              <h5 style="margin-bottom:0px;">
+                <%= link_to opp.owner.name, user_path(opp.owner.id), :class => "oppname" %>
+              </h5>                    
+            </div>  
+            <div class="competencies">
+              <% if opp.owner.organization_id.present? && opp.owner.organization.active_license?  %>
+                <center>
+                <%= link_to image_tag(opp.owner.organization.avatar.url, :class => "skill_logo"), organization_path(opp.owner.organization.slug) %>
+              </center>
+            <% end %>
+            </div>
+            <div class="description" style="padding-top:10px;">
+              <%= opp.organization.try(:title) %>
+            </div>
+            <div class="bottom">
+              <% if opp.deadline_date.present? && opp.deadline_date < Time.now %>
+                <center>
+                <div class ="disabled">
+                  pac completed
+                </div>
+              </center>
+            <%else%> 
+                <center>  
+                <%= link_to "view pac", pac_path(opp), :class => "learnbutton" %>
+              </center>
+            <%end%>
+            </div>
+          </div>
+        <% else %>
+            <div class="vsa result">
+            <div class="head" style="height:50px;"> 
+              <h4 class="opphead" style="padding-top:14px;">
+                advisor
+              </h4>
+            </div>
+            <div class="oppname" style="font-size:24px;color:#2c9a47;padding-top:5px;">
+              recommended
+            </div>
+            <% if opp.rec_type.present? %>
+              <div class="oppname" style="font-size:20px;padding-top:10px;">
+              <%= opp.rec_type %>
+            </div>
+          <% end %>
+            <div>
+              <h5 style="margin-bottom:0px;">
+                <%= link_to truncate(opp.user.name, :length => 20), user_path(opp.user.id), :class => "oppname" %>
+              </h5>
+            </div> 
+            <% if opp.user.organization_id? && opp.user.organization.active_license? %>
+              <center>
+              <%= link_to image_tag(opp.user.organization.avatar.url, :class => "skill_logo"), organization_path(opp.user.organization.slug) %>
+            </center>
+          <% end %>
+            <% if opp.user.organization.present? %>
+              <div class="description" style="padding-top:10px;">
+              <%= opp.user.organization.title %>
+            </div>
+          <%end%>
+            <div>
+              <% unless opp.likers(User).count == 0 %>
+                <%if opp.likers(User).count == 1 %><span class="orangenum"><%= opp.likers(User).count %></span> <span class="bluelike">Validation</span><%else%><span class="orangenum"><%= opp.likers(User).count %></span> <span class="bluelike"> Validations</span><%end%>
+            <% end %>
+              <% unless opp.comments.count == 0 %> 
+                <% if opp.comments.count == 1 %><span class="orangenum"><%= opp.comments.count %></span> <span class="bluelike"> Comment</span><%else%><span class="orangenum"><%= opp.comments.count %></span> <span class="bluelike"> Comments</span><%end%>
+            <% end %>
+            </div>
+            <div class="bottom">
+              <% if opp.recommendation_applications.present? %>
+                <% if opp.recommendation_applications.sort_by{ |e| e[:created_at]}.first.created_at < Time.now && opp.recommendation_applications.sort_by{ |e| e[:created_at]}.first.created_at > Time.now - 60.days %> <!-- Get the logic out of this view!!! -->
+                <center>
+                <div class ="disabled">
+                  connection made
+                </div>
+              </center>
+            <%else%>
+                <center>
+                <%= link_to "see full post", recommendation_path(opp), :class =>"learnbutton" %>
+              </center>
+            <%end%>
+            <%else%>
+                <center>
+                <%= link_to "see full post", recommendation_path(opp), :class =>"learnbutton" %>
+              </center>
+            <%end%>
+            </div>
+          </div>
+        <% end %>
+        <% end %>
+        </div>
+      </div>
+    </div>
+
+
+    <!--             <% Array(@opportunities).each_with_index do |opp, i| %>
+              <%if i%2 == 0 %>
+ <div class="row">
+              <%end%>
+
+              <%if i%2 != 0 %>
+ </div>
+              <%end%>
+            <% end %> -->
+
+  <%end%>       
+  </div>
+</div>
+

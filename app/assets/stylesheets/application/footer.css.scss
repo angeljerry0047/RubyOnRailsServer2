@@ -1,0 +1,167 @@
+@import "master";
+
+footer{
+	background: #303030;
+	color: #9e9e9e;
+	font-size: 14px;
+	line-height: 14pt;
+	margin-top: 64px;
+	padding: 65px 16px 16px;
+	text-align: center;
+
+	.footer-logo {
+		background: url('/assets/FooterLogo.png') no-repeat 50%;
+		background-size: 90%;
+		display: block;
+		float: left;
+		height: 100%;
+		position: relative;
+		width: 250px;
+	}
+  
+	.footer__layout {
+		align-items: center;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		padding: 16px 0;
+	}
+
+	.footer__logo {
+		width: 200px;
+	}
+
+	.footer__link {
+		color: white;
+		display: block;
+		text-decoration: none;
+	}
+
+	.footer__link + .footer__link {
+		margin-top: 16px;
+
+	}
+
+	.footer__links {
+		margin: -16px 0 0 0;
+	}
+
+  .footer-legal{
+    background-color: #303030;
+    box-sizing: border-box;
+    color: $nutral-color3;
+    display: block;
+    font: $body1;
+    padding: 16px;
+    padding-top: 0;
+    position: relative;
+    text-align: center;
+    width: 100%;
+  }
+
+  .footer-info{
+    color: #fff;
+    display: block;
+    height: 20px;
+    padding: 22px;
+    &:hover{
+      color: #bcbcbc;
+      text-decoration: none;
+    }
+  }
+
+  .foot_nav {
+    display: flex;
+    position: relative;
+    width: 400px;
+    div {
+      display: inline-block;
+      margin-left: 10px;
+    }
+  }
+
+  .social {
+    margin-top: 35px;
+    li {
+      float: left;
+      display: inline-block;
+      height: 61px;
+      width: 61px;
+      text-align: center;
+
+      a {
+        padding: 18px 10px;
+
+      }
+
+      &.fb {
+        background: #365a9c;
+
+        a:hover {
+          opacity: 0.8;
+          background: #365a9c;
+        }
+      }
+      &.twit {
+        background: #0e8ac8;
+
+        a:hover {
+          opacity: 0.8;
+          background: #0e8ac8;
+        }
+      }
+    }
+  }
+}
+
+/* desktop ================================================== */
+
+@media (min-width: $desktop-min) {
+
+  .footer{
+    height: 64px;
+    .footer-info{
+			float: right;
+		}
+  }
+
+}
+
+
+/* tablet ================================================== */
+
+@media (min-width: $tablet-min) and (max-width: $tablet-max) {
+
+  .footer{
+    height: 64px;
+    .footer-info{
+			float: right;
+		}
+  }
+
+}
+
+/* phone ================================================== */
+
+@media (max-width: $phone-max) {
+
+  .footer{
+    height: auto;
+    padding-bottom: 8px;
+    .footer-legal{
+      padding: 0;
+    }
+    .footer-logo {
+    	height: 64px;
+    	float: none;
+    	margin: 0 auto;
+    }
+    .footer-info{
+			float: none;
+			margin: 0 auto;
+			padding: 6px;
+			text-align: center;
+		}
+  }
+
+}

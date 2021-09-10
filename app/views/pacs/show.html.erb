@@ -1,0 +1,153 @@
+<%= stylesheet_link_tag "application/pac", :media => "all" %>
+<div class="pac wrap row">
+  <div class="topper">
+    <div class="span12">  
+      <div class="row">
+      
+        <%if @pac.owner_id == current_user.id %>
+          <div class="span2 next" style="width:185px;">
+            <%= link_to edit_pac_path do %>
+              edit collaboration team
+            <%end%>
+          </div>
+        <%end%>
+      </div>
+    </div>
+  </div>
+  <div class="span12">
+    <div class="row">
+      <div class="span11">
+        <div class="title">
+          <%if @pac.organization.present? %>
+            <h4>
+              
+                <%= @pac.organization.title %>
+             
+            </h4>
+          <%end%>
+          <h2><%= @pac.title %></h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="span2">
+        <%if @pac.organization.present? && @pac.organization.avatar_path.present? %>
+          <div class="avatar">
+            <%= link_to organization_path(@pac.organization.slug) do %>
+              <%= image_tag @pac.organization.avatar.url %>
+            <%end%>
+          </div>
+        <%end%>
+        <div style="margin-top:5px;">
+          <% if @pac.is_public? %>
+            <% unless @pac.owner_id == current_user.id || @pac.pac_members.include?(current_user) %>
+                <%= link_to 'Register for team', {:controller => :pac_members, :id => @pac.id, :action => :register}, {:class =>"btn btn-large btn-primary pac roundedge"} %>
+            <% end %>
+          <% end %>
+        </div>
+        <%if @pac.start_date? %>
+          <div class="start-date">
+            <h6>Start Date</h6>
+            <p><%= @pac.start_date.strftime("%m/%d/%Y") %></p>
+          </div>
+        <%end%>
+        <%if @pac.deadline_date? %>
+          <div class="deadline-date">
+            <h6>Registration dead line</h6>
+            <p><%= @pac.deadline_date.strftime("%m/%d/%Y") %></p>
+          </div>
+        <%end%>
+        <%if @pac.start_time? %>
+          <div class="start-time">
+            <h6>Start Time</h6>
+            <p><%= @pac.start_time %></p>
+          </div>
+        <%end%>
+        <%if @pac.end_time? %>
+          <div class="end-time">
+            <h6>End Time</h6>
+            <p><%= @pac.end_time %></p>
+          </div>
+        <%end%>
+        <%if @pac.opportunity_type.blank? || @pac.opportunity_type.id == 1 %>
+          <%if @pac.location.present? %>
+            <div class="location">
+              <h6>Location</h6>
+              <p><%= @pac.location %></p>
+            </div>
+          <%end%>
+        <%end%>
+        
+        <%if @pac.facility_id? && @pac.facility_id != -1 %>
+          <div class="facility">
+            <h6>Facility</h6>
+            <p><%= @pac.facility.name %>
+            <div id="opportunities__facility_address"><%= @pac.facility.address %></div></p>
+          </div>
+          <%elsif @pac.opportunity_type_id.present? %>
+            <div class="location">
+              <h6>Location</h6>
+              <p><%= @pac.opportunity_type.name %></p>
+            </div>
+        <%end%>
+
+        <% if @pac.opportunity_type.id == 2 %>
+          <div class="facility">
+              <h6>Online information</h6>
+              <p>
+                <%= markdown.render(@pac.online_info).html_safe %>
+              </p>
+          </div>
+        <% end %>
+
+        <div class="date">
+          <h6>Posted On</h6>
+          <p><%= @pac.created_at.strftime("%B %-d, %Y") %></p>
+        </div>
+
+        <% if @pac.owner_id.present? %>
+          <div class="poster">
+            <h6>Posted By</h6>
+            <p><%= link_to @pac.owner.name, user_path(@pac.owner.id) %></p>
+          </div>
+        <% end %>
+
+
+      </div>
+
+      <div class="span9">
+        <h4 class="about-vsa">About collaboration team
+          <% if @pac.organization.present? && @pac.organization.website.present? %>
+            <%= link_to @pac.organization.company_website, @pac.organization.company_website, :target =>"_blank" %>
+          <%end%>
+        </h4>
+
+        <pre><%= @pac.description %></pre>
+
+        <%if @pac.learning_objectives? %>
+          <h4>TEAM OBJECTIVES</h4>
+          <div class="objtectives">
+            <p><%= @pac.learning_objectives %></p>
+          </div>        
+        <%end%>
+
+        <br/><h4>TEAM MEMBERS</h4>
+        <% unless @pac.pac_members.empty? %>  
+          <div>
+            <% @pac.pac_members.each do |pm| %>
+            <p><%= pm.member.name %> | <%= mail_to pm.member.email %></p>
+          <% end %>
+          </div>
+          
+         <% end %>
+
+         <%= render "comments/comments" %>
+         <%= render "comments/form" %>
+
+      </div>
+    </div>
+    
+    
+  </div>
+</div>

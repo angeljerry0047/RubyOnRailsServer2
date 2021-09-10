@@ -1,0 +1,57 @@
+@import "master";
+
+//Colors
+$primary-bgcolor: $nutral-color2;
+$secondary-bgcolor: $primary-color;
+$primary-border-color: $nutral-color2;
+$secondary-border-color: $nutral-color4;
+$nav-green: $primary-color;
+$white: $nutral-color1;
+$table_bg: $nutral-color3;
+$table_border: $nutral-color4;
+
+
+//Font-Family Declarations
+$montserrat: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+$opensansb: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+$opensansr: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $roboto;
+}
+
+@mixin arrow($direction, $color, $size){
+    display: block;
+    height: 0;
+    width: 0;
+    
+    @if $direction == 'top' {
+      border-left: $size solid transparent;
+      border-right: $size solid transparent;
+      border-bottom: $size solid $color;
+    } @else if $direction == 'right' {
+      border-top: $size solid transparent;
+      border-bottom: $size solid transparent;
+      border-left: $size solid $color;
+    } @else if $direction == 'bottom' {
+      border-top: $size solid $color;
+      border-right: $size solid transparent;
+      border-left: $size solid transparent;
+    } @else if $direction == 'left' {
+      border-top: $size solid transparent;
+      border-right: $size solid $color;
+      border-bottom: $size solid transparent;
+    } @else if $direction == 'top-left' {
+      border-top: $size solid $color; 
+      border-right: $size solid transparent;  
+    } @else if $direction == 'top-right' {
+      border-top: $size solid $color; 
+      border-left: $size solid transparent;
+    } @else if $direction == 'bottom-left' {
+      border-bottom: $size solid $color; 
+      border-right: $size solid transparent;  
+    } @else if $direction == 'bottom-right' {
+      border-bottom: $size solid $color; 
+      border-left: $size solid transparent;
+    }
+}

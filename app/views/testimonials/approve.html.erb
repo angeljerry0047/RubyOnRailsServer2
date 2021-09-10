@@ -1,0 +1,17 @@
+<%= simple_form_for(@testimonial) do |f| %>
+
+<h1 style="color:#5CCE8B; text-align:center; margin-bottom:20; margin-top:0;">Well Done <%= @testimonial.opportunity.owner.name %>!</h1>
+<h1 style="color:#5CCE8B; text-align:center; margin-bottom:20; margin-top:0;">You have a testimonial submitted by <%= @testimonial.creator.name %>!</h1>
+
+ <div style="text-align:center; font-size: 18px; margin-top:20px;"><strong>Below is the testimonial they would like to submit.</strong></div>
+ <div class="con_description">
+ 	<div class="con_validator"><%= @testimonial.body %></div>
+ </div>
+
+ <div style="text-align:center; font-size: 18px; margin-top:20px;">Click Approve to post this testimonial to your profile.</div>
+ <%= f.hidden_field :approved, :value => true %>
+ <div id="approve_recommendation">
+ <%= f.button :submit, 'Approve', :class => 'btn btn-large btn-primary roundedge' %>
+</div>
+
+<%end%>

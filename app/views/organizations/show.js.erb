@@ -1,0 +1,11 @@
+var infiniteScroll = $("#org-infinite-scroll");
+infiniteScroll.css({"display": "none"});
+
+$("#activity-posts").append('<%= j render partial: "post", collection: @posts %>')
+
+<% if @posts.next_page %>
+  $(".pagination").replaceWith('<%= j will_paginate @posts %>');
+  infiniteScroll.removeAttr("data-requesting");
+<% else %>
+  infiniteScroll.remove();
+<% end %>

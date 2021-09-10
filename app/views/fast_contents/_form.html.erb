@@ -1,0 +1,97 @@
+<%= form_for(@fast_content, html: {class: "new_fast_content", multipart: true}) do |f| %>
+  <% if @fast_content.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@fast_content.errors.count, "error") %> prohibited this Internal Resource from being saved:</h2>
+
+      <ul>
+      <% @fast_content.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="span7">
+
+    <% organization_id = @fast_content.organization_id %>
+    <%if !organization_id.blank? %>
+      <%= f.hidden_field :organization_id, :value => organization_id %>
+    <% else %>
+      <div class="field">
+        <%= f.label "Group *" %>
+        <%= f.select :organization_id, options_for_select(all_groups_sorted.collect { |group| [group.title, group.id] }), include_blank: false, :required => true %>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label "Topic *" %>
+      <%= f.text_field :topic, :required => true %>
+    </div>
+
+
+    <div class="field">
+      <%= f.label "Description *" %>
+      <%= f.text_area :description, :required => true, :cols => 30, :rows => 5 %>
+    </div>
+
+    <!--
+    <div class="field">
+      <label>External Link Title <a href="#tip" onmouseover="tooltip.pop(this, '#tip')">(?)</a></label>
+      <div style="display:none;">
+        <div id="tip">
+          <p>This text will be displayed for users to click on, so make sure it depicts what the link will lead to.</p>
+        </div>
+      </div>
+      <%#= f.text_field :link_title %>
+    </div>
+
+    <div class="field">
+      <%#= f.label 'External Link' %>
+      <%#= f.text_area :ext_link, :cols => 30, :rows => 5, :required => false %>
+    </div>
+    -->
+
+    <!--
+    <div class="field">
+      <%#= f.label 'Embed Video/Audio Link' %>
+      <%#= f.text_area :emb_link, :cols => 30, :rows => 5 %>
+    </div>
+    -->
+
+    <!--
+    <div class="field">
+      <%#= f.label "Author *" %>
+      <%#= f.text_field :author, :required => true %>
+    </div>
+    -->
+
+    <div class="field"><label>Documents</label></div>
+    <%# TODO get companies imported here and/or upload functionality %>
+    <div class="field">
+      <%= f.file_field :documents %>
+      <%= f.hidden_field :documents_cache %>
+    </div>
+
+    <div class="field"><label>Audio</label></div>
+    <%# TODO get companies imported here and/or upload functionality %>
+    <div class="field">
+      <%= f.file_field :audio %>
+      <%= f.hidden_field :audio_cache %>
+    </div>
+
+    <div class="actions" style="padding:10px 0px 10px 0px;">
+      <%= f.submit 'Create New Internal Resource', class: 'btn btn-large btn-primary roundedge' %>
+    </div>
+
+    <% if @department.present? %>
+      <%= hidden_field_tag 'department_id', @department.id %>
+    <%end%>
+
+    <%if defined? organization_id %>
+      <%= f.hidden_field :organization_id, :value => organization_id %>
+    <%end%>
+
+    <%= f.hidden_field :user_id, :value => @fast_content.user_id || current_user.id %>
+
+    <b style="font-size:14px; color:black;">* Required</b>
+  </div>
+<% end %>

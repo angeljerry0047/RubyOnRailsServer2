@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+
+  <body>
+
+    <p>
+       Dear <%= @user.name %>,
+    </p>
+     
+    <p>
+      I just posted a <%= @opportunity.title %> opportunity on serve2perform.
+    </p>
+
+    <p>
+      Click <%= link_to 'here',"https://serve2mentor.com/opportunities/#{@opportunity.opportunity_category_id}" %> to check it out.
+    </p>
+
+    <p>
+      Have a great day!
+    </p>
+
+  </body>
+</html>
+    

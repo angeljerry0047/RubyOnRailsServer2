@@ -1,0 +1,134 @@
+<%= stylesheet_link_tag "application/list-post", :media => "all" %>
+<%= stylesheet_link_tag "application/organizations", :media => "all" %>
+<%= stylesheet_link_tag "application/tabs", :media => "all" %>
+<%#= javascript_include_tag "application/navbar.js" %>
+<%= javascript_include_tag "application/tabs" %>
+<%= javascript_include_tag "application/infinite-scroll" %>
+
+<div class="board">
+  <div class="square-image">
+    <%= image_tag @organization.avatar.url %>
+  </div>
+  <div class="org-info">
+    <div class="org-title">
+      <%= @organization.title %>
+    </div>
+    <div class="org-members">
+      Since <%= (@organization.created_at).strftime("%d %b %Y") %>
+    </div>
+    <div class="org-members">
+      <%= group_count.count %> Members
+    </div>
+    <div class="org-description">
+      <%= @organization.int_description %>
+    </div>
+    <% if GroupAdmin.where(admin_id: current_user.id, group_id: @organization.id).count > 0 %>
+      <br>
+      <div style="padding-bottom: 8px;">
+        <%= link_to "View Analytics", analytics_organization_path(@organization.slug), :class => "edit-button" %>
+      </div>
+      <div>
+      <%= link_to "Edit Group", edit_organization_path(@organization.slug), :class => "edit-button"%>
+      </div>
+    <% end %>
+    <div class="leave-button">Leave Group</div>
+  </div>
+  <div class="clear"></div>
+</div>
+
+<div class="leave-group-popup">
+  <div class="popup-title">
+    Leave <%= @organization.title %>?
+  </div>
+  <%= form_tag('/organizations/leave', method: 'post') do %>
+    <%= hidden_field_tag(:member_id, current_user.id) %>
+    <%= hidden_field_tag(:group_id, @organization.id) %>
+    <%= submit_tag("Leave Group", :class => "btn-primary") %>
+  <% end %>
+</div>
+
+<div class="board tabs">
+  <div class="tabs-header">
+    <div class="tab-container">
+      <div class="tab active-tab ripple-button" data-index="0" id="activity-tab">
+        <span class="desktop-tab">Recent </span>Group Activity
+      </div>
+      <div class="tab ripple-button" data-index="1">
+        <span class="desktop-tab">Group </span>Members
+      </div>
+      <div class="tab-indicator"></div>
+    </div>
+  </div>
+
+  <div class="tab-panel" data-index="0" id="activity-posts"> <!-- Group Activity -->
+    <%= render partial: "post", collection: @posts %>
+
+    <div id="org-infinite-scroll" class="row infinite-scroll" data-url="<%= request.original_url %>">
+      <div id="scroll-status" class="col-12 text-center">
+        <span id="scroll-status">Loading More Activity</span>
+      </div>
+      <%= will_paginate @posts %>
+    </div>
+  </div>
+
+  <div class="tab-panel" data-index="1"> <!-- Members -->
+
+    <!-- FIXME (cmhobbs) add this logic to the user model and provide a helper method -->
+    <% if GroupAdmin.where(admin_id: current_user.id, group_id: @organization.id).any? %>
+      <%= link_to findUsers_organization_path(@organization.slug), :class => "addmember-button list-post user-list" do %>
+        <div class="list-user">
+          <div class="user-chip">
+            <div class="user-addition">
+              <span class="addition-stroke-1"></span>
+              <span class="addition-stroke-2"></span>
+            </div>
+            <div class="addmember-text">
+              Add New Member
+            </div>
+          </div>
+        </div>
+        <div class="clear"></div>
+      <% end %>
+    <% end %>
+
+    <% group_count.each do |ug| %>
+      <% if User.exists?(:id => ug.member_id) %>
+        <div class="list-post user-list">
+
+          <%= link_to user_path(ug.member_id), :class => "ripple-button" do %>
+            <div class="list-user">
+              <div class="user-chip">
+                <div class="user-image">
+                  <%= image_tag User.find(ug.member_id).avatar.url %>
+                </div>
+                <div class="user-name">
+                  <%= User.find(ug.member_id).name %>
+                </div>
+              </div>
+            </div>
+            <div class="clear"></div>
+          <% end #link to user path %>
+
+      		<!-- FIXME (cmhobbs) add this logic to the user model and provide a helper method -->
+          <% if ug.member_id != current_user.id %>
+        		<% if GroupAdmin.where(admin_id: current_user.id, group_id: @organization.id).any? %>
+              <div class="list-post-button remove-button">Remove</div>
+              <div class="remove-member-popup">
+                <div class="popup-title">
+                  Remove <%= User.find(ug.member_id).name %> from the group?
+                </div>
+                <%= form_tag('/organizations/leave', method: 'post') do %>
+                  <%= hidden_field_tag(:member_id, ug.member_id) %>
+                  <%= hidden_field_tag(:group_id, @organization.id) %>
+                  <%= submit_tag("Remove", :class => "btn-primary") %>
+                <% end %> 
+              </div>
+            <% end %>
+      		<% end %>
+
+        </div>
+      <% end %>
+    <% end %>
+    <div class="clear"></div>
+  </div>
+</div>

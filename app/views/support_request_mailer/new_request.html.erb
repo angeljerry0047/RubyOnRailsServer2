@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+
+  <body>
+    <p>
+      A new support request was submitted via myserve2perform
+    <p>
+
+    <p> 
+      Name: <%= @request.name %>
+    </p> 
+         
+    <p>
+      Email: <%= @request.email %>
+    </p>
+
+    <p>
+      Time: <%= @request.issue_time %>
+    </p>
+
+    <p>
+      IP Address: <%= @request.ip_address %>
+    </p>
+
+    <p>
+      Description: <%= @request.description %>
+    </p>
+
+  </body>
+</html>

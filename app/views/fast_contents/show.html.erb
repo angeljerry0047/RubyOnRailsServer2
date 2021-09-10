@@ -1,0 +1,75 @@
+<%= stylesheet_link_tag "application/fast_content", :media => "all" %>
+
+<div class="board">
+  <%= link_to user_path(@fast_content.user_id), :class => "user-chip" do %>
+    <div class="picture">
+      <%= image_tag User.find(@fast_content.user_id).avatar.url %>
+    </div>
+    <div class="name"><%= User.find(@fast_content.user_id).name %></div>
+  <% end %>
+  <div class="column small">
+
+    <div class="info">
+      <%= @organization_title %>
+      </br>
+      <%#= @fast_content.category %>
+      </br>
+      <% if ((Time.now - @fast_content.created_at)/3600).floor < 1 && ((Time.now - @fast_content.created_at)/60).floor != 1 %>
+        Posted <span class="number">
+        <%= ((Time.now - @fast_content.created_at)/60).floor %>
+        </span> minutes ago
+      <% elsif ((Time.now - @fast_content.created_at)/60).floor == 1 %>
+        Posted <span class="number">
+        1</span> minute ago
+      <% elsif ((Time.now - @fast_content.created_at)/3600).floor < 24 && ((Time.now - @fast_content.created_at)/3600).floor != 1 %>
+        Posted <span class="number">
+        <%= ((Time.now - @fast_content.created_at)/3600).floor %>
+        </span> hours ago
+      <% elsif ((Time.now - @fast_content.created_at)/3600).floor ==1 %>
+        Posted <span class="number">
+        1</span> hour ago
+      <% else %>
+        <span>
+        <%= (@fast_content.created_at).strftime("%d %b %Y") %>
+        </span>
+      <% end %>
+    </div>
+
+    <% if current_user == @fast_content.user %>
+        <%= link_to 'Edit', edit_fast_content_path(@fast_content) %> |
+        <%= link_to 'Delete', @fast_content, :method => :delete, data: { confirm: 'Are you sure?'} %>
+    <% elsif (GroupAdmin.where(group_id: @fast_content.organization_id, admin_id: current_user.id).exists?)%>
+        <%= link_to 'Edit', edit_fast_content_path(@fast_content) %> |
+        <%= link_to 'Delete', @fast_content, :method => :delete, data: { confirm: 'Are you sure?'} %>
+    <% end %>
+  </div>
+
+  <div class="column large">
+    <div class="title"><%= @fast_content.topic %></div>
+    <div class="body"><%= markdown.render(@fast_content.description).html_safe %></div>
+
+    <% if @fast_content.ext_link? %>
+      <br>
+      <%= link_to @fast_content.link_title, @fast_content.external_link, :target => "_blank", :class => "body" %>
+    <% end %>
+
+    <% if @fast_content.emb_link? %>
+      <br>
+      <span class="body">
+        <%= @fast_content.emb_link.html_safe %>
+      </span>
+    <% end %>
+
+    <% if @fast_content.documents? %>
+      <br>
+      <%= link_to "Download Document", @fast_content.documents.url, :class => "body" %>
+    <% end %>
+
+    <% if @fast_content.audio? %>
+      <br>
+      <%= link_to "Download Audio", @fast_content.audio.url, :class => "body" %>
+    <%end%>
+  </div>
+
+  <div class="clear"></div>
+</div>

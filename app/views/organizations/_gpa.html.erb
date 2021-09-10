@@ -1,0 +1,265 @@
+<div class="tabbable full-width-tabs">
+            <ul class="nav nav-tabs nav-justified">
+                <li class="active take-all-space-you-can"><a class="short" href="#tab-one" data-toggle="tab">Home</a></li>
+                <li class="take-all-space-you-can"><a class="short" href="#tab-two" data-toggle="tab">Employee Onboarding</a></li>
+                <li class="take-all-space-you-can"><a class="short" href="#tab-three" data-toggle="tab">Communications</a></li>
+            </ul>
+            <ul class="nav nav-tabs nav-justfied">
+              <li class="take-all-space-you-can"><a class="short" href="#tab-four" data-toggle="tab">Customer Service</a></li>
+                <li class="take-all-space-you-can"><a class="short" href="#tab-five" data-toggle="tab">Project Managment</a></li>
+                <li class="take-all-space-you-can"><a class="short" href="#tab-six" data-toggle="tab">Employee Recognition</a></li>
+                <li class="take-all-space-you-can"><a class="short"href="#tab-seven" data-toggle="tab">Resources</a></li>
+            </ul> 
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab-one">
+                  <div class="tab-content-spacing">
+                    <h4 class="splash-header">Welcome to the Grandslam Performance Associates (GPA) learning community.</h4>
+                    <p>At GPA, we are passionate about learning and development and we are committed to making learning easy, efficient, and engaging. We do this through our <a href="www.serve2mentor.com">serve2mentor.com</a> platform, which was designed to help people collaborate, learn, and teach each other. Each of us has a diversity of knowledge to share, and when we engage our collective knowledge, we grow our company’s capability to consistently deliver on our mission, which is to provide our clients with unmatched vision, innovation, and results.</p>
+
+                    <p>We encourage you to engage our mission as your own and commit to being an active contributor and consumer of peer-to-peer learning.</p>
+
+                    <p>Thank you for choosing GPA as your employer of choice and we look forward to learning from you and helping you grow and succeed.</p>
+
+                    <p/>We’re glad you’re here.</p>
+
+                    <em>Grandslam Performance Associates</em>
+                                
+                  </div>
+                </div>
+                <div class="tab-pane" id="tab-two">
+                  <% @onboarding = "Employee Onboarding" %>
+                  <div class="tab-content-spacing">
+                      <h3 class="splash-header">View <%= @onboarding %> Idea</h3>
+                      <div class="row" id="vsa_list">
+                        <div class="span2"></div>
+                        <div class="span9 filter" style="margin-left:0px;">
+                          <div id="vsas">
+                            <% BestPractice.with_category("Employee Onboarding").each do |bp| %>
+                            <div class="vsa result">
+                              <div class="head" style="padding-bottom:1px;">
+                              <div>
+                             <h4 class="opphead" style="padding-top:10px;">idea</h4>
+                            </div>
+                            </div>
+                            <div>
+                              <h4 style=""> <span class="ideaname"><%= bp.title %></span> <% if bp.emb_link? %><%= image_tag("VideoIcon.png", :alt =>'VideoIcon', :class => "fc-icons") %><% end %> <% if bp.ext_link? %><%= image_tag("LinkIcon1.png", :alt =>'LinkIcon1', :class => "fc-icons") %><% end %><% if bp.documents? %><%= image_tag("docicon.png", :alt =>'docicon', :class => "fc-icons") %><% end %><% if bp.audio? %><%= image_tag("AudioIcon.png", :alt =>'AudioIcon', :class => "fc-icons") %><% end %></h4>
+                            </div>
+                            <div class="description" style="color:#303030;">
+                              <%= truncate(bp.body, :length => 100) %>
+                            </div>
+                            <div style="padding-top: 10px;">
+                              <% unless bp.likers(User).count == 0 %>
+                              <%if bp.likers(User).count == 1 %><span class="orangenum"><%= bp.likers(User).count %></span> <span class="bluelike">Like</span><%else%><span class="orangenum"><%= bp.likers(User).count %></span> <span class="bluelike"> Likes</span><%end%>
+                              <% end %>
+                              <% unless bp.comments.count == 0 %> 
+                              <% if bp.comments.count == 1 %><span class="orangenum"><%= bp.comments.count %></span> <span class="bluelike"> Comment</span><%else%><span class="orangenum"><%= bp.comments.count %></span> <span class="bluelike"> Comments</span><%end%>
+                              <% end %>
+                            </div>
+                            <div class="bottom">
+                            <center>
+                              <%= link_to "see full idea", best_practice_path(bp), :class => "learnbutton" %>
+                            </center>
+                          </div>
+                            </div>
+                            <% end %>
+                          </div>
+                        </div>
+                      </div>
+                    <h3 class="splash-header">Post <%= @onboarding %> Idea</h3>
+                       <%= render 'best_practices/form', :category => @onboarding %>
+                   </div>       
+                </div>
+                <div class="tab-pane" id="tab-three">
+                  <% @communications = "Communications" %>
+                  <div class="tab-content-spacing">
+                      <h3 class="splash-header">View <%= @communications %> Idea</h3>
+                      <div class="row" id="vsa_list">
+                        <div class="span2"></div>
+                        <div class="span9 filter" style="margin-left:0px;">
+                          <div id="vsas">
+                            <% BestPractice.with_category("Communications").each do |bp| %>
+                            <div class="vsa result">
+                              <div class="head" style="padding-bottom:1px;">
+                              <div>
+                              <h4 class="opphead" style="padding-top:10px;">idea</h4>
+                            </div>
+                            </div>
+                            <div>
+                              <h4 style=""> <span class="ideaname"><%= bp.title %></span> <% if bp.emb_link? %><%= image_tag("VideoIcon.png", :alt =>'VideoIcon', :class => "fc-icons") %><% end %> <% if bp.ext_link? %><%= image_tag("LinkIcon1.png", :alt =>'LinkIcon1', :class => "fc-icons") %><% end %><% if bp.documents? %><%= image_tag("docicon.png", :alt =>'docicon', :class => "fc-icons") %><% end %><% if bp.audio? %><%= image_tag("AudioIcon.png", :alt =>'AudioIcon', :class => "fc-icons") %><% end %></h4>
+                            </div>
+                            <div class="description" style="color:#303030;">
+                              <%= truncate(bp.body, :length => 100) %>
+                            </div>
+                            <div style="padding-top: 10px;">
+                              <% unless bp.likers(User).count == 0 %>
+                              <%if bp.likers(User).count == 1 %><span class="orangenum"><%= bp.likers(User).count %></span> <span class="bluelike">Like</span><%else%><span class="orangenum"><%= bp.likers(User).count %></span> <span class="bluelike"> Likes</span><%end%>
+                              <% end %>
+                              <% unless bp.comments.count == 0 %> 
+                              <% if bp.comments.count == 1 %><span class="orangenum"><%= bp.comments.count %></span> <span class="bluelike"> Comment</span><%else%><span class="orangenum"><%= bp.comments.count %></span> <span class="bluelike"> Comments</span><%end%>
+                              <% end %>
+                            </div>
+                            <div class="bottom">
+                            <center>
+                              <%= link_to "see full idea", best_practice_path(bp), :class => "learnbutton" %>
+                            </center>
+                          </div>
+                            </div>
+                            <% end %>
+                          </div>
+                        </div>
+                      </div>
+                       <h3 class="splash-header">Post <%= @communications %> Idea</h3>
+                      <%= render 'best_practices/form', :category => @communications %>
+                  </div>    
+                </div>
+                <div class="tab-pane" id="tab-four">
+                     <% @customerservice = "Customer Service" %>
+                  <div class="tab-content-spacing">
+                        <h3 class="splash-header">View <%= @customerservice %> Idea</h3>
+                         <div class="row" id="vsa_list">
+                        <div class="span2"></div>
+                        <div class="span9 filter" style="margin-left:0px;">
+                          <div id="vsas">
+                            <% BestPractice.with_category("Customer Service").each do |bp| %>
+                            <div class="vsa result">
+                              <div class="head" style="padding-bottom:1px;">
+                              <div>
+                              <h4 class="opphead" style="padding-top:10px;">idea</h4>
+                            </div>
+                            </div>
+                            <div>
+                              <h4 style=""> <span class="ideaname"><%= bp.title %></span> <% if bp.emb_link? %><%= image_tag("VideoIcon.png", :alt =>'VideoIcon', :class => "fc-icons") %><% end %> <% if bp.ext_link? %><%= image_tag("LinkIcon1.png", :alt =>'LinkIcon1', :class => "fc-icons") %><% end %><% if bp.documents? %><%= image_tag("docicon.png", :alt =>'docicon', :class => "fc-icons") %><% end %><% if bp.audio? %><%= image_tag("AudioIcon.png", :alt =>'AudioIcon', :class => "fc-icons") %><% end %></h4>
+                            </div>
+                            <div class="description" style="color:#303030;">
+                              <%= truncate(bp.body, :length => 100) %>
+                            </div>
+                            <div style="padding-top: 10px;">
+                              <% unless bp.likers(User).count == 0 %>
+                              <%if bp.likers(User).count == 1 %><span class="orangenum"><%= bp.likers(User).count %></span> <span class="bluelike">Like</span><%else%><span class="orangenum"><%= bp.likers(User).count %></span> <span class="bluelike"> Likes</span><%end%>
+                              <% end %>
+                              <% unless bp.comments.count == 0 %> 
+                              <% if bp.comments.count == 1 %><span class="orangenum"><%= bp.comments.count %></span> <span class="bluelike"> Comment</span><%else%><span class="orangenum"><%= bp.comments.count %></span> <span class="bluelike"> Comments</span><%end%>
+                              <% end %>
+                            </div>
+                            <div class="bottom">
+                            <center>
+                              <%= link_to "see full idea", best_practice_path(bp), :class => "learnbutton" %>
+                            </center>
+                          </div>
+                            </div>
+                            <% end %>
+                          </div>
+                        </div>
+                      </div>
+                         <h3 class="splash-header">Post <%= @customerservice %> Idea</h3>
+                      <%= render 'best_practices/form', :category => @customerservice  %>
+                  </div>  
+                </div>
+                 <div class="tab-pane" id="tab-five">
+                   <% @projectmanagement = "Project Management" %>
+                  <div class="tab-content-spacing">
+                        <h3 class="splash-header">View <%= @projectmanagement %> Idea</h3>
+                         <div class="row" id="vsa_list">
+                        <div class="span2"></div>
+                        <div class="span9 filter" style="margin-left:0px;">
+                          <div id="vsas">
+                            <% BestPractice.with_category("Project Management").each do |bp| %>
+                            <div class="vsa result" >
+                              <div class="head" style="padding-bottom:1px;">
+                              <div>
+                              <h4 class="opphead" style="padding-top:10px;">idea</h4>
+                            </div>
+                            </div>
+                            <div>
+                              <h4 style=""> <span class="ideaname"><%= bp.title %></span> <% if bp.emb_link? %><%= image_tag("VideoIcon.png", :alt =>'VideoIcon', :class => "fc-icons") %><% end %> <% if bp.ext_link? %><%= image_tag("LinkIcon1.png", :alt =>'LinkIcon1', :class => "fc-icons") %><% end %><% if bp.documents? %><%= image_tag("docicon.png", :alt =>'docicon', :class => "fc-icons") %><% end %><% if bp.audio? %><%= image_tag("AudioIcon.png", :alt =>'AudioIcon', :class => "fc-icons") %><% end %></h4>
+                            </div>
+                            <div class="description" style="color:#303030;">
+                              <%= truncate(bp.body, :length => 100) %>
+                            </div>
+                            <div style="padding-top: 10px;">
+                              <% unless bp.likers(User).count == 0 %>
+                              <%if bp.likers(User).count == 1 %><span class="orangenum"><%= bp.likers(User).count %></span> <span class="bluelike">Like</span><%else%><span class="orangenum"><%= bp.likers(User).count %></span> <span class="bluelike"> Likes</span><%end%>
+                              <% end %>
+                              <% unless bp.comments.count == 0 %> 
+                              <% if bp.comments.count == 1 %><span class="orangenum"><%= bp.comments.count %></span> <span class="bluelike"> Comment</span><%else%><span class="orangenum"><%= bp.comments.count %></span> <span class="bluelike"> Comments</span><%end%>
+                              <% end %>
+                            </div>
+                            <div class="bottom">
+                            <center>
+                              <%= link_to "see full idea", best_practice_path(bp), :class => "learnbutton" %>
+                            </center>
+                          </div>
+                            </div>
+                            <% end %>
+                          </div>
+                        </div>
+                      </div>
+                         <h3 class="splash-header">Post <%= @projectmanagement %> Idea</h3>
+                      <%= render 'best_practices/form', :category => @projectmanagement  %>
+                  </div>  
+                </div> 
+                <div class="tab-pane" id="tab-six">
+                     <% @employeerecognition = "Employee Recognition" %>
+                  <div class="tab-content-spacing">
+                        <h3 class="splash-header">View <%= @employeerecognition %> Idea</h3>
+                         <div class="row" id="vsa_list">
+                        <div class="span2"></div>
+                        <div class="span9 filter" style="margin-left:0px;">
+                          <div id="vsas">
+                            <% BestPractice.with_category("Employee Recognition").each do |bp| %>
+                            <div class="vsa result">
+                              <div class="head" style="padding-bottom:1px;">
+                              <div>
+                              <h4 class="opphead" style="padding-top:10px;">idea</h4>
+                            </div>
+                            </div>
+                            <div>
+                              <h4 style=""> <span class="ideaname"><%= bp.title %></span> <% if bp.emb_link? %><%= image_tag("VideoIcon.png", :alt =>'VideoIcon', :class => "fc-icons") %><% end %> <% if bp.ext_link? %><%= image_tag("LinkIcon1.png", :alt =>'LinkIcon1', :class => "fc-icons") %><% end %><% if bp.documents? %><%= image_tag("docicon.png", :alt =>'docicon', :class => "fc-icons") %><% end %><% if bp.audio? %><%= image_tag("AudioIcon.png", :alt =>'AudioIcon', :class => "fc-icons") %><% end %></h4>
+                            </div>
+                            <div class="description" style="color:#303030;">
+                              <%= truncate(bp.body, :length => 100) %>
+                            </div>
+                            <div style="padding-top: 10px;">
+                              <% unless bp.likers(User).count == 0 %>
+                              <%if bp.likers(User).count == 1 %><span class="orangenum"><%= bp.likers(User).count %></span> <span class="bluelike">Like</span><%else%><span class="orangenum"><%= bp.likers(User).count %></span> <span class="bluelike"> Likes</span><%end%>
+                              <% end %>
+                              <% unless bp.comments.count == 0 %> 
+                              <% if bp.comments.count == 1 %><span class="orangenum"><%= bp.comments.count %></span> <span class="bluelike"> Comment</span><%else%><span class="orangenum"><%= bp.comments.count %></span> <span class="bluelike"> Comments</span><%end%>
+                              <% end %>
+                            </div>
+                            <div class="bottom">
+                            <center>
+                              <%= link_to "see full idea", best_practice_path(bp), :class => "learnbutton" %>
+                            </center>
+                          </div>
+                            </div>
+                            <% end %>
+                          </div>
+                        </div>
+                      </div>
+                         <h3 class="splash-header">Post <%= @employeerecognition %> Idea</h3>
+                      <%= render 'best_practices/form', :category => @employeerecognition  %>
+                  </div>  
+                </div> 
+                <div class="tab-pane" id="tab-seven">
+                  <div class="tab-content-spacing">
+                    <h3 class="splash-header">View External Resources</h3>
+                      <ul>
+                        <li class="">Administrator Contact Information: <%= mail_to "zmccool@performancegpa.com", "Zac McCool" %></li>
+                        <%  FastContent.in_organization(1000).each do |fc| %>
+                        <li class=""><%= link_to fc.topic, fast_content_path(fc), :class => "" %>
+                          <% if fc.emb_link? %><%= image_tag("VideoIcon.png", :alt =>'VideoIcon', :class => "fc-icons") %><% end %> <% if fc.ext_link? %><%= image_tag("LinkIcon1.png", :alt =>'LinkIcon1', :class => "fc-icons") %><% end %><% if fc.documents? %><%= image_tag("dociconblack.png", :alt =>'dociconblack', :class => "fc-icons") %><% end %><% if fc.audio? %><%= image_tag("AudioIcon.png", :alt =>'AudioIcon', :class => "fc-icons") %><% end %></li>
+                        <% end %>
+                      </ul> 
+                      <h3 class="splash-header">View Internal Resources</h3>
+                        <ul>
+                          <%  FastContent.in_organization(7).each do |fc| %>
+                          <li class=""><b><%= link_to fc.topic, fast_content_path(fc), :class => " " %></b>
+                            <% if fc.emb_link? %><%= image_tag("VideoIcon.png", :alt =>'VideoIcon', :class => "fc-icons") %><% end %> <% if fc.ext_link? %><%= image_tag("LinkIcon1.png", :alt =>'LinkIcon1', :class => "fc-icons") %><% end %><% if fc.documents? %><%= image_tag("dociconblack.png", :alt =>'dociconblack', :class => "fc-icons") %><% end %><% if fc.audio? %><%= image_tag("AudioIcon.png", :alt =>'AudioIcon', :class => "fc-icons") %><% end %></li>
+                          <% end %>
+                        </ul>
+                  </div>    
+                </div> 
+                 
+            </div> 
+        </div> 

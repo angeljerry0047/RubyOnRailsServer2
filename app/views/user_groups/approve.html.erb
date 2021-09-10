@@ -1,0 +1,6 @@
+
+<% if @user_group_admin.map{|usr| usr.id}.include?(current_user.id) %>
+  <%= render 'user_group_owner_approve', :user_group => @user_group %>
+<% elsif current_user == @user_group.member %>
+  <%= render 'user_group_approve', :user_group => @user_group %>
+<% end %>

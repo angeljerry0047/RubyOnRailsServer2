@@ -1,0 +1,2 @@
+web:    RAILS_ENV=development bundle exec rails s
+worker: RAILS_ENV=development bundle exec rake resque:work QUEUE=* WORKERS=1

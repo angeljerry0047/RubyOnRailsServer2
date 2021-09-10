@@ -1,0 +1,22 @@
+<% pacs.each_slice(3) do |row| %>
+  <div class='row past'>
+    <% row.each do |vsa| %>
+      <div class='span4'>
+        <div class="result" style="height:auto">
+          <div class="head">
+            <h4 class="">
+              <%= vsa.title %>
+            </h4>
+          </div>
+          <div class="description" style="height:130px">
+            <h5>Objectives:</h5>
+            <p><%= truncate vsa.learning_objectives, :length => 40, :omission => "..." %></p>
+            <center>
+              <%= link_to "View Team", pac_path(vsa), :class =>"btn btn-large btn-primary roundedge" %>
+            </center>
+          </div>
+        </div>
+      </div>
+  <% end %>
+</div>
+<% end %>

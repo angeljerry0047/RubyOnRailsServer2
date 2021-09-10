@@ -1,0 +1,36 @@
+<% opportunities.each_slice(3) do |row| %>
+  <div class='row past'>
+    <% row.each do |opp| %>
+      <div class='span4'>
+         <div class="result" style="height:auto;">
+          <div>
+            <h4>
+              <%= truncate opp.title, :length => 20, :omission => '' %>
+            </h4>
+            <div>
+              <% opp.feedbacks.each do |feedback| %>
+              <div class="feedback">
+                <div><em><%= opp.opportunity_category.competencies[0].name %>:</em>
+                  <% unless feedback.q1 == 0 %>
+                  <%= feedback.answer(feedback.q1) %>
+                  <% end %>
+                </div>
+                <div><em><%= opp.opportunity_category.competencies[1].name %>:</em>
+                  <% unless feedback.q2 == 0 %>
+                  <%= feedback.answer(feedback.q2) %>
+                  <% end %>
+                </div>
+                <div><em><%= opp.opportunity_category.competencies[2].name %>:</em>
+                  <% unless feedback.q3 == 0 %>
+                  <%= feedback.answer(feedback.q3) %>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+<% end %>
+</div>
+<% end %>

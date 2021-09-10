@@ -1,0 +1,114 @@
+<%= stylesheet_link_tag "application/organizations", :media => "all" %>
+<div class="row form-wrap">
+  <div class="span12">
+
+    <h2>Company Profile</h2>
+
+    <%= simple_form_for(@organization) do |f| %>
+
+    <div class="row">
+        <fieldset>
+          <div class="span2"><legend>Company Logo</legend></div>
+          <%# TODO get companies imported here and/or upload functionality %>
+          <div class="span10"><%= image_tag("missing-avatar1.png", :alt=> 'missing-avatar1') %></div>
+          <div class="span10 offset2">
+            <%= f.input :avatar, as: :file %>
+            <%= f.hidden_field :avatar_cache %>
+          </div>
+        </fieldset>
+      </div>
+
+
+
+      <div class="row">
+        <fieldset>
+          <div class="span2"><legend>Company Banner</legend>
+            <p>Image Size 851x315</p></div>
+          <%# TODO get companies imported here and/or upload functionality %>
+          <div class="span10"><%= image_tag("missing-avatar1.png",:alt=> 'missing-avatar1') %></div>
+          <div class="span10 offset2">
+            <%= f.input :banner, as: :file %>
+            <%= f.input :banner_cache, as: :hidden %>
+          </div>
+        </fieldset>
+      </div>
+
+
+  <div class="row">
+        <fieldset>
+          <div class="span10">
+            <%= f.input :title, :autofocus => true, input_html: { class: "span8"} %>
+            * Public Facing Description <a href="#etip" onmouseover="tooltip.pop(this, '#etip')">(?)</a><br/>
+            <%= f.text_area :description, :required => true, :class => "span8", :style => "height:3em;" %>
+            <br/>* Internal Description <a href="#intip" onmouseover="tooltip.pop(this, '#intip')">(?)</a><br/>
+            <%= f.text_area :int_description, :required => true, :class => "span8", :style => "height:3em;" %>
+            <div style="display:none;">
+                <div id="etip">
+                    <p>This text will be displayed on your external, public facing splash page. This information will be the only text on your page describing who and what you are about.</p>
+                </div>
+            </div>
+            <div style="display:none;">
+                <div id="intip">
+                    <p>This text will be displayed on your internal page under the "Home" tab for only your organization to see.</p>
+                </div>
+            </div>
+
+            <%#TODO need this? f.input :industry, input_html: { class: "span8"} %>
+
+            <%= f.input :industry_id, collection: Industry.all.map {|c| [c.title, c.id]}, :input_html => { class: "span8"} %>
+
+            <%= f.input :website, :required => true, input_html: { class: "span8"}, :placeholder => "Website Address" %>
+
+
+          </div>
+        </fieldset>
+      </div>
+
+
+      <div class="row">
+        <fieldset>
+          <div class="span2"><legend>Location</legend></div>
+          <div class="span10">
+            <%= f.input :city, :placeholder =>"", label: "City", input_html: { class: "span4 offset1"} %>
+            <%= f.input :state, :placeholder =>"", label: "State", input_html: { class: "span4"} %>
+          </div>
+        </fieldset>
+      </div>
+      <div class="row">
+       <fieldset>
+        <div class="span2"><legend>Learning Categories</legend></div>
+        <div class="span10">
+              <% for best_practice_category in @organization.best_practice_categories %>
+              <%= fields_for "organization[bp_categories][]", best_practice_category do |cat| %>
+                  <p>
+                  Category: <%= cat.text_field :title, :index => nil %>
+                  <% unless best_practice_category.new_record? %>
+                    <%= cat.hidden_field :id, :index => nil %>
+                    <%= select_tag 'organization[bp_categories][][active_tab]', options_for_select([["Active", 1], ["Inactive", 0]], best_practice_category.active_tab ? 1 : 0), :style => "width:90px;" %>
+                    <% end %>
+                <%end %>
+                </p>
+              <% end %>
+
+
+                <%= fields_for "organization[bp_categories][]", BestPracticeCategory.new do |cat| %>
+                <p>
+                Add New Category: <%= cat.text_field :title %>
+                <%= cat.hidden_field :active_tab, :value => 1 %>
+              </p>
+
+              <% end %>
+
+         </fieldset>
+      </div>
+
+      <div class="row">
+        <div class="span2">
+          <%= f.button :submit, 'Create', :class => 'btn btn-large btn-primary roundedge' %>
+        </div>
+      </div>
+    <% end %>
+
+
+  </div>
+</div>

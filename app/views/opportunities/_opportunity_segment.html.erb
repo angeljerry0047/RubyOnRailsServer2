@@ -1,0 +1,50 @@
+<div class='opportunity_segment <%= defined?(hidden) && hidden ? 'hidden': '' %>'>
+  <% if opportunity.errors.count > 0 %>
+  	  <% opportunity.errors.each do |attribute, error|  %>	 
+      	<%= bootstrap_alert(content_tag(:p, error)) %>
+      	
+  	  <% end %>	
+  <% end %>
+    <div class="row">
+      <div class="span7">
+        <%= hidden_field_tag 'opportunities[][id]', opportunity.id %>
+        <%= hidden_field_tag 'opportunities[][owner_id]', (defined?(historical) && historical) ? nil : current_user.id %>
+        <%= hidden_field_tag 'opportunities[][ghost]', !!defined?(hidden) && hidden, :class => 'ghost_opportunity_segment' %>
+        
+        <%= render 'opportunities/form', :opportunity => opportunity, :type => type %>
+      </div>
+    </div>
+
+    <div class="control-group <%= field_class(opportunity, :location) %>">
+      <%= label_tag "opportunities[][location]", "Location", :class => "control-label"  %>
+      <div class="controls">
+        <%= text_field_tag 'opportunities[][location]', opportunity.location, :placeholder =>"", :class => "span3 required", maxlength: 5 %>
+        <span class="help-inline">This field is required</span>
+      </div>
+    </div>
+
+    <div class="control-group <%= field_class(opportunity, :start_date) %>">
+      <%= label_tag "opportunities[][start_date]", "Start Date", :class => "control-label"  %>
+      <div class="controls">
+        <%= date_select 'opportunities[][start_date]', opportunity.start_date, :class => "span3 required" %>
+        <span class="help-inline">This field is required</span>
+      </div>
+    </div>
+
+    <div class="control-group <%= field_class(opportunity, :deadline_date) %>">
+      <%= label_tag "opportunities[][deadline_date]", "End Date", :class => "control-label"  %>
+      <div class="controls">
+        <%= date_select 'opportunities[][deadline_date]', opportunity.deadline_date, :class => "span3 required" %>
+        <span class="help-inline">This field is required</span>
+      </div>
+    </div>
+
+    <div class="control-group <%= field_class(opportunity, :meeting_time) %>">
+      <%= label_tag "opportunities[][meeting_time]", "Meeting Day & Time", :class => "control-label"  %>
+      <div class="controls">
+        <%= text_field_tag 'opportunities[][meeting_time]', opportunity.meeting_time, :placeholder =>"", :class => "span3 required", maxlength: 5 %>
+        <span class="help-inline">This field is required</span>
+      </div>
+    </div>
+  
+</div>

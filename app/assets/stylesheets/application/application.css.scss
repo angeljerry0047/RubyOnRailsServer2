@@ -1,0 +1,126 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+ *= require chosen
+ *= require jquery-ui/autocomplete
+ *= require jquery-ui/datepicker
+ *= require feature-carousel
+ *= require_tree .
+ */
+ 
+.container {
+  display: block;
+  position: relative;
+}
+
+.content {
+  background-color: #eee;
+  /* padding-top: 15px; */
+  /*margin: 0 0px; negative indent the amount of the padding to maintain the grid system */
+  -webkit-border-radius: 0 0 6px 6px;
+  -moz-border-radius: 0 0 6px 6px;
+  border-radius: 0 0 6px 6px;
+  -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+  -moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+  box-shadow: 0 1px 2px rgba(0,0,0,.15);
+  display: block;
+  position: relative;
+}
+
+.tooltip {
+    display:none;
+    background:transparent url(/media/img/tooltip/black_arrow.png);
+    font-size:12px;
+    height:70px;
+    width:160px;
+    padding:25px;
+    color:#eee;
+  }
+
+body #main {
+  /* padding: 15px 0px; */
+  display: block;
+  position: relative;
+}
+#map{
+  display: block;
+  width: 95%;
+  height: 350px;
+  margin: 0 auto;
+  -moz-box-shadow: 0px 5px 20px #ccc;
+  -webkit-box-shadow: 0px 5px 20px #ccc;
+  box-shadow: 0px 5px 20px #ccc;
+}
+#map.large{
+  height:500px;
+}
+
+.overlay{
+  display:block;
+  text-align:center;
+  color:#fff;
+  font-size:60px;
+  line-height:80px;
+  opacity:0.8;
+  background:#4477aa;
+  border:solid 3px #336699;
+  border-radius:4px;
+  box-shadow:2px 2px 10px #333;
+  text-shadow:1px 1px 1px #666;
+  padding:0 4px;
+}
+
+.overlay_arrow{
+  left:50%;
+  margin-left:-16px;
+  width:0;
+  height:0;
+  position:absolute;
+}
+.overlay_arrow.above{
+  bottom:-15px;
+  border-left:16px solid transparent;
+  border-right:16px solid transparent;
+  border-top:16px solid #336699;
+}
+.overlay_arrow.below{
+  top:-15px;
+  border-left:16px solid transparent;
+  border-right:16px solid transparent;
+  border-bottom:16px solid #336699;
+}
+
+.flash {
+  position: relative;
+  text-align: center;
+  color: #fff;
+  font-size: 28px;
+  font-family: 'Roboto', sans-serif;
+//  background-color: #e47b2c;
+  border: 0;
+  padding: 10px 0px;
+  .close {
+    position: absolute !important;
+    right: 15px !important;
+  }
+  img {
+    margin-right: 25px;
+    vertical-align: middle;
+  }
+}
+
+.roundedge{
+  border-radius:2px !important;
+}
+
+.form-actions.no-background {
+  background-color: #fff;
+}

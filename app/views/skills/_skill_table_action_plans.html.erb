@@ -1,0 +1,78 @@
+<% action_plans.each_slice(3) do |row| %>
+  <div class='row past'>
+    <% row.each do |vsa| %>
+    <% if vsa.class.name == "MentorActionPlan" %>
+      <div class='span4'>
+         <div class="result">
+          <div class="head" style="height:35px;">
+            <h4 class="">
+              <%= vsa.participant_name %>
+            </h4>
+          </div>
+            <div class="description" style="height:190px;">
+              <h5>Mentee's Action Items:</h5>
+              <p><%= truncate vsa.participant_action_items, :length => 40, :omission => "..." %></p>
+       
+            
+              <h5>Mentor's Action Items:</h5>
+              <p><%= truncate vsa.mentor_action_items, :length => 40, :omission => "..." %></p>
+            
+              <h5>Success Indicators:</h5>
+              <p><%= truncate vsa.success_indicators, :length => 40, :omission => "..." %></p>
+            </div>
+       
+          <center>
+            <%= link_to "Show Plan", mentor_action_plan_path(vsa), :class =>"btn btn-large btn-primary roundedge" %>
+          </center>
+        </div>
+      </div>
+      <% elsif vsa.class.name == "CoachActionPlan" %>
+      <div class='span4'>
+         <div class="result">
+          <div class="head" style="height:35px;">
+            <h4 class="">
+              <%= vsa.participant_name %>
+            </h4>
+            </div>
+            <div class="description" style="height:190px;">
+              <h5>Participant's Action Items:</h5>
+              <p><%= truncate vsa.participant_action_items, :length => 40, :omission => "..." %></p>
+            
+              <h5>Coach's Action Items:</h5>
+              <p><%= truncate vsa.coach_action_items, :length => 40, :omission => "..." %></p>
+            
+              <h5>Success Indicators:</h5>
+              <p><%= truncate vsa.success_indicators, :length => 40, :omission => "..." %></p>
+            </div>
+          <center>
+            <%= link_to "Show Plan", coach_action_plan_path(vsa), :class =>"btn btn-large btn-primary roundedge" %>
+          </center>
+        </div>
+      </div>
+  <% else %>
+      <div class='span4'>
+         <div class="result">
+          <div class="head" style="height:35px;">
+            <h4 class="">
+              <%= vsa.liason_name %>
+            </h4>
+            </div>
+            <div class="description" style="height:190px;">
+              <h5>Liaison's Action Items:</h5>
+              <p><%= truncate vsa.liason_action_items, :length => 40, :omission => "..." %></p>
+            
+              <h5>Volunteer's Action Items:</h5>
+              <p><%= truncate vsa.volunteer_action_items, :length => 40, :omission => "..." %></p>
+          
+              <h5>Success Indicators:</h5>
+              <p><%= truncate vsa.success_indicators, :length => 40, :omission => "..." %></p>
+            </div>
+          <center>
+            <%= link_to "Show Plan", volunteer_action_plan_path(vsa), :class =>"btn btn-large btn-primary roundedge" %>
+          </center>
+        </div>
+      </div>
+<% end %>
+<% end %>
+</div>
+<% end %>

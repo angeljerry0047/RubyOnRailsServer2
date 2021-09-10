@@ -1,0 +1,25 @@
+production:
+  consumer_key: 3MVG9A2kN3Bn17hv4VUmjdZZrVr0k4Zyn5XHFA__5UgxzSqASVVjsQM_VWpgWmSHUKSWGJOYl.rVtk3.8qzx9
+  consumer_secret: 7398539554025272070
+  client_id: 3MVG9A2kN3Bn17hv4VUmjdZZrVr0k4Zyn5XHFA__5UgxzSqASVVjsQM_VWpgWmSHUKSWGJOYl.rVtk3.8qzx9
+  client_secret: 7398539554025272070
+
+# NOTE (cmhobbs) should test and development credentials mirror production or are there
+#      sandbox environments available?
+development:
+  consumer_key: 3MVG9A2kN3Bn17hv4VUmjdZZrVr0k4Zyn5XHFA__5UgxzSqASVVjsQM_VWpgWmSHUKSWGJOYl.rVtk3.8qzx9
+  consumer_secret: 7398539554025272070
+  client_id: 3MVG9A2kN3Bn17hv4VUmjdZZrVr0k4Zyn5XHFA__5UgxzSqASVVjsQM_VWpgWmSHUKSWGJOYl.rVtk3.8qzx9
+  client_secret: 7398539554025272070
+
+test:
+  consumer_key: 3MVG9A2kN3Bn17hv4VUmjdZZrVr0k4Zyn5XHFA__5UgxzSqASVVjsQM_VWpgWmSHUKSWGJOYl.rVtk3.8qzx9
+  consumer_secret: 7398539554025272070
+  client_id: 3MVG9A2kN3Bn17hv4VUmjdZZrVr0k4Zyn5XHFA__5UgxzSqASVVjsQM_VWpgWmSHUKSWGJOYl.rVtk3.8qzx9
+  client_secret: 7398539554025272070
+
+staging:
+  consumer_key: 3MVG9A2kN3Bn17hv4VUmjdZZrVr0k4Zyn5XHFA__5UgxzSqASVVjsQM_VWpgWmSHUKSWGJOYl.rVtk3.8qzx9
+  consumer_secret: 7398539554025272070
+  client_id: 3MVG9A2kN3Bn17hv4VUmjdZZrVr0k4Zyn5XHFA__5UgxzSqASVVjsQM_VWpgWmSHUKSWGJOYl.rVtk3.8qzx9
+  client_secret: 7398539554025272070

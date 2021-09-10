@@ -1,0 +1,9 @@
+<% if parent.children.count > 0 %>
+  <optgroup label='<%= parent.title %>'>
+    <% parent.children.find_each do |c| %>
+      <%= render 'shared/optgroup', :parent => c %>
+    <% end %>
+  </optgroup>
+<% else %>
+  <option value='<%= parent.id %>'><%= parent.title %></option>
+<% end %>

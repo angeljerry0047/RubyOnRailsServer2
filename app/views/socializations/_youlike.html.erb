@@ -1,0 +1,14 @@
+<% if @socializable.likers(User).count > 1 %>
+  You and <%= @socializable.likers(User).count-1 %> other colleagues <a href="#itip" onmouseover="tooltip.pop(this, '#itip')">like</a> this.
+<div style="display:none;">
+  <div id="itip">
+    <% @socializable.likers(User).each do |liker| %>
+      <% unless liker == current_user %>
+      <%= link_to liker.name, user_path(liker) %><br/>
+  <% end %>
+  <% end %>
+  </div>
+</div>
+<%else%>
+  You liked this insight.
+<%end%>

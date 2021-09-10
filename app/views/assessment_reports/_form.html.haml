@@ -1,0 +1,61 @@
+= simple_form_for(@assessment_report) do |f|
+  = f.error_notification
+  = display_base_errors(@assessment_report)
+  = f.hidden_field :assessment_id
+  = f.hidden_field :user_id
+  %div{:id => "form-accordian"}
+    - @assessment_report.assessment.question_groups.each_with_index do |grp, i|
+      %div{:class => "carousel slide", :"data-interval"=>"false"}
+        %div{:class => "group-header"}
+          %div{:class => "#{grp.name} icon"}
+            = image_tag "icon_#{grp.name}.png"
+          %div{:class => "counter"}
+            completed 
+            %span{:class => "checkedCount" }
+              0
+            of 
+            = grp.questions.length
+          %h4
+            Section
+            = i+1
+
+        %div{:class => "collapse-group"}
+          %table{:class => "table item"}
+            %tr
+              %th{:colspan => "2"}
+                %th{:class => "frequency", :colspan => "5"}
+                  Behavior Frequency
+            %tr
+              %th{:class => "question behavior", :colspan => "2"}
+                Behavior
+              - ['Never', 'Seldom', 'Sometimes', 'Often', 'Always'].each do |h|
+                %th{:class => "rating"}
+                  =h
+
+          %div{:class => "carousel-inner"}
+            - grp.questions.each_with_index do |q,i|
+              - if i.zero?
+                <table class="table item active">
+
+              %tr{:class => (@assessment_report.response_for(q).nil? ? 'error' : '') }
+                %td{:class => "number"}
+                  =(i+1).to_s+'.'
+                %td{:class => "question"}
+                  = q.text
+                  = hidden_field_tag "assessment_report[user_answers][#{grp.name}#{i}][question_id]", q.id
+                - (0..4).each do |l|
+                  %td{:class => "rating"}
+                    %label
+                      = radio_button_tag "assessment_report[user_answers][#{grp.name}#{i}][likert_response]", 
+                        l, 
+                        l == @assessment_report.response_for(q)
+
+              - if ((i+1) % 5).zero? && !i.zero?
+                </table>
+                - if i < grp.questions.length - 1 
+                  <table class="table item">
+          %a{:class => "btn btn-large btn-info next roundedge"}
+            Next Set of Questions >
+          %span{:class => "alert"}
+            Please answer all questions before moving to the next set.
+          %br{:class => "clear"}

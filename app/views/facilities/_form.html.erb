@@ -1,0 +1,52 @@
+<%= stylesheet_link_tag "application/fast_content", :media => "all" %>
+<%= form_for(@facility) do |f| %>
+  <% if @facility.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@facility.errors.count, "error") %> prohibited this facility from being saved:</h2>
+
+      <ul>
+      <% @facility.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<div class="span7">  
+<br/>
+  <div class="field">
+    <%= f.label :name, "Name *" %>
+    <%= f.text_field :name, :required => true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :address, "Address *" %>
+    <%= f.text_field :address, :required => true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :city, "City *" %>
+    <%= f.text_field :city, :required => true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :state, "State *" %>
+    <%= f.text_field :state, :required => true %>
+  </div>
+  
+  <div class="field">
+    <%= f.label 'Approval Contact Name *' %>
+    <%= f.text_field :approval_name, :required => true %>
+  </div>
+
+  <div class="field">
+    <%= f.label 'Approval Contact Email *' %>
+    <%= f.text_field :approval_mail, :required => true %>
+  </div>
+  
+  <div class="actions" style="padding-bottom:10px;">
+    <%= f.submit 'Create New Facility', class: 'btn btn-large btn-primary roundedge' %>
+  </div>
+<b style="font-size:18px;">* Required</b>
+<% end %>
+
+</div>

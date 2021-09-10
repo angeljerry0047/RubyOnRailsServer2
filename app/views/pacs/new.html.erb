@@ -1,0 +1,26 @@
+<%= stylesheet_link_tag "application/pac", :media => "all" %>
+<% title "submit a collaboration team" %>
+<div class="row" id="new_opp">
+	<div class="span12" >
+		<%if @best_practice_category %>
+			<h1>submit a <%=@best_practice_category.title.downcase %> collaboration team</h2> <h2>Start by creating the title for your new team</h4>
+		<%else%>
+			<div class="headline">submit a collaboration team</div>
+		<%end%>
+	</div>
+</div>
+
+<div class="row">
+	<div class="span12">
+		<%= simple_form_for(@pac) do |f| %>
+		<%= render 'pac_segment', :pac => @pac %>
+		<div style="">
+		<%= @best_practice_category_id %>
+					<%= f.hidden_field :best_practice_category_id, :value => @best_practice_category_id %>
+          <%= f.button :submit, 'Select team members', :class => 'btn btn-large btn-primary roundedge', :id => 'btnCreate' %>
+		</div>
+		<% end %>
+	</div>
+</div>
+
+<%= render 'devise/registrations/auto_complete_org_name' %>

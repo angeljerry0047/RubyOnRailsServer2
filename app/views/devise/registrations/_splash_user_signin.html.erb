@@ -1,0 +1,9 @@
+ <h3>Already a Member</h3>
+  <div style="clear:both; margin-top:10px;"><%= form_for("user", :url => user_session_path) do |f| %>
+  <div style="line-height:1px;"><%= f.text_field :email, :label => false, :placeholder => 'Email Address', :style => 'margin-bottom: 5px; float:left;'  %>
+  <div style="line-height:1px;">
+  <%= f.password_field :password, :label => false, :placeholder => 'Password' %></div><br />
+  <div style="margin-bottom:30px; line-height:1px;">
+    <%= f.submit 'Join In Person', :class => 'btn btn-large btn-primary roundedge', :id => 'submit' %> <div style="float:left; text-align:center; width:30px; height:44px; line-height:44px;"></div>
+  <%= f.submit 'Join Virtually', :class => 'btn btn-large btn-primary roundedge', :id => 'submit' %> <div style="float:left; text-align:center; width:45px; height:44px; line-height:44px;"></div>  
+</div><%end%></div></div>

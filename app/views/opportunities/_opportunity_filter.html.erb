@@ -1,0 +1,177 @@
+<h4>Learning Objectives</h4>
+<div class="row">
+	<label class="span3">
+		<div class="control-group <%= field_class(opportunity, :learning_objectives) %>">
+			<div class="controls">
+				<%= text_field_tag 'opportunities[][learning_objectives]', opportunity.learning_objectives, maxlength: 100, :placeholder =>"", :class => "span5 required" %>
+				<span class="help-inline">This field is required</span>
+			</div>
+		</div> </label>
+</div>
+
+<h4>Choose Content Delivery Option</h4>
+<div class="row">
+	<label class="span2">
+		<div class="control-group <%= field_class(opportunity, :opportunity_type) %>">
+      	<div class="controls">                            
+        <%= select_tag 'opportunities[][opportunity_type_id]', options_for_select(@oppotunity_types.collect{ |oc| [oc.name,oc.id]}, opportunity.opportunity_type.try(:id)), :include_blank => true, :placeholder => "", :class =>"locale required",
+       			:'data-remote' => 'true', # important for UJS
+				:'data-url' => url_for(:action => 'getType'), # we get the data from here!
+				:'data-type' => 'json' %>
+				<span class="help-inline">This field is required</span>
+			</div>
+		</div> </label>
+</div>
+<%if opportunity.opportunity_type.present? && opportunity.opportunity_type.id != 1 %>
+<div id="online"> 
+<%else%>
+<div id="online" style="display:none;">
+<%end%>
+<h4>Online Location</h4>
+	<div class="row">
+		<label class="span3">
+			<div class="control-group <%= field_class(opportunity, :online_info) %>">
+				<%= label_tag "opportunities[][online_info]", "Online Info", :class => "control-label"  %>
+				<div class="controls">
+					<%= text_area_tag 'opportunities[][online_info]', opportunity.online_info, :placeholder =>"", rows: 3, :class => "input  span5 required" %>
+					<span class="help-inline">This field is required</span>
+				</div>
+			</div> </label>
+			<div style="clear:left; padding-left:22px;">
+				Please enter your web-conferencing information above. 
+			</div>
+	</div>
+</div>
+<%if opportunity.opportunity_type.present? && opportunity.opportunity_type.id == 1 %>
+<div id="location"> 
+<%else%>
+<div id="location" style="display:none;">
+<%end%>
+	<h4>Location</h4>
+	<div class="row">
+		<label class="span3">
+			<div class="control-group <%= field_class(opportunity, :city) %>">
+				<%= label_tag "opportunities[][city]", "City", :class => "control-label"  %>
+				<div class="controls">
+					<%= text_field_tag 'opportunities[][city]', opportunity.city, :placeholder =>"", :class => "span3 required" %>
+					<span class="help-inline">This field is required</span>
+				</div>
+			</div> </label>
+		<label class="span2">
+			<div class="control-group <%= field_class(opportunity, :state) %>">
+				<%= label_tag "opportunities[][state]", "State", :class => "control-label"  %>
+				<div class="controls">
+					<%= select_tag 'opportunities[][state]', options_for_select(
+					UsState.po_codes, opportunity.state),
+					:include_blank => true,
+					:placeholder => "",
+					:class =>"span2 required",
+					:'data-remote' => 'true', # important for UJS
+					:'data-url' => url_for(:action => 'getFacilities', :city => "my_id"), # we get the data from here!
+					:'data-type' => 'json' %>
+					<span class="help-inline">This field is required</span>
+				</div>
+			</div> </label>
+	</div>
+	<div class="row">
+
+		<label class="span2">
+			<div class="control-group <%= field_class(opportunity, :facility_id) %>">
+				<%= label_tag "opportunities[][facility]", "Facility", :class => "control-label"  %>
+				<div class="controls">
+					<%= select_tag 'facility_name_dropdown', options_for_select(
+					[['Please select a valid state value to fill this list',  opportunity.facility.try(:name)]]),
+					:placeholder => "",
+					:class =>"span5 required",
+					:'data-remote' => 'true', # important for UJS
+					:'data-url' => url_for(:action => 'getAddress'), # we get the data from here!
+					:'data-type' => 'json' %>
+					<%= hidden_field_tag 'opportunities[][facility_id]', opportunity.facility.try(:id), :class => "" %>
+					<span class="help-inline">This field is required</span>
+				</div>
+			</div> </label>
+	</div>
+	<div class="row" id="otherFacility">
+		<label class="span3">
+			<div class="control-group <%= field_class(opportunity, :facility_id) %>">
+				<%= label_tag "opportunities[][facility_name]", "Other Facility Name", :class => "control-label"  %>
+				<div class="controls">
+					<%= text_field_tag 'opportunities[][facility_name]', opportunity.facility.try(:name), :placeholder =>"", :class => "span5 required"%>
+					<span class="help-inline">This field is required</span>
+				</div>
+			</div> </label>
+	</div>
+
+	<div class="row" id="address">
+		<label class="span3">
+			<div class="control-group <%= field_class(opportunity, :facility_address) %>">
+				<%= label_tag "opportunities[][facility_address]", "Address", :class => "control-label"  %>
+				<div class="controls">
+					<%= text_field_tag 'opportunities[][facility_address]', opportunity.facility.try(:address), :placeholder =>"", :class => "span5 required facility-input" %>
+					<span class="help-inline">This field is required</span>
+					<%= hidden_field_tag 'opportunities[][facility_map_location]', opportunity.facility.try(:map_location), :class => "" %>
+				</div>
+			</div> </label>
+	</div>
+
+	<div id="map_to_pop_up">
+
+	 	
+	</div>
+
+	<div class="row" id="userName">
+		<label class="span3">
+			<div class="control-group <%= field_class(opportunity, :facility_approval_name) %>">
+				<%= label_tag "opportunities[][facility_approval_name]", "Facility Contact Name", :class => "control-label"  %>
+				<div class="controls">
+					<%= text_field_tag 'opportunities[][facility_approval_name]', opportunity.facility.try(:approval_name), :placeholder =>"", :class => "span5 required facility-input" %>
+					<span class="help-inline">This field is required</span>
+				</div>
+			</div> </label>
+	</div>
+
+	<div class="row" id="userMail">
+		<label class="span3">
+			<div class="control-group <%= field_class(opportunity, :facility_approval_mail) %>">
+				<%= label_tag "opportunities[][facility_approval_mail]", "Facility Contact Email", :class => "control-label"  %>
+				<div class="controls">
+					<%= text_field_tag 'opportunities[][facility_approval_mail]', opportunity.facility.try(:approval_mail), :placeholder =>"", :class => "span5 required facility-input" %>
+					<span class="help-inline">This field is required</span>
+				</div>
+			</div> </label>
+	</div>
+</div>
+
+<%= hidden_field_tag "opportunities[][start_month]", opportunity.start_month || Date.today.month %>
+<%= hidden_field_tag "opportunities[][start_year]", opportunity.start_year || Date.today.year %>
+<%= hidden_field_tag "opportunities[][end_month]", opportunity.end_month %>
+<%= hidden_field_tag "opportunities[][end_year]", opportunity.end_year %>
+
+<%= hidden_field_tag "opportunities[][min_hour]", opportunity.min_hour %>
+<%= hidden_field_tag "opportunities[][max_hour]", opportunity.max_hour %>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $( ".locale" ).change(function() {
+            if($(this).val() == 2) {
+              $('#location').hide();
+              $('#online').show();
+            }else if($(this).val() == 3) {
+              $('#location').hide();
+              $('#online').show();
+             }else if($(this).val() == 5){
+              $('#location').hide();
+              $('#online').show();
+            }else if($(this).val() == 4) {
+              $('#location').hide();
+              $('#online').show();
+            } else if($(this).val() == 1){
+              $('#online').hide();
+              $('#location').show();
+            }  else {
+              $('#online').hide();
+              $('#location').hide();
+            }
+        });
+        });
+</script>

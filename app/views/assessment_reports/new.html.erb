@@ -1,0 +1,15 @@
+<%= javascript_include_tag "assessment_new" %>
+<div class="" id="assessment-new">
+  <div class="row">
+    <div class="span12">
+      <h2 class="page title">
+        Welcome <%= current_user.name %>
+      <br/>
+        to your serve2perform® Assessment!
+      </h2>
+      <h4 class="page title-sec">Answer the questions below.</h4>
+      <p>Please complete the questions for all three sections.</p>
+      <%= render 'form' %>
+    </div>
+  </div>
+</div>

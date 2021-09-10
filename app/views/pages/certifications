@@ -1,0 +1,10 @@
+<%= stylesheet_link_tag "application/pages", :media => "all" %>
+<%= javascript_include_tag "application/tabs" %>
+
+<div class="board">
+  <h2>Certifications</h2>
+
+  <div class="headline" style="padding-left:0;">Spring – Northwest Arkansas</div>
+  <div style="width:100%; text-align:left;"><iframe src="//eventbrite.com/tickets-external?eid=28736108474&ref=etckt" frameborder="0" height="350" width="100%" vspace="0" hspace="0" marginheight="5" marginwidth="5" scrolling="auto" allowtransparency="true"></iframe></div>
+</div>
+

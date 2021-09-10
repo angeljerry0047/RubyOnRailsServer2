@@ -1,0 +1,238 @@
+@import "master";
+
+html, body{
+  display: block;
+  height: 100%;
+  position: relative;
+}
+
+.landing{
+  background-color: $nutral-color2;
+
+  .landing-nav{
+    background-color: $primary-color;
+    display: block;
+    left: 0;
+    position: static;
+    top: 0;
+    width: 100%;
+    .nav-logo{
+      background-color: $primary-color;
+      background: url('/assets/s2pLogoWhite.png') no-repeat;
+      background-size: contain;
+      float: left;
+      height: 32px;
+      margin: 16px;
+      position: relative;
+      width: 190px;
+    }
+    .nav-button{
+      background-color: $primary-color;
+      box-sizing: border-box;
+      color: $nutral-color1;
+      cursor: pointer;
+      float: left;
+      font: $subhead;
+      height: 64px;
+      padding: 22px 16px;
+      position: relative;
+      transition: $fast;
+      &:hover{
+        background-color: $primary-color-dark;
+        text-decoration: none;
+      }
+      &:visited{
+        text-decoration: none;
+      }
+    }
+    .nav-button.right{
+      float: right;
+    }
+  }
+
+  .hero-image{
+    background-image: image-url("landing2.jpg");
+  }
+
+  .container{
+    background-color: transparent;
+    box-sizing: border-box;
+    box-shadow: none;
+    display: block;
+    margin: 0 auto 16px;
+    //max-width: 908px;
+    max-width: 940px;
+    padding: 16px;
+    position: relative;
+    //margin-top: 80px;
+    width: 100%;
+    .image-overlay-section{
+      background-color: $nutral-color1;
+      display: block;
+      height: 200px;
+      overflow: hidden;
+      position: relative;
+      width: 100%;
+      .image-container{
+        display: block;
+        height: 100%;
+        overflow: hidden;
+        position: absolute;
+        width: 100%;
+        img{
+          display: block;
+          left: 50%;
+          max-height: 518px;
+          min-height: 100%;
+          max-width: 940px;
+          position: absolute;
+          top: 50%;
+          transform: translate(-50%, -50%);
+          -webkit-transform: translate(-50%, -50%);
+          -ms-transform: translate(-50%, -50%);
+        }
+      }
+      .landing-color-overlay{
+        background-color: $primary-color;
+        margin-top: 50px;
+        opacity: 0.5;
+        position: absolute;
+        height: 100px;
+        width: 100%;
+      }
+      .landing-overlay-text{
+        box-sizing: border-box;
+        color: $nutral-color1;
+        display: block;
+        height: 100px;
+        margin-top: 25px;
+        padding: 5%;
+        position: relative;
+        width: 100%;
+        .landing-headline{
+          font: $display1;
+          font-size: 48px;
+          line-height: 64px;
+          text-align: center;
+          span{
+            font-size: 36px;
+            font-style: italic;
+          }
+        }
+      }
+    }
+  }
+
+  .landing-hero-image{
+    max-height: 300px;
+  }
+
+  .body{
+    padding-bottom: 16px;
+  }
+
+  h1.headline{
+    color: $primary-color;
+    font-size: 52px;
+  }
+
+  h3{
+    font: $title;
+    margin-bottom: 4px;
+    padding-top: 16px;
+  }
+
+  .subhead{
+    font: $subhead;
+    padding-bottom: 1em;
+  }
+
+  ul{
+    font: $subhead;
+    margin-left: 16px;
+    li{
+      //font-style: italic;
+      padding: 12px 0;
+    }
+  }
+
+  .list-post-expander{
+    overflow: hidden;
+    transition: all 0.5s;
+  }
+
+  .view-more{
+    color: $nutral-color3;
+    cursor: pointer;
+    padding: 0 0 8px;
+    text-decoration: underline;
+    &:hover{
+      color: $nutral-color4;
+    }
+  }
+  
+}
+
+
+/* phone ================================================== */
+
+@media (max-width: $phone-max) {
+
+  .landing{
+    .landing-nav{
+      .nav-logo{
+        background-position: center;
+        margin: 16px 0;
+        text-align: center;
+        width: 100%;
+      }
+      .nav-button{
+        height: 48px;
+        padding: 16px;
+        text-align: center;
+        width: 100%;
+      }
+      .nav-button.right{
+        //background-color: $primary-color-dark;
+        width: 50%;
+        &:hover{
+          //background-color: $nutral-color4;
+        }
+      }
+    }
+
+    .container{
+      .image-overlay-section{
+        .landing-overlay-text{
+          .landing-headline{
+            font-size: 32px;
+            line-height: 48px;
+            span{
+              font-size: 24px
+            }
+          }
+        }
+      }
+      h1.headline{
+        font-size: 28px;
+      }
+    }
+
+    .floater{
+      float: none;
+      padding: 0;
+      width: 100%;
+      .button-float{
+        //box-sizing: border-box;
+        float: none;
+        padding: 8px;
+        width: 100%;
+        .btn-primary{
+          margin: auto;
+        }
+      }
+    }
+  }
+
+}
+

@@ -1,0 +1,21 @@
+<div id="panel" style="display: none;">
+	<div class="pac-contents">
+		<center>
+		  <b>TEAM:</b>
+		  <%= pac.title %>
+		</center>
+
+		<p>
+		  <center><b>team members:</b></center>
+		  <table class="pac-table">
+		  <%= render(pac.pac_members) %>
+		  </table>
+		</p>
+		<% unless pac.id == nil %>
+		<%= link_to "Finalize", edit_pac_path(pac), :class => "btn btn-primary", :style => "margin-bottom:6px;" %>
+		<%= link_to "Cancel team", cancel_pacs_path(:id => pac), :class => "btn btn-primary", :style => "margin-bottom:6px;", 
+			data: { confirm: 'Are you sure?'} %>
+		<% end %>
+	</div>	
+</div>
+<p class="slide"><a href="#" class="btn-slide">Team Panel</a></p>

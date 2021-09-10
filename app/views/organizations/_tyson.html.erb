@@ -1,0 +1,97 @@
+<div class="tabbable full-width-tabs">
+            <ul class="nav nav-tabs nav-justified">
+                <li class="active take-all-space-you-can"><a href="#tab-one" data-toggle="tab">Home</a></li>
+                <li class="take-all-space-you-can"><a href="#tab-two" data-toggle="tab">Employee Retention</a></li>
+                <li class="take-all-space-you-can"><a href="#tab-three" data-toggle="tab">Safety</a></li>
+                <li class="take-all-space-you-can"><a href="#tab-four" data-toggle="tab">Information Systems</a></li>
+                <li class="take-all-space-you-can"><a href="#tab-five" data-toggle="tab">Resources</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab-one">
+                  <div class="tab-content-spacing">
+                    <h4 class="splash-header-ty">Who We Are</h4>
+                    <p>We are a company of people engaged in the production of food, seeking to pursue truth and integrity, and committed to creating value for our shareholders, our customers, our Team Members, and our communities.</p>
+                    <ul>
+                      <li class="line-spacing">We strive to be a company of diverse people.</li>
+                      <li class="line-spacing">We strive to be honorable.</li>
+                      <li class="line-spacing">We strive to be a faith-friendly company.</li>
+                    </ul> 
+                    <h4 class="splash-header-ty">What We Do</h4>
+                    <ul>
+                      <li class="line-spacing">We feed our families, the nation, and the world with trusted food products.</li>
+                      <li class="line-spacing">We serve as stewards of the animals, land, and environment entrusted to us.</li>
+                      <li class="line-spacing">We strive to provide a safe work environment for our Team Members.</li>
+                    </ul>
+                    <h4 class="splash-header-ty">How We Do It</h4>
+                    <ul>
+                      <li class="line-spacing">We strive to earn consistent and satisfactory profits for our shareholders and to invest in our people, products, and processes.</li>
+                      <li class="line-spacing">We strive to operate with integrity and trust in all we do</li>
+                      <li class="line-spacing">We strive to honor God and be respectful of each other, our customers, and other stakeholders.</li>
+                    </ul>                     
+                  </div>
+                </div>
+                <div class="tab-pane" id="tab-two">
+                  <div class="tab-content-spacing">
+                      <h3 class="splash-header">View Idea</h3>
+                       <ul>
+                       <% BestPractice.with_category("Employee Retention").each do |bp| %>
+                       <li><b><%= link_to bp.title, best_practice_path(bp), :class => ""  %></b> <% if bp.emb_link? %><%= image_tag("VideoIcon.png", :class => "fc-icons") %><% end %> <% if bp.ext_link? %><%= image_tag("LinkIcon1.png", :class => "fc-icons") %><% end %><% if bp.documents? %><%= image_tag("DocIcon.png", :class => "fc-icons") %><% end %><% if bp.audio? %><%= image_tag("AudioIcon.png", :class => "fc-icons") %><% end %></li>
+                       <% end %>
+                      </ul> 
+                      <h3 class="splash-header">Post Idea</h3>
+                       <% @employee = "Employee Retention" %>
+                       <%= render 'best_practices/form', :category => @employee %>
+                   </div>       
+                </div>
+                <div class="tab-pane" id="tab-three">
+                  <div class="tab-content-spacing">
+                      <h3 class="splash-header">View Idea</h3>
+                       <ul>
+                       <% BestPractice.with_category("Safety").each do |bp| %>
+                       <% if bp.user.organization_id == 42 %><li><b><%= link_to bp.title, best_practice_path(bp), :class => ""  %></b> <% if bp.emb_link? %><%= image_tag("VideoIcon.png", :class => "fc-icons") %><% end %> <% if bp.ext_link? %><%= image_tag("LinkIcon1.png", :class => "fc-icons") %><% end %><% if bp.documents? %><%= image_tag("DocIcon.png", :class => "fc-icons") %><% end %><% if bp.audio? %><%= image_tag("AudioIcon.png", :class => "fc-icons") %><% end %></li>
+                       <% end %>
+                       <% end %>
+                      </ul>
+                      <h3 class="splash-header">Post Idea</h3>
+                      <% @tysafety = "Safety" %>
+                      <%= render 'best_practices/form', :category => @tysafety %>
+                  </div>    
+                </div>
+                <div class="tab-pane" id="tab-four">
+                  <div class="tab-content-spacing">
+                        <h3 class="splash-header">View Idea</h3>
+                         <ul>
+                          <% BestPractice.with_category("Information Systems").each do |bp| %>
+                          <li><b><%= link_to bp.title, best_practice_path(bp), :class => ""  %></b> <% if bp.emb_link? %><%= image_tag("VideoIcon.png", :class => "fc-icons") %><% end %> <% if bp.ext_link? %><%= image_tag("LinkIcon1.png", :class => "fc-icons") %><% end %><% if bp.documents? %><%= image_tag("DocIcon.png", :class => "fc-icons") %><% end %><% if bp.audio? %><%= image_tag("AudioIcon.png", :class => "fc-icons") %><% end %></li>
+                         <% end %>
+                         </ul>
+                         <h3 class="splash-header">Post Idea</h3>
+                      <% @infosys = "Information Systems" %>
+                      <%= render 'best_practices/form', :category => @infosys  %>
+                  </div>  
+                </div> 
+                <div class="tab-pane" id="tab-five">
+                  <div class="tab-content-spacing">
+                    <h3 class="splash-header">View External Resources</h3>
+                      <ul>
+                        <%# NOTE (cmhobbs) is this some kind of placeholder? %>
+                        <li class="">Administrator Contact Information:XXXXXXXXXXXX</li>
+                        <li class=""><a href="http://www.amazon.com/PerformanceGPA-Achieving-Performance-Through-Service/dp/1478714417/ref=sr_1_3_title_1_har?s=books&ie=UTF8&qid=1389388411&sr=1-3&keywords=performance+gpa" target="_blank" style="color:#0088cc;">PerformanceGPA&reg; Book</a></li>
+                        <li class=""><a href="/docs/White_Paper.pdf" target="_blank" style="color:#0088cc;"> serve2perform Whitepaper</a></li>
+                        <%  FastContent.in_organization(4).each do |fc| %>
+                        <li class=""><%= link_to fc.topic, fast_content_path(fc), :class => "" %>
+                          <% if fc.emb_link? %><%= image_tag("VideoIcon.png", :class => "fc-icons") %><% end %> <% if fc.ext_link? %><%= image_tag("LinkIcon1.png", :class => "fc-icons") %><% end %><% if fc.documents? %><%= image_tag("DocIcon.png", :class => "fc-icons") %><% end %><% if fc.audio? %><%= image_tag("AudioIcon.png", :class => "fc-icons") %><% end %></li>
+                        <% end %>
+                      </ul> 
+                      <h3 class="splash-header">View Internal Resources</h3>
+                        <ul>
+                          <%  FastContent.in_organization(5).each do |fc| %>
+                          <li class=""><%= link_to fc.topic, fast_content_path(fc), :class => " " %>
+                            <% if fc.emb_link? %><%= image_tag("VideoIcon.png", :class => "fc-icons") %><% end %> <% if fc.ext_link? %><%= image_tag("LinkIcon1.png", :class => "fc-icons") %><% end %><% if fc.documents? %><%= image_tag("DocIcon.png", :class => "fc-icons") %><% end %><% if fc.audio? %><%= image_tag("AudioIcon.png", :class => "fc-icons") %><% end %></li>
+                          <% end %>
+                        </ul>
+                  </div>    
+                </div> 
+                 
+            </div> 
+        </div> 

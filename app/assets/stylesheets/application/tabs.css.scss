@@ -1,0 +1,106 @@
+@import "master";
+
+
+/* general ================================================== */
+
+.board.tabs{
+  padding-top: 0px;
+}
+.tabs-header{
+  border-bottom: 1px $nutral-color2 solid;
+  height: 56px;
+  .tab-container{
+    display: block;
+    height: 100%;
+    margin: 0 auto;
+    max-width: 600px;
+    position: relative;
+    .tab{
+      color: $nutral-color3;
+      cursor: pointer;
+      display: block;
+      float: left;
+      font: $knockout-title;
+      text-transform: uppercase;
+      height: 100%;
+      line-height: 56px;
+      min-width: 72px;
+      text-align: center;
+      @include transition(all, $fast, ease-in-out);
+      &:hover{
+        background-color: $nutral-color2;
+      }
+    }
+    .active-tab{
+      color: $primary-color;
+    }
+    .tab-indicator{
+      background-color: $primary-color;
+      bottom: 0;
+      left: 0;
+      right: 200px;
+      height: 2px;
+      position: absolute;
+    }
+  }
+}
+
+.tab-panel{
+  border: 0px solid transparent;
+  box-sizing: border-box;
+  display: none;
+  height: auto;
+  //min-height: 100px;
+  overflow: hidden;
+  position: relative;
+  visibility: visible;
+  width: 100%;
+  .panel-subhead{
+    color: $nutral-color3;
+    font: $subhead;
+    font-weight: bold;
+  }
+  .panel-text{
+    border: 0px solid transparent;
+    box-sizing: border-box;
+    color: $nutral-color3;
+    font: $subhead;
+    padding: 32px 16px;
+    text-align: center;
+  }
+}
+.tab-panel[data-index="0"]{
+  display: block;
+}
+
+
+/* desktop ================================================== */
+
+@media (min-width: $desktop-min) {
+
+
+  
+}
+
+
+/* tablet ================================================== */
+
+@media (min-width: $tablet-min) and (max-width: $tablet-max) {
+
+  
+
+}
+
+/* phone ================================================== */
+
+@media (max-width: $phone-max) {
+
+  .tabs-header{
+    .tab-container{
+      .tab{
+        font-size: 11px;
+      }
+    }
+  }
+
+}

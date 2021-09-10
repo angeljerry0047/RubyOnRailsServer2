@@ -1,0 +1,98 @@
+<%= stylesheet_link_tag "application/inquiry", :media => "all" %>
+<%= form_for(@inquiry, html: { multipart: true }) do |f| %>
+  <% if @inquiry.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@inquiry.errors.count, "error") %> prohibited this inquiry from being saved:</h2>
+
+      <ul>
+      <% @inquiry.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<div class="span7">
+  <% unless defined? group %>
+      <div class="row">
+        <label class="span2">
+          <div class="control-group">
+            <div class="controls">
+              <%= label_tag "Group *" %>
+              <%= select_tag 'inquiry[organization_id]', options_for_select(all_groups_sorted.collect { |group| [group.title, group.id] }), include_blank: true, :class => "required" %>
+              <span class="help-inline">This field is required</span>
+            </div>
+          </div>
+        </label>
+      </div>
+    <% end %>
+  <% unless defined? category %>
+  <div class="row">
+
+    <!--
+    <div class="field input-dropdown-container">
+      <%#= f.hidden_field :category, :name => "category" %>
+      <%#= f.hidden_field :best_practice_category_id, :name => "category-id" %>
+      <div class="input-dropdown">Category *</div>
+      <div class="arrow"></div>
+      <div class="dropdown-option-container">
+        <%# BestPracticeCategory.is_public.sort_by{ |bp| [bp.title]}.collect{ |bp| [bp.title,bp.id]}.each do |option| %>
+          <div class="dropdown-option" data-category=<%#=option[0]%> data-category-id=<%#=option[1]%>>
+            <%#=option[0]%>
+          </div>
+        <%# end %>
+      </div>
+    </div>
+    -->
+
+    <label class="span2">
+      <div class="control-group">
+        <div class="controls">
+          <%= label_tag "Category *" %>
+          <%= select_tag 'inquiry[best_practice_category_id]', options_for_select(BestPracticeCategory.is_public.sort_by{ |bp| [bp.title]}.collect{ |bp| [bp.title,bp.id]}), include_blank: true, :class => "required" %>
+          <span class="help-inline">This field is required</span>
+        </div>
+      </div>
+    </label>
+
+  </div>
+  <% end %>
+
+  <div class="field" style="width:90%;">
+    <%= f.label "Title *" %><p class="tabbertab-lbreak"></p>
+    <%= f.text_field :title, :required => true %>
+    <span class="help-inline">This field is required</span>
+    <% if defined? category %>
+      <%= f.hidden_field :best_practice_category_id, :value => best_practice_category_id %>
+      <%= f.hidden_field :category, :value => category %>
+    <% end %>
+  </div>
+
+  <div class="field" style="width:90%;">
+    <% if defined? category %>
+    <%= f.label "What is your #{category} question? *" %><p class="tabbertab-lbreak"></p>
+    <% else %>
+    <%= f.label "What is your question? *" %><p class="tabbertab-lbreak"></p>
+    <% end %>
+    <%= f.text_area :body, :cols => 30, :rows => 5, :required => true %>
+  </div>
+
+  <div class="field"><label>File</label></div>
+    <%# TODO get companies imported here and/or upload functionality %>
+    <div class="field">
+      <%= f.file_field :documents %>
+      <%= f.hidden_field :documents_cache %>
+    </div>
+
+
+  <div class="actions" style="padding-top:20px;">
+    <%= f.submit "Post Question", :class => 'btn btn-large btn-primary roundedge' %>
+  </div>
+  <br/ >
+  <b>* Required</b>
+
+  <%#= f.hidden_field :organization_id, :value => @organization_id %>
+  <%= f.hidden_field :is_public, :value => false %>
+
+<% end %>
+</div>

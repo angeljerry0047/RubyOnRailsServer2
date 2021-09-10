@@ -1,0 +1,25 @@
+<h1>Listing volunteer_action_plans</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Opportunity</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @volunteer_action_plans.each do |volunteer_action_plan| %>
+  <tr>
+    <td><%= volunteer_action_plan.user_id %></td>
+    <td><%= volunteer_action_plan.opportunity_id %></td>
+    <td><%= link_to 'Show', volunteer_action_plan %></td>
+    <td><%= link_to 'Edit', edit_volunteer_action_plan_path(volunteer_action_plan) %></td>
+    <td><%= link_to 'Destroy', volunteer_action_plan, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Volunteer action plan', new_volunteer_action_plan_path %>

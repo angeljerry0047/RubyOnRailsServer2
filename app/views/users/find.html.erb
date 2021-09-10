@@ -1,0 +1,157 @@
+<%= stylesheet_link_tag "users", :media => "all" %>
+<%= stylesheet_link_tag "application/list-post", :media => "all" %>
+<% title "find members" %>
+
+  <center> 
+         <h2 class="knockout">
+        find members
+      </h2>
+      <!-- <h3>
+        Use the search bar or the filter to find your perfect match
+      </h3> -->
+    </center>
+
+      <center style="display: none;"><label for="text">Search by name, email, company, area of <a href="#itip" onmouseover="tooltip.pop(this, '#itip')">interest</a>, or <a href="#ctip" onmouseover="tooltip.pop(this, '#ctip')">competency</a></label></center>
+        <div style="display:none;">
+            <div id="itip">
+                <b>Arts</b></br>
+                <b>Civic Engagement</b></br>
+                <b>Community Development</b></br>
+                <b>Diversity and Inclusion</b></br>
+                <b>Economic Development</b></br>
+                <b>Education</b></br>
+                <b>Envrionmental Sustainability</b></br>
+                <b>Leadership Development</b></br>
+                <b>Politics</b></br>
+                <b>Recreation</b></br>
+                <b>Social Justice</b></br>
+                <b>Sports</b></br>
+                <b>Technology</b></br>
+                <b>Veterans Affairs</b></br>
+                <b>Volunteerism</b></br>
+                <b>Workforce Development</b>
+            </div>
+        </div>
+        <div style="display:none;">
+            <div id="ctip">
+                <b>Adaptability</b></br>
+                <b>Agile</b></br>
+                <b>Attentive listener</b></br>
+                <b>Authentic leadership</b></br>
+                <b>Business acumen</b></br>
+                <b>Change management</b></br>
+                <b>Collaborative and inclusive</b></br>
+                <b>Communication</b></br>
+                <b>Complex problem solving</b></br>
+                <b>Critical thinking</b></br>
+                <b>Cross cultrual competency</b></br>
+                <b>Customer service</b></br>
+                <b>Decision making</b></br>
+                <b>Emotional intelligence</b></br>
+                <b>Executive presence</b></br>
+                <b>Finance and accounting</b><br/>
+                <b>High network quotient</b></br>
+                <b>Legal savvy</b></br>
+                <b>Marketing</b></br>
+                <b>Metrics and evaluation</b></br>
+                <b>Mission mindend</b></br>
+                <b>Negotiation</b></br>
+                <b>Pace setter</b></br>
+                <b>Political savvy</b></br>
+                <b>Proficient generalist</b></br>
+                <b>Project management</b></br>
+                <b>Public relations</b></br>
+                <b>Public speaking</b></br>
+                <b>Purpose driven</b></br>
+                <b>Relationship management</b></br>
+                <b>Sales</b></br>
+                <b>Self awareness</b><br/>
+                <b>Strategic thinking</b></br>
+                <b>Succession planning</b></br>
+                <b>Talent development</b></br>
+                <b>Talent management</b></br>
+                <b>Team building</b></br>
+                <b>Visionary</b>
+            </div>
+        </div>
+      <div class="user-search">
+      	<form action"/users/findUser">
+          <div class="search-input-holder">
+      			<input type="text" name="searchUser">
+          </div>
+    			<input type="submit" value="SEARCH" class="btn-primary"/>
+        </form>       
+      </div>
+      
+      
+      <%if @users!= nil%>
+        <div class="filter">
+          <div class="search-results-header">
+            Member Search Results: 
+            <span class="count"><%=@users.length%> member(s) found</span>
+          </div>
+
+          <%if @users.length == 0%>
+             No users found. Try searching again with different criteria.
+          <%else%>
+
+            <% Array(@users).each_with_index do |user, i| %>
+              <% if User.exists?(:id => user.id) %>
+                <div class="list-post user-list">
+
+                  <%= link_to user_path(user.id), :class => "ripple-button" do %>
+                    <div class="list-user">
+                      <div class="user-chip">
+                        <div class="user-image">
+                          <%= image_tag User.find(user.id).avatar.url %>
+                        </div>
+                        <div class="user-name">
+                          <%= User.find(user.id).name %>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="clear"></div>
+                  <% end #link to user path %>
+
+                </div>
+              <% end %>
+            <% end %>
+            <div class="clear"></div>
+              
+          <% end %>
+        </div>
+        <%end
+        if @search == ''
+      			flash.now.alert = "Enter a valid search criteria"
+      		end
+        %>
+       
+  </div>
+</div>
+
+    <div>
+        <% unless @pac.empty? || @pacpage %>
+      
+        <%= form_tag invite_pac_members_path do %>
+        <center>
+        <h4>Don't see your colleague in our network?</h4>
+        <h4>Send them an invite to join serve2perform and your collaboration team!</h4>
+        </center>
+        <div style="text-align:center;padding-left:165px; ">
+            <div class="span3">
+              <%= label_tag "name", "Name" %>
+              <%= text_field_tag "name", "", :placeholder => "Your colleagues name", :required => 'required' %>
+            </div>
+            <div class="span3">
+              <%= label_tag "emails", "Email address"%>
+              <%= text_field_tag "emails", "", :placeholder => "Your colleagues email", :required => 'required' %>
+            </div>
+            <div class="span1" style="padding-top:24px;">
+              <%= submit_tag 'Invite', :class => "btn btn-primary btn-large roundedge" %>
+            </div>
+          </div>
+        <% end %>
+      
+      <% end %>
+    </div>
+

@@ -1,0 +1,70 @@
+<%= form_for(@collaboration_circle) do |f| %>
+  <% if @collaboration_circle.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@collaboration_circle.errors.count, "error") %> prohibited this collaboration_circle from being saved:</h2>
+
+      <ul>
+      <% @collaboration_circle.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%#= f.hidden_field :facilitator_id, :value => current_user.id %>
+  </div>
+  <% unless defined? group %>
+    <div class="control-group">
+      <div class="controls">
+        <%= label_tag "Group" %>                           
+        <%= select_tag 'collaboration_circle[organization_id]', options_for_select(all_groups_sorted.collect { |group| [group.title, group.id] }), include_blank: true, :required => true %>
+      </div>
+    </div>
+  <% end %>
+  <div class="field">
+    <%= f.label :title %>
+    <%= f.text_field :title, :required => true %>
+  </div>
+  <div class="field">
+    <%= f.label :description %>
+    <%= f.text_area :description, :rows => "4", :required => true %>
+  </div>
+  <div class="field">
+    <%= f.label :expectations %>
+    <%= f.text_area :expectations, :rows => "4", :required => true %>
+  </div>
+  <div class="field">
+    <%= f.label :min_attendees %>
+    <%= f.number_field :min_attendees, :required => true %>
+  </div>
+  <div class="field">
+    <%= f.label :max_attendees %>
+    <%= f.number_field :max_attendees, :required => true %>
+  </div>
+  <div class="field">
+    <%= f.label :location %>
+    <%= f.text_area :location, :rows => "4", :required => true %>
+  </div>
+  <div class="field">
+    <%= f.label :start_date %>
+    <%= f.date_select :start_date, :required => true %>
+  </div>
+  <div class="field">
+    <%= f.label :end_date %>
+    <%= f.date_select :end_date, :required => true %>
+  </div>
+  <div class="field">
+    <%= f.label :meeting_time, "Meeting Day & Time" %>
+    <%= f.text_field :meeting_time, :required => true %>
+  </div>
+  <!--
+  <div class="field">
+    <%#= f.label :location_option %><br />
+    <%#= f.text_field :location_option %>
+  </div>
+  -->
+  <div class="actions">
+    <%= f.submit "Post", :class => "btn-primary" %>
+  </div>
+<% end %>

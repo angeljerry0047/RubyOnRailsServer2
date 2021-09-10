@@ -1,0 +1,101 @@
+<%= stylesheet_link_tag "application/badge-table", :media => "all" %>
+<table class="badge-table">
+  <!--
+  <tr class="tbltall">
+    <th class="lefty">Online Achievement Badges:</th>
+    <th><div><%= image_tag "collaborator2021.png" , :alt =>'collaborator2015', :style => "max-width: 100px"%></div>Collaborator</th>
+    <th><div><%= image_tag "ideator2021.png", :alt =>'ideator2015', :style => "max-width: 100px" %></div>Ideator</th>
+    <th><div><%= image_tag "mentor2021.png", :alt =>'advisor2015', :style => "max-width: 100px" %></div>Mentor</th>
+    <th><div><%= image_tag "stakeholder2021.png" , :alt =>'stakeholder2015', :style => "max-width: 100px"%></div>Stakeholder</th>
+    <th><div><%= image_tag "teacher2021.png" , :alt =>'teacher2015', :style => "max-width: 100px"%></div>Teacher</th>
+  </tr>
+  <tr class="skinny points">
+    <td class="lefty">Points needed:</td>
+    <td>3</td>
+    <td>5</td>
+    <td>3</td>
+    <td>1</td>
+    <td>1</td>
+  </tr>
+  <tr class="skinny how-to">
+    <td class="lefty">How to earn</br>a point:</td>
+    <td>Be the creator of a collaboration team or register for a mentoring connection</td>
+    <td>Post an idea that gets at least three likes and one comment</td>
+    <td>Mentor one person and submit an action plan</td>
+    <td>Volunteer one time and submit an action plan</td>
+    <td>Post one Job Shadowing opportunity</td>
+  </tr>
+  -->
+  <tr class="tbltall">
+    <th class="lefty">Colleague Awarded Badges:</th>
+    <th><div><%= image_tag "changeagent2020.png" , :alt =>'changeAgent2020', :style => "max-width: 100px"%></div>Change Agent</th>
+    <th><div><%= image_tag "communicator2021.png", :alt =>'communicator2020', :style => "max-width: 100px" %></div>Communicator</th>
+    <th NOWRAP><div><%= image_tag "thoughtleader2021.png" , :alt =>'thoughtLeader2020', :style => "max-width: 100px"%></div>Thought Leader</th>
+    <th><div><%= image_tag "rolemodel2021.png" , :alt =>'roleModel2020' , :style => "max-width: 100px"%></div>Role Model</th>
+    <th NOWRAP><div><%= image_tag "servantleader2021.png", :alt =>'servantLeader2020', :style => "max-width: 100px" %></div>Servant Leader</th>
+  </tr>
+  <tr class="skinny how-to">
+    <td class="lefty">How to</br>recieve badge:</td>
+    <td>Go out of your way to engage others in continuous improvement</td>
+    <td>Be a brief and concise messenger</td>
+    <td>Share useful insights with colleagues</td>
+    <td>Be a good example that other colleagues look up to</td>
+    <td>Invest your time and expertise to help others</td>
+  </tr>
+</table>
+
+<table class="badge-table mobile">
+  <tr class="tbltall">
+    <th class="">Online Achievement Badges:</th>
+    <td class="">How to</br>recieve badge:</td>
+  </tr>
+  <tr class="">
+    <th><div><%= image_tag "2015CollaboratorBadge.png" , :alt =>'collaborator2015', :style => "max-width: 100px"%></div>Collaborator</th>
+    <td>Be the creator of three collaboration teams or register for three mentoring connections</td>
+  </tr>
+  <tr class="">
+    <th><div><%= image_tag "2015Ideator.png", :alt =>'ideator2015', :style => "max-width: 100px" %></div>Ideator</th>
+    <td>Post five On the Job Insights that get at least three likes and one comment</td>
+  </tr>
+  <tr class="">
+    <th><div><%= image_tag "2015AdvisorBadge.png", :alt =>'advisor2015', :style => "max-width: 100px" %></div>Mentor</th>
+    <td>Mentor three people and submit action plans</td>
+  </tr>
+  <tr class="">
+    <th><div><%= image_tag "2015StakeholderBadge.png" , :alt =>'stakeholder2015', :style => "max-width: 100px"%></div>Stakeholder</th>
+    <td>Volunteer one time and submit an action plan</td>
+  </tr>
+  <tr class="">
+    <th><div><%= image_tag "2015TeacherBadge.png" , :alt =>'teacher2015', :style => "max-width: 100px"%></div>Teacher</th>
+    <td>Post one Job Shadowing opportunity</td>
+  </tr>
+
+  <tr class="tbltall">
+    <th class="">Colleague Awarded Badges:</th>
+    <td class="">How to</br>recieve badge:</td>
+  </tr>
+  <tr class="">
+    <th><div><%= image_tag "changeagent2020.png" , :alt =>'changeAgent2020', :style => "max-width: 100px"%></div>Change Agent</th>
+    <td>Go out of your way to engage others in continuous improvement</td>
+  </tr>
+  <tr class="">
+    <th><div><%= image_tag "communicator2020.png", :alt =>'communicator2020', :style => "max-width: 100px" %></div>Communicator</th>
+    <td>Be a brief and concise messenger</td>
+  </tr>
+  <tr class="">
+    <th><div><%= image_tag "thoughtleader2020.png" , :alt =>'thoughtLeader2020', :style => "max-width: 100px"%></div>Thought Leader</th>
+    <td>Share useful insights with colleagues</td>
+  </tr>
+  <tr class="">
+    <th><div><%= image_tag "rolemodel2020.png" , :alt =>'roleModel2020', :style => "max-width: 100px"%></div>Role Model</th>
+    <td>Be a good example that other colleagues look up to</td>
+  </tr>
+  <tr class="">
+    <th><div><%= image_tag "servantleader2020.png", :alt =>'servantLeader2020', :style => "max-width: 100px" %></div>Servant Leader</th>
+    <td>Invest your time and expertise to help others</td>
+  </tr>
+</table>
+
+<div class="clear"></div>
+<%= link_to "Award a Badge", find_recognitions_path, :class => "btn-primary", :style => "text-decoration: none; margin-left: 0;" %>
+

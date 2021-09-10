@@ -1,0 +1,42 @@
+<%= stylesheet_link_tag "application/organizations", :media => "all" %>
+<div class="headline" style="padding-left: 0;">Add members to <%= @organization.title %></div>
+  <div class="text-search">
+    <form action"/users/findUser">
+      <input type="text" name="searchUser" class="text">
+      <input type="submit" style="margin-left: 0;" value = "Search" class="btn-primary">
+      <div class="clear"></div>
+    </form>       
+  </div>
+  
+  <%if @users!= nil%>
+    <div class=""><%=@users.length%> member(s) found</div>
+    <div class="">Select members to add to group</div>
+    <%if @users.length == 0%>
+      Try searching again with different criteria.
+    <%else%>
+      <%= form_tag({ :action => 'add_users', :method => :post }) %>
+    	<%= form_tag({ :action => 'add_users', :method => :post }) %>
+      <% @users.each do |user| -%>
+        <div class="list-post user-list">
+          <div class="list-user">
+            <div class="user-chip">
+              <div class="user-image">
+                <%= image_tag user.avatar.url %>
+              </div>
+              <div class="user-name">
+                <%= user.name %>
+              </div>
+            </div>
+          </div>
+          <%= check_box_tag("user_ids[]", user.id, false)  %>
+          <%= image_tag "checkmark.png", :class => "checkmark" %>
+          <div class="clear"></div>
+        </div>
+      <% end %>
+      <div class="clear"></div>
+      <%= submit_tag "Add Members", :class => "btn-primary" %>
+    <%end%>          
+  <%end
+    if @search == ''
+      flash.now.alert = "Enter a valid search criteria"
+  end%>

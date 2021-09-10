@@ -1,0 +1,34 @@
+<%= stylesheet_link_tag "application/pac", :media => "all" %>
+<h1>Finalizing collaboration team</h1>
+<p>
+  <b>team members:</b>
+  <div>
+  	<div>
+		<table>
+		  <tbody>
+		    <% @users.each do |row| %>
+		      <tr>
+		        <% row.each do |column| %>
+		        <%= fields_for "users[]", column.member.name do |user_fields| %>
+		          <td><%= column.member.name %>
+		           <%= button_to 'Remove from team', column, :class => "btn btn-primary", method: :delete, 
+					data: { confirm: 'Are you sure?' } %>
+		          </td>
+		          <% end %>
+		        <% end %>
+		      </tr>
+		    <% end %>
+		  </tbody>
+		</table>
+	</div>  
+
+ <%= simple_form_for(@pac) do |f| %>
+<%= render 'pac_segment', :pac => @pac %>
+<%= f.button :submit, 'Submit team', :class => 'btn btn-large btn-primary roundedge'  %>
+<%= link_to "Cancel team", @pac, :class => "clear btn btn-large btn-primary roundedge", :method => :delete, 
+			data: { confirm: 'Are you sure?'} %>
+<% end %>
+</div>
+</p>
+
+<%= render 'form' %>

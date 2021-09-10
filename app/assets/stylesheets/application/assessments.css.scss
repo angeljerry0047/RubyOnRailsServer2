@@ -1,0 +1,543 @@
+@import "global_define";
+td.error {
+  background-color: #F00;
+}
+//Color Assignments 
+$purchase_bg: #2980b9;
+$purchase_h3: #005aff;
+$coupon_bg: #d35400;
+$coupon_h3: #005aff;
+$scholarship_bg: #92D050;
+$scholarship_h3: #00B050;
+$performance_h3: #005aff;
+
+body.assessment_reports.show{
+  .container{
+    background-color: transparent;
+    box-shadow: none;
+    width: 972px;
+  }
+}
+
+body.assessments, body.assessment_reports, .register_pde  {
+
+	h4 {
+ 		font-family: $opensansr;
+ 		font-size: 20px;
+	}
+	h5 {
+ 		font-size: 15px;
+ 		font-family: $opensansr;
+ 		text-transform: uppercase;
+ 		padding-bottom:5px;
+	}
+
+	date{
+		font-weight: normal;
+		color: #cfcfcf;
+		font-size: 90%;
+	}
+
+	.page.title {
+		font: $knockout-page-title;
+		margin: 30px 0;
+		text-align: center;
+		text-transform: uppercase;
+	}
+	.page.title-sec {
+		font: $knockout-title;
+		text-transform: uppercase;
+	}
+
+	table, .report{ 
+		background-color: $table_bg;
+		color: white;
+		margin-bottom: 0;
+	}
+
+	table{
+		td, th{
+			border-top-color: $table_border;
+			border-right: 1px solid $table_border;
+			vertical-align: middle;
+		}
+		tr.error td{
+			background-color: inherit;
+
+		}
+		tr.error td:first-child {
+			border-left: 10px solid red;
+		}
+	}
+	.report{
+		.score{
+			float: right;
+			padding-right: 20px;
+		}
+	}
+
+	#chart {
+		height: 395px;
+		width: 639px;
+		position:relative;
+		
+		img{
+			position: absolute;
+			left: 0px;
+			top: 0px;
+		}
+		.score-bar{
+			height:40px;
+			position:absolute;
+			left:114px;
+		  line-height: 35px;
+			
+			&.leadership {
+				top:50px;
+				color: $purchase_h3;
+				border: 1px solid $purchase_h3;
+			}
+
+			&.influence {
+				top:160px;
+				color: $coupon_h3;
+				border: 1px solid $coupon_h3;
+			}
+
+			&.performance {
+				top:275px;
+				color: $performance_h3;
+				border: 1px solid $performance_h3;
+			}
+		}
+
+	}
+	
+	.leadership {
+		background-color: $purchase_h3;
+	}
+	.influence {
+		background-color: $coupon_h3;
+	}
+	.performance {
+		background-color: $performance_h3;
+	}
+
+	.share{
+		.button {
+			margin-bottom: 20px;
+		}
+	}
+
+	.btn.next{
+		float: right;
+		display: block;
+	}
+	
+	.group-header{
+		color: white;
+		height: 61px;
+		.icon{
+			width: 61px;
+			height: 61px;
+			text-align: center;
+			vertical-align: middle;
+			float: left;
+			img{
+				padding-top: 8px;
+			}
+		}
+		h4 {
+			font-weight: normal;
+			padding: 20px 0 0 80px;
+		}
+		.counter{
+			float: right;
+			color: #999;
+			font-size: 12px;
+			margin: 25px 20px 0 0;
+		}	
+	}
+	.preamble-wrap{
+		padding: 20px;
+		td {
+			border: none;
+			padding-right: 15px;
+		}
+	}
+	.group-wrap {
+	 	background-color: transparent;
+	 	h4 {
+	 		margin: 0px;
+		}
+		.group-details {
+			margin-left: 60px;
+			padding: 20px;
+			background-color: $table_bg;
+			h5 {
+		 		padding-bottom:5px;
+		 	}
+		 	li {
+		 		margin-top: 10px;
+		 	}
+			p {
+			        color: #fff;
+			}
+		}
+	}
+
+	#assessment-new {
+		.page.title {
+			margin:10px 0 30px 0;
+		}
+		.group-header{
+			background-color: $table_bg;
+		}
+		td.number {
+			padding-left: 20px
+		}
+		th.rating, td.rating {
+			text-align: center;
+			min-width: 70px;
+			padding: 0px
+		}
+		td.rating {
+			height: 60px;
+			label {
+				line-height: 50px;
+				width: 100%;
+				height: 100%;
+				cursor: hand;
+				margin: 0px;
+			}
+			label:hover, label.checked {
+				background-color: $purchase_h3;
+			}
+		}
+
+		th.rating{
+			height:16px;
+			font-size: 12px;
+			font-weight: normal;
+		}
+		th.question, td.question {
+			width: 85%;	
+		}
+		th.behavior {
+			font-weight: normal;
+			padding-left: 20px;
+		}
+		th.frequency {
+			text-align: center;
+		}
+		.collapse-group {
+			display: none;
+			margin:0 0 30px 61px;
+		}
+		.alert{
+			float: right;
+			margin: 5px 10px;
+			display: none;
+		}
+	}
+
+	#assessment-signup {
+		text-align: center;
+		font-family: $opensansr;
+	}
+
+	#assessment-signup, #register-pde {
+		text-align: center;
+		font-family: $opensansr;
+
+		#gpa {
+			font-style: italic;
+		}
+
+		#tm {
+			font-weight: normal;
+			font-size: 26px;
+			vertical-align: top;
+		}
+
+		#selectPath {
+			margin-bottom: 30px;
+		}
+
+		#purchase, #coupon, #purchasePDE, #couponPDE, #scholarshipPDE {
+			color: #fff;
+			h3 {
+				font-size: 22px;
+				margin: 0;
+				padding: 10px;
+				font-family: $opensansr;
+				text-transform: uppercase;
+				font-weight: normal;
+			}
+
+			h2 {
+				font-size: 24px;
+				font-family: $opensansb;
+			}
+			h4 {
+				font-size: 16px;
+				font-weight: normal;
+			}
+
+		}
+
+		#purchase {
+			background-color: $purchase_bg;
+			margin-left: 275px;
+
+			h3 {
+				background-color: $purchase_h3;
+			}
+			h1 {
+				font-family: $opensansr;
+				letter-spacing: -2px;
+				.dollar {
+					font-size: 24px;
+					padding: 0px 5px;
+					top: -5px;
+					position: relative;
+
+				}
+				.cents {
+					padding: 0px 0px;
+					top: -5px;
+					position: relative;
+					font-size: 24px;
+					border-bottom: 1px solid #fff;
+					margin-left: 5px;
+				}
+			}
+			h4 {
+				margin-top: 42px;
+				margin-bottom: 41px;
+				font-family: $opensansr;
+			}
+			.link {
+				padding: 10px 12px;
+				background-color: $purchase_h3;
+				font-family: $opensansr;
+
+				color: #fff;
+				font-size: 14px;
+
+				&:hover{
+					color: darken($white, 10%);
+					text-decoration: none;
+				}
+				margin-bottom: 10px;
+				display: inline-block;
+			}
+		}
+		#coupon {
+			background-color: $coupon_bg;
+			margin-left: 50px;
+
+			h3 {
+				background-color: $coupon_h3;
+			}
+
+			h4 {
+				width: 60%;
+				margin: 30px auto 20px;
+				font-family: $opensansr;
+			}
+			.link {
+				padding: 10px 12px;
+				background-color: $coupon_h3;
+				font-family: $opensansr;
+
+				color: #fff;
+				font-size: 14px;
+
+				&:hover{
+					color: darken($white, 10%);
+					text-decoration: none;
+				}
+				margin-bottom: 10px;
+				display: inline-block;
+			}
+		}
+		
+		#couponPDE {
+      background-color: $coupon_bg;
+      margin-left: 50px;
+      width: 250px;
+      float:left;
+      h3 {
+        background-color: $coupon_h3;
+      }
+
+      h4 {
+        width: 60%;
+        margin: 30px auto 20px;
+        font-family: $opensansr;
+      }
+      .link {
+        padding: 10px 12px;
+        background-color: $coupon_h3;
+        font-family: $opensansr;
+
+        color: #fff;
+        font-size: 14px;
+
+        &:hover{
+          color: darken($white, 10%);
+          text-decoration: none;
+        }
+        margin-bottom: 10px;
+        display: inline-block;
+      }
+    }
+    
+    #purchasePDE {
+      background-color: $purchase_bg;
+      margin-left: 62px;
+      width: 250px;
+      float:left;
+      height:291px;
+      h3 {
+        background-color: $purchase_h3;
+      }
+      h1 {
+        font-family: $opensansr;
+        letter-spacing: -2px;
+        margin:21px 0 0 0;
+        .dollar {
+          font-size: 24px;
+          padding: 0px 5px;
+          top: -5px;
+          position: relative;
+
+        }
+        .cents {
+          padding: 0px 0px;
+          top: -5px;
+          position: relative;
+          font-size: 24px;
+          border-bottom: 1px solid #fff;
+          margin-left: 5px;
+        }
+      }
+      h4 {
+        margin-top: 42px;
+        margin-bottom: 39px;
+        font-family: $opensansr;
+      }
+      .link {
+        padding: 10px 12px;
+        background-color: $purchase_h3;
+        font-family: $opensansr;
+        color: #fff;
+        font-size: 14px;
+
+        &:hover{
+          color: darken($white, 10%);
+          text-decoration: none;
+        }
+        margin-bottom: 10px;
+        display: inline-block;
+      }
+    }
+    
+    #scholarshipPDE {
+      background-color: $scholarship_bg;
+      margin-left: 185px;
+      width: 250px;
+      float:left;
+      height:291px;
+      h3 {
+        background-color: $scholarship_h3;
+      }
+
+      h4 {
+        width: 60%;
+        margin: 30px auto 20px;
+        font-family: $opensansr;
+      }
+      .link {
+        padding: 10px 12px;
+        background-color: $scholarship_h3;
+        font-family: $opensansr;
+        margin: 0 0 0 0;
+        color: #fff;
+        font-size: 14px;
+
+        &:hover{
+          color: darken($white, 10%);
+          text-decoration: none;
+        }
+        margin-bottom: 10px;
+        display: inline-block;
+      }
+      #note{
+        font-size: 10px; 
+        margin:-17px 0 0 0
+      }
+    }
+    
+    #PDE_disclaimer {
+      background-color: #ecf0f1;
+      margin-top: 10px;
+      padding: 0 0 20px 0;
+    }
+		
+		#skip_assess {
+
+			background-color: #ecf0f1;
+			margin-top: 90px;
+			padding: 0 0 20px 0;
+
+			h4 {
+				margin-top: -10px;
+				margin-bottom: 20px;
+				a {
+					padding: 8px 24px;
+					background-color: #17a086;
+					color: #fff;
+					margin-top: -30px;
+					font-size: 18px;
+					font-family: $opensansr;
+
+					&:hover {
+						text-decoration: none;
+					}
+				}
+			}
+			h3 {
+				font-family: $montserrat;
+			}
+			p {
+
+				#tm_s {
+					font-weight: normal;
+					font-size: 14px;
+					vertical-align: top;
+				}
+			}
+		}
+		
+
+
+
+	}
+  .footer{
+    display: none;
+  }
+
+
+
+}
+
+body.assessment_reports.new{
+  .footer{
+    display: none;
+  }
+	div.carousel.slide{
+		background: #fff !important;
+	}
+}

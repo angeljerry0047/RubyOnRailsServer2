@@ -1,0 +1,41 @@
+<% best_practices.each_slice(3) do |row| %>
+  <div class='row'>
+    <% row.each do |vsa| %>
+    <% if vsa.class.name == "BestPractice" %>
+      <div class='span4'>
+        <div class="result" style="height:215px;">
+          <div class="head" style="height:40px;">
+            <h4 class="">
+              <%= vsa.title %> <% if vsa.emb_link? %><%= image_tag("VideoIcon.png", :alt =>'VideoIcon', :class => "fc-icons") %><% end %> <% if vsa.ext_link? %><%= image_tag("LinkIcon1.png", :alt =>'LinkIcon1', :class => "fc-icons") %><% end %><% if vsa.documents? %><%= image_tag("dociconblack.png", :alt =>'dociconblack', :class => "fc-icons") %><% end %><% if vsa.audio? %><%= image_tag("AudioIcon.png", :alt =>'AudioIcon', :class => "fc-icons") %><% end %>
+            </h4>
+          </div>
+           <div class="description" style="height:58px;">
+               <%= truncate(vsa.body, :length => 100) %>
+            </div>
+          <div style="padding-top: 10px;">
+                  <% unless vsa.likers(User).count == 0 %>
+                  <%if vsa.likers(User).count == 1 %><%= vsa.likers(User).count %> Like<%else%><%= vsa.likers(User).count %> Likes<%end%>
+                  <% end %>
+                  <% unless vsa.comments.count == 0 %> 
+                  <% if vsa.comments.count == 1 %><%= vsa.comments.count %> Comment<%else%><%= vsa.comments.count %> Comments<%end%>
+                  <% end %>
+                </div>
+                <% if vsa.got_point? %>
+                <div>
+                  <%= image_tag 'S2Peoplesmall.png', :alt =>'S2Peoplesmall', :style => "width:7%;" %> Point awarded!
+                </div>  
+                <% end %>
+          <center>
+            <%= link_to "View Idea", best_practice_path(vsa), :class =>"btn btn-large btn-primary roundedge" %>
+            <br/><% if vsa.is_public == true %>
+            Public Idea
+            <% else %>
+            Internal Idea
+            <% end %>
+          </center>
+        </div>
+      </div>      
+  <% end %>
+  <% end %>
+</div>
+<% end %>

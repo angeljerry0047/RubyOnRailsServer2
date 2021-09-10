@@ -1,0 +1,143 @@
+<%= stylesheet_link_tag "application/assessments", :media => "all" %>
+
+<% title "view my report" %>
+<div class="">
+  <div class="row">
+    <div class="span12" style="margin-left: 0;">
+      <div class="board" style="min-width: 940px">
+        <h2 class="page title" style='text-transform: none;'>
+          Performance<i>GPA</i>  &#153; Overall Score: <%=(@assessment_report.gross_score).to_i%>
+        </h2>
+        <%= link_to "Retake Assessment", new_assessment_report_path, :class => "btn-primary", :style => "margin: auto;" %>
+      </div>
+
+      <div class="report board" style="max-width: none; padding: 0;">
+        <div class="row">
+          <div class="span12">
+            <div class="preamble-wrap">
+              <h4>
+                Performance<i>GPA</i>&#153; Assessment Individual Report <date> - dated <%=@assessment_report.created_at.strftime('%D')%></date>
+              </h4>
+              <hr/>
+              <h4>
+                Performance<i>GPA</i>&#153; Overall Capacity: <%=@assessment_report.overall_capacity%>
+            </h4>
+              <table>
+                <tr>
+                  <td>000 - 105</td>
+                  <td>Positional</td>
+                  <td>Driven to achieve individual success.</td>
+                </tr>
+                <tr>
+                  <td>106 - 267</td>
+                  <td>Functional</td>
+                  <td>Driven to achieve departmental success.</td>
+                </tr>
+                <tr>
+                  <td>268 - 300</td>
+                  <td>Organizational Stakeholder</td>
+                  <td>Driven to achieve organizational success.</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="span8">
+            <div id="chart">
+              <%= image_tag "assessment_report_chart.png", :alt =>'assessment_report_chart' %>
+              <% @assessment_report.assessment.question_groups.each do |grp| %>
+
+                <%# FIXME (cmhobbs) gross is right. %>
+                <div class="score-bar <%= grp.name %>" style="width:<%= (@assessment_report.gross_score_for(grp)*4.85).to_i %>px">
+                <%# for print compat but are visible when the bar is too short #FIXME
+                <%= grp.name.capitalize% -
+                <%= @assessment_report.group_capacity(grp) % -
+                <%= @assessment_report.gross_score_for(grp) %
+              %>
+            </div>
+
+            <% end %>
+            </div>
+          </div>
+          <div class="span4 share">
+            <h5>
+              Share your results
+            </h5>
+            <div class="center">
+
+              <div class="facebook button">
+                <span><%= image_tag "face_share_icon.png", :alt =>'face_share_icon' %></span><h4><%= link_to 'Share your results', "http://www.facebook.com/sharer/sharer.php?u=#{url_for(params.merge(:format => 'pdf',:only_path => false))}", :target => "_blank"%></h4>
+              </div>
+
+              <div class="linkedin button">
+                <span><%= image_tag "linkicon.png" , :alt =>'linkicon'%></span><h4><%= link_to 'Share your results', "http://www.linkedin.com/shareArticle?mini=true&url=#{url_for(params.merge(:format => 'pdf',:only_path => false))}&title=MyServe2performAssessment", :target => "_blank"%>
+              </h4>
+              </div>
+
+              <div class="email button">
+                <span><%= image_tag "emailicon.png" , :alt =>'emailicon'%></span><h4><%= link_to 'Email Your Results', share_assessment_report_path(@assessment_report), :class=>"" %></h4>
+              </div>
+
+
+              <%= link_to 'Save as PDF', url_for(params.merge(:format => 'pdf')), :class=>"btn btn-large btn-info" %>
+              <%= link_to 'Retake Assessment', assessment_report_path(@assessment_report), :data => { :confirm => "This will delete your previous assessment. If you have not done so cancel and save a pdf of your previous assessment before continuing." }, :method => :delete, :class=>"btn btn-large btn-info roundedge" %>
+            </div>
+          </div>
+        </div>
+
+        <% @assessment_report.assessment.question_groups.each do |grp| %>
+
+          <div class="row">
+          <div class="span12 group-wrap">
+            <div class="group-header <%=grp.name%>">
+              <div class="<%=grp.name%> icon">
+                <%=image_tag "icon_#{grp.name}.png"%>
+              </div>
+              <h4>
+                <%=grp.name.capitalize%> - <%=@assessment_report.group_capacity(grp)%>
+                <div class="score">
+                  <%=@assessment_report.gross_score_for(grp)%>
+                </div>
+              </h4>
+            </div>
+            <div class="group-details">
+              <h5>
+                <% capacity = @assessment_report.group_capacity(grp) %>
+                <% if capacity == "Organizational Stakeholder" %>
+                  <%= "#{@assessment_report.user.name.possessive} scope of #{grp.name} is a #{capacity}" %>
+              <% else %>
+                  <%= "#{@assessment_report.user.name.possessive} scope of #{grp.name} is limited to their #{capacity} area/department" %>
+              <% end %>
+              </h5>
+              <p>
+              <%= @assessment_report.blurb_about_group(grp.name) %>
+              </p>
+              <hr/>
+              <h5>Competencies Suggested</h5>
+              <ul>
+                <% @assessment_report.competencies_needed_for(grp).each do |comp| %>
+                  <li><%=comp.name%><br><%=comp.description%></li>
+              <%end%>
+              </ul>
+            </div>
+          </div>
+        </div>
+      <%end%>
+
+      </div>
+      <%# only show this button after assessment creation (newuser flow) %>
+      <%# XXX (cmhobbs) keep the flow control out of the view.  don't use flash notices for flow control %>
+      <%#if flash[:notice].present? %>
+        <!--
+        <div class="row">
+          <div class="span12">
+            <%#= link_to 'Complete Your Profile >', edit_user_registration_path( :frm => "newuser"), :class => "btn btn-large btn-info next roundedge"%>
+          </div>
+        </div>
+        -->
+      <%#end%>
+
+    </div>
+  </div>
+</div>

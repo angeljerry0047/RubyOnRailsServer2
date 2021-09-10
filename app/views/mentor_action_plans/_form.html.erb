@@ -1,0 +1,73 @@
+<%= stylesheet_link_tag "application/mentor_action_plans", :media => "all" %>
+<%= form_for(@mentor_action_plan) do |f| %>
+  <% if @mentor_action_plan.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@mentor_action_plan.errors.count, "error") %> prohibited this mentor_action_plan from being saved:</h2>
+
+      <ul>
+      <% @mentor_action_plan.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+
+  <div class="control-group">
+  <div class="controls" style="padding-top:30px;">
+    <label style="font-weight:bold;">Select a mentee to create the form for</label> 
+    <%= select_tag 'mentor_action_plan[participant_name]', options_for_select(@opp_rec_app.collect{ |oc| [oc.sort_by_name, oc.sort_by_id]}), include_blank: true, :class => "required" %>
+    <span class="help-inline">This field is required</span>
+  </div>
+</div>
+    <br/>
+  <div class="span3 required dateTime" style="margin-left:0px;">
+    <%= f.label "Start Date:", :style => "font-weight:bold;" %>
+    <%= f.text_field :start_date, :class => "span3 required dateTime" %>
+    <span class="help-inline">This field is required</span>
+  </div>
+  <div class="span3 required dateTime" id="ap_end_date">
+    <%= f.label "End Date:", :style => "font-weight:bold;" %>
+    <%= f.text_field :end_date, :class => "span3 required dateTime" %>
+    <span class="help-inline">This field is required</span>
+  </div>
+  <div class="field" style="clear:left; padding-top:20px;">
+    <%= f.label "Goals: (example: Improve work-life balance)", :style => "font-weight:bold;" %>
+    <%= f.text_area :goals, :required => true, :rows => 1, :style => "width:90%;" %>
+  </div>
+    <br/>
+  <div class="field">
+    <%= f.label "Mentee's Action Items: (example: Meet recommended colleagues to gain valuable insight)", :style => "font-weight:bold;" %>
+    <%= f.text_area :participant_action_items, :required => true, :rows => 1, :style => "width:90%;" %>
+  </div>
+    <br/>
+  <div class="field">
+    <%= f.label "Mentor's Action items: (example: Connect mentee to recommended colleagues via email)", :style => "font-weight:bold;" %>
+    <%= f.text_area :mentor_action_items, :required => true, :rows => 1, :style => "width:90%;" %>
+  </div>
+    <br/>
+  <div class="span3 required dateTime" style="margin-left:0px;">
+    <%= f.label "Mentee's Deadlines:", :style => "font-weight:bold;" %>
+    <%= f.text_field :participant_deadlines, :class => "span3 required dateTime" %>
+    <span class="help-inline">This field is required</span>
+  </div>
+  <div class="span3 required dateTime">
+    <%= f.label "Mentor's Deadlines", :style => "font-weight:bold;" %>
+    <%= f.text_field :mentor_deadlines, :class => "span3 required dateTime" %>
+    <span class="help-inline">This field is required</span>
+  </div>
+  <div class="field" style="clear:left;padding-top:20px;">
+    <%= f.label "Success Indicators: (example: Learned new insights into how to better manage work-life balance)", :style => "font-weight:bold;" %>
+    <%= f.text_area :success_indicators, :required => true, :rows => 1, :style => "width:90%;" %>
+  </div>
+  <br/>
+  <div class="field">
+    <%= f.label "Follow Up Meetings: (Date, time, and location)", :style => "font-weight:bold;" %>
+    <%= f.text_area :follow_up_meetings, :required => true, :rows => 1, :style => "width:90%;" %>
+  </div>
+  <br/><br/>
+  <div class="actions">
+    <%= f.submit "Create Mentor Action Plan", :class => 'btn btn-large btn-primary roundedge' %>
+  </div>
+<% end %>

@@ -1,0 +1,330 @@
+@import "master";
+
+#speaker-signups {
+  display: -webkit-flex; /* new chrome*/
+  display: -ms-flexbox;  /* IE 10 */
+  display: -moz-box;    /* Firefox 19- */
+  display: flex;
+  display: -webkit-flexbox;
+  display: box;
+  -webkit-box-pack: start;
+  -moz-box-pack: start;
+  -webkit-flex-pack: start;
+  -ms-flex-pack: start;
+  -webkit-justify-content: flex-start;
+  justify-content: flex-start;
+}
+
+#nav .speakers {
+  flex-direction: column;
+  flex-grow: 1;
+  -webkit-flex: 1;    /* Chrome */
+  -moz-box-flex: 1;   /*  Firefox 19 */
+  -ms-flex: 1;      /* IE 10 */
+  flex: 1;
+  box-flex: 1;
+}
+
+table {
+  width: 100%;
+  font-family: $roboto;
+  font-weight: normal; 
+  font-stretch:normal;
+}
+tr th {
+  font-size: 22px;
+}
+
+tr.tbltall th {
+  font-weight: normal; 
+  border-left:2px solid #e47b2c; 
+  color:$primary-color
+}
+tr.skinny td {
+  width: 10%;
+  font-size: 18px;
+  border-left:2px solid #e47b2c; 
+}
+tr.points {
+  height: 40px;
+}
+tr.how-to {
+  height: 135px;
+  vertical-align: top;
+}
+tr.how-to td{
+  padding: 20px 5px 0px 5px;
+}
+tr.tbltall {
+  height: 50px;
+}
+
+#assessment-signup, #register-pde {
+    text-align: center;
+    
+
+    #gpa {
+      font-style: italic;
+    }
+
+    #tm {
+      font-weight: normal;
+      font-size: 26px;
+      vertical-align: top;
+    }
+
+    #selectPath {
+      margin-bottom: 30px;
+    }
+
+    #purchase, #coupon, #purchasePDE, #couponPDE, #scholarshipPDE {
+      
+      h3 {
+        font-size: 22px;
+        margin: 0;
+        padding: 10px;
+        
+        text-transform: uppercase;
+        font-weight: normal;
+      }
+
+      h2 {
+        font-size: 24px;
+        
+      }
+      h4 {
+        font-size: 16px;
+        font-weight: normal;
+      }
+
+    }
+    }
+
+
+.ap_black {
+  color: $nutral-color4;
+  font: $headline;
+}
+
+.ap_blue {
+  color: $nutral-color3;
+  font: $headline;
+}
+
+.ap_green {
+  color: $primary-color;
+  font: $headline;
+}
+
+.ap_button {
+  color: $nutral-color1;
+  font: $headline;
+  border-radius:22px;
+}
+
+.ap_button:hover {
+  font-size: 25px;
+}
+
+.pages.about{
+  .container{
+    background-color: transparent;
+    box-shadow: none;
+    padding: 0;
+    max-width: none;
+    width: 100%;
+    .board{
+      max-width: none;
+      width: 100%;
+    }
+    .sub-container{
+      margin: auto;
+    }
+    .testimonial-float{
+      box-sizing: border-box;
+      cursor: pointer;
+      float: left;
+      text-align: left;
+      .blurb{
+        font: $headline;
+        line-height: 1.3em;
+      }
+      .name{
+        color: $primary-color;
+        font: $title;
+        padding: 8px 0;
+      }
+      .more-button{
+        color: $nutral-color3;
+        //font: $body;
+        font-style: italic;
+        padding: 8px 0;
+      }
+      .quote{
+        color: $nutral-color4;
+        display: none;
+        //font: $body;
+        font-size: 18px;
+        line-height: 1.3em;
+        margin: 0 auto 8px;
+      }
+    }
+  }
+}
+
+.pages.collisions{
+  .container{
+    background-color: transparent;
+    box-shadow: none;
+    max-width: none;
+    padding: 0;
+  }
+}
+
+.pages.certifications{
+  .container{
+    background-color: transparent;
+    box-shadow: none;
+    padding: 0;
+  }
+}
+
+
+.pages.on_demand{
+  .container{
+    background-color: transparent;
+    box-shadow: none;
+    padding: 0;
+  }
+
+  .knockout-title {
+    font: $knockout-title;
+    text-transform: uppercase;
+  }
+
+  .video-board{
+    padding-right: 0;
+    .video-item{
+      box-sizing: border-box;
+      display: block;
+      float: left;
+      padding-right: 16px;
+      position: relative;
+    }
+    .video-title{
+      font: $title;
+      margin-bottom: 0px;
+      padding-top: 16px;
+    }
+    .video-byline{
+      color: $nutral-color4;
+      font: $caption;
+      font-style: italic;
+      margin-bottom: 8px;
+    }
+    .video-container{
+      margin: 0 0 16px;
+    }
+  }
+}
+
+.video-container{
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%;
+  iframe{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+
+/* desktop ================================================== */
+
+@media (min-width: $desktop-min) {
+
+  .pages.about{
+    .sub-container{
+      max-width: 1150px;
+    }
+    .testimonial-float{
+      padding: 32px 8px;
+      width: 50%;
+    }
+  }
+
+  .pages.on_demand{
+    .video-board{
+      .video-item{
+        width: 50%;
+      }
+    }
+  }
+
+}
+
+
+/* tablet ================================================== */
+
+@media (min-width: $tablet-min) and (max-width: $tablet-max) {
+
+  .pages.thought_leadership{
+    .span5, .span7, .span9, .span10, .span11, .span12, .simple_form{
+      width: auto;
+    }
+  }
+
+  .pages.about{
+    .sub-container{
+      max-width: 1150px;
+    }
+    .testimonial-float{
+      padding: 32px 8px;
+      width: 50%;
+    }
+  }
+
+  .pages.on_demand{
+    .video-board{
+      .video-item{
+        width: 50%;
+      }
+    }
+  }
+
+}
+
+
+/* phone ================================================== */
+
+@media (max-width: $phone-max) {
+
+  .pages.thought_leadership{
+    .span5, .span7, .span9, .span10, .span11, .span12, .simple_form{
+      width: auto;
+    }
+  }
+
+  .pages.about{
+    .sub-container{
+      padding: 16px;
+    }
+    .testimonial-float{
+      padding: 16px 4px;
+      width: 100%;
+    }
+  }
+
+  .pages.on_demand{
+    .video-board{
+      .video-item{
+        width: 100%;
+      }
+    }
+  }
+
+}

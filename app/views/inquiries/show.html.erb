@@ -1,0 +1,223 @@
+<%= stylesheet_link_tag "application/inquiry", :media => "all" %>
+
+<div class="board">
+  <%= link_to user_path(@inquiry.user.id), :class => "user-chip" do %>
+    <div class="picture">
+      <%= image_tag @inquiry.user.avatar.url %>
+    </div>
+    <div class="name"><%=@inquiry.user.name %></div>
+  <% end %>
+  <div class="column small">
+
+    <div class="info">
+      <%= Organization.find(@inquiry.organization_id).title %>
+      </br>
+      <%= @inquiry.category %>
+      </br>
+      <% if ((Time.now - @inquiry.created_at)/3600).floor < 1 && ((Time.now - @inquiry.created_at)/60).floor != 1 %>
+        Posted <span class="number">
+        <%= ((Time.now - @inquiry.created_at)/60).floor %>
+        </span> minutes ago
+      <% elsif ((Time.now - @inquiry.created_at)/60).floor == 1 %>
+        Posted <span class="number">
+        1</span> minute ago
+      <% elsif ((Time.now - @inquiry.created_at)/3600).floor < 24 && ((Time.now - @inquiry.created_at)/3600).floor != 1 %>
+        Posted <span class="number">
+        <%= ((Time.now - @inquiry.created_at)/3600).floor %>
+        </span> hours ago
+      <% elsif ((Time.now - @inquiry.created_at)/3600).floor ==1 %>
+        Posted <span class="number">
+        1</span> hour ago
+      <% else %>
+        <span>
+        <%= (@inquiry.created_at).strftime("%d %b %Y") %>
+        </span>
+      <% end %>
+      </br>
+      <% if @inquiry.likers(User).count == 1 %>
+        <span class="primary-color"><%= @inquiry.likers(User).count %></span> Like
+      <% else %>
+        <span class="primary-color"><%= @inquiry.likers(User).count %></span> Likes
+      <% end %>
+      </br>
+      <% if @inquiry.comments.count == 1 %>
+        <span class="primary-color"><%= @inquiry.comments.count %></span> Comment
+      <% else %>
+        <span class="primary-color"><%= @inquiry.comments.count %></span> Comments
+      <% end %>      
+    </div>
+
+    <% if current_user == @inquiry.user %>
+        <%= link_to 'Edit', edit_best_practice_path(@inquiry) %> 
+      | <%= link_to 'Delete', @inquiry, :method => :delete, data: { confirm: 'Are you sure?'} %>
+    <% elsif (current_user.managed_organization_id == @inquiry.user.organization.id) && (current_user.role == "admin")%>
+        <%= link_to 'Edit', edit_best_practice_path(@inquiry) %> 
+      | <%= link_to 'Delete', @inquiry, :method => :delete, data: { confirm: 'Are you sure?'} %>
+    <% end %>
+    </br>
+    <% if current_user.likes?(@inquiry) %>
+      You like this.
+    <%else%>
+      <% unless current_user == @inquiry.user %>
+        <%= link_to 'I like this', like_best_practice_path(:best_practice_id => @inquiry.id), :method => :post, :remote => true, :class => "like" %>
+      <% end %>
+    <%end%>
+  </div>
+
+  <div class="column large">
+    <div class="title"><%= @inquiry.title %></div>
+    <div class="body"><%= markdown.render(@inquiry.body).html_safe %></div>
+  </div>
+
+  <div class="clear"></div>
+  
+</div>
+
+<div class="board">
+  <%= render "comments/form" %>
+  <%= render "comments/comments" %>
+</div>
+
+
+<div style="display:none;">
+  <div class="best-practice-header">
+    <center>"<%= @inquiry.title %>"</center>
+  </div>
+
+  <center>
+    <b>Posted on:</b> <%=@inquiry.created_at.strftime("%m/%d/%Y") %>
+    <b>Category:</b> <%= @inquiry.category %>
+  </center>
+  <br/>
+  <br/>
+
+  <div class="span12">
+
+    <div class="span3">
+      <div class="avatar">
+        <center><%= link_to image_tag(@inquiry.user.avatar.url, :class => "round-image"), user_path(@inquiry.user) %></center>
+      </div>
+      <center><%=@inquiry.user.name %></center>
+    </div>
+
+  <div class="span9" style="margin-left:0;">
+
+    <p class="best-practice">
+      <h1 class="headline" style="padding-left: 0;">Question</h1>
+      <%= markdown.render(@inquiry.body).html_safe %>
+    </p>
+    <br/>
+
+    <% if @inquiry.documents? %>
+      <p>
+        <%= link_to "Download File", @inquiry.documents.url %>
+      </p>
+    <% end %>
+
+    <div id="like">
+
+      <% if current_user.likes?(@inquiry) %>
+        <% if @inquiry.likers(User).count > 1 %>
+          You and
+          <%if @inquiry.likers(User).count-1 == 1 %>
+            <%= @inquiry.likers(User).count-1 %> other colleague 
+            <a href="#itip" onmouseover="tooltip.pop(this, '#itip')">likes</a> 
+            this.
+          <%else%>
+            <%= @inquiry.likers(User).count-1 %> other colleagues
+            <a href="#itip" onmouseover="tooltip.pop(this, '#itip')">like</a>
+            this.
+          <%end%>
+          <div style="display:none;">
+            <div id="itip">
+              <% @inquiry.likers(User).each do |liker| %>
+                <% unless liker == current_user %>
+                  <%= link_to liker.name, user_path(liker) %><br/>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        <%else%>
+          You like this.
+        <% end %>
+
+      <%else%>
+
+        <% if @inquiry.likers(User).count > 0 %>
+          <%if @inquiry.likers(User).count == 1 %>
+            <%= @inquiry.likers(User).count %> colleague
+            <a href="#itip" onmouseover="tooltip.pop(this, '#itip')">likes</a>
+            this.
+          <%else%>
+            <%= @inquiry.likers(User).count %> colleagues
+            <a href="#itip" onmouseover="tooltip.pop(this, '#itip')">like</a>
+            this.
+          <%end%>
+          <div style="display:none;">
+            <div id="itip">
+              <% @inquiry.likers(User).each do |liker| %>
+                <% unless liker == current_user %>
+                  <%= link_to liker.name, user_path(liker) %><br/>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        <%end%>
+        
+        <br/>
+        <% unless current_user == @inquiry.user %>
+          <%= link_to 'Like', like_inquiry_path(:inquiry_id => @inquiry.id), :method => :post, :remote => true %> this.
+        <% end %>
+
+      <%end%>
+    </div>
+
+    <%= render "comments/answer" %>
+    <%= render "comments/answer_form" %>
+
+
+    <div class="bp-btm-buttons">
+      <%= link_to_function 'Back', "history.back()" %>
+
+      <% if current_user == @inquiry.user %>
+      | <%= link_to 'Edit', edit_inquiry_path(@inquiry) %> 
+      | <%= link_to 'Delete', @inquiry, :method => :delete, data: { confirm: 'Are you sure?'} %>
+      <% elsif (current_user.managed_organization_id == @inquiry.user.organization.id) && (current_user.role == "admin")%>
+      | <%= link_to 'Edit', edit_inquiry_path(@inquiry) %> 
+      | <%= link_to 'Delete', @inquiry, :method => :delete, data: { confirm: 'Are you sure?'} %>
+      <% end %>
+    </div>
+
+    <div>
+      <% if @inquiry.is_public == true && current_user.role == "admin" %>
+        Add to your <a id="page" style="cursor:pointer;">organization's page?</a>
+        <p></p>
+        <div id="addto" style="display:none;">
+          <%= form_for @inquiry, :url => {:action => 'duplicate'}, method: :get do |f| %>
+            <% organization = @organization %>
+            <div class="row">
+              <label class="span2">
+                <div class="control-group">
+                    <div class="controls">
+                    <%= label_tag "Internal Category *" %>                           
+                    <%= select_tag 'organization[best_practice_category_id]', options_for_select(organization.best_practice_categories.is_active.sort_by{ |bp| [bp.title]}.collect{ |bp| [bp.title,bp.id]}), include_blank: false, :class => "required" %>
+                    <span class="help-inline">This field is required</span>
+                    <%= f.submit "Add to page", :class => 'btn btn-large btn-primary' %>
+                  </div>
+                </div> </label>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  </div>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $("#page").click(function(){
+        $("#addto").toggle()
+      });
+    });
+  </script>
+</div>

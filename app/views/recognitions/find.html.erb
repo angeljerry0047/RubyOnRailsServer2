@@ -1,0 +1,77 @@
+<%= stylesheet_link_tag "application/recognitions-find", :media => "all" %>
+<% title "recommend colleagues" %>
+<div class="recognitions-find">  
+  <center>
+    <h2 class="knockout"><% title "recommend colleagues"%> </h2>
+    <h2 class="knockout">Award a badge to a colleague</h2>
+    <h3>
+      Use the search bar to find a connection to recognize
+    </h3>
+  </center>
+
+<!--
+  <center><label for="select">Select Group</label></center>
+  <form action"/users/findUser">
+    <select name="groupSelect" class="select">
+      <%# current_user.unique_groups.each do |group| %>
+        <option><%#= link_to group.title %></option>
+      <%# end %>
+    </select>
+    <input type="submit" value = "Select" class="btn-primary">
+    <div class="clear"></div>
+  </form> 
+-->      
+
+  <center><label for="text">Search by Name</label></center>
+  <div class="text-search">
+    <form action"/users/findUser">
+      <input type="text" name="searchUser" class="text">
+      <input type="submit" value = "Search" class="btn-primary">
+      <div class="clear"></div>
+    </form>       
+  </div>       
+  <%if @users!= nil%>
+    <div class="filter">
+      <h3>
+        Member Search Results
+        <div class="count"><%=@users.length%> member(s) found</div>
+      </h3>
+      <%if @users.length == 0%>
+        No users found. Try searching again with different criteria.
+      <%else%>
+        <div id="vsas">
+          <% Array(@users).each_with_index do |user, i| %>
+            <div class="vsa result">
+              <%= link_to new_recognition_path(:user_id => user.id) do %>
+                <div class="head">
+                  <div class="innerheadf">
+                    <h6 class="oppheadf">   
+                      <%= user.name %>
+                    </h6>
+                  </div>                           
+                </div>
+                <div class="avatar_resultf">
+                  <%= image_tag user.avatar.url, :class => "round-image" %>
+                </div>
+              <% end %>
+              <div class="bottomf">
+                <div class="organization_name"> 
+                  <%if user.organization != nil %>
+                    <% if user.organization.active_license? %>
+                      <span class="orgnamef"><%= link_to user.organization.title, organization_path(user.organization.slug), :class => "learnbuttonf" %></span>
+                    <% else %>
+                        <span class="orgnamef"><%= user.organization.title %></span>
+                    <% end %>
+                  <%end%>
+                </div>     
+              </div>
+            </div>
+          <% end %>
+        </div>  
+      <%end%>          
+    </div>
+  <%end
+    if @search == ''
+      flash.now.alert = "Enter a valid search criteria"
+  end%>
+</div>
